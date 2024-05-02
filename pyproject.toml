@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "emulator-sigma-dev"
+version = "0.1.0"
+description = ""
+authors = ["Гридин Роман <grg@sigma-is.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+sqlalchemy = "^2.0.29"
+psycopg2 = "^2.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
