@@ -6,179 +6,121 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1516</width>
-    <height>664</height>
+    <width>1174</width>
+    <height>835</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Эмулятор устройств ModBus &amp; Sigma</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(0, 85, 127);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="maximumSize">
+    <size>
+     <width>1291</width>
+     <height>16777215</height>
+    </size>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="3">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">QTabWidget {
+	
+	border-color: rgb(255, 255, 255);
+	border: none;
+	border-left: 1px solid rgb(0, 83, 122);
+	border-top: 1px solid rgb(0, 83, 122);
+	border-right: 1px solid rgb(0, 50, 74);	
+	border-bottom: 1px solid rgb(0, 50, 74);
+}
+
+QTabBar {
+	color: rgb(255, 255, 255);
+}
+
+QTabBar::tab:selected  {
+    background-color:rgb(0, 0, 127);
+	color: rgb(85, 255, 0);
+}
+</string>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Triangular</enum>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="main_tab">
+       <attribute name="title">
+        <string>Таблица устройств</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QRadioButton" name="radioButton">
-            <property name="text">
-             <string>1</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_2">
-            <property name="text">
-             <string>2</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_3">
-            <property name="text">
-             <string>3</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_4">
-            <property name="text">
-             <string>4</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_5">
-            <property name="text">
-             <string>5</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_6">
-            <property name="text">
-             <string>6</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="ipr_label">
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="2" column="1" colspan="3">
+           <widget class="QTableWidget" name="output_table">
             <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>ИПР</string>
+             <string notr="true">QHeaderView::section:horizontal {
+    color: #fff;
+    background-color: rgb(0, 85, 127);
+ }
+QTableWidget {
+	background-color: rgb(0, 0, 127);
+	color: rgb(85, 255, 0);
+	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+}
+</string>
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QLabel" name="ip_101_lbl">
+          <item row="0" column="1">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Для изменения состояния датчика нужно выбрать датчик в таблице и нажать на соответствующую кнопку состояния.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_12">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_10">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);</string>
-            </property>
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0">
-       <widget class="QGroupBox" name="groupBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Для изменения состояния датчика нужно выбрать датчик в таблице и нажать на соответствующую кнопку состояния.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QGroupBox {
+             <string notr="true">QGroupBox {
 	color: rgb(255, 255, 255);
 	
 }
 </string>
-        </property>
-        <property name="title">
-         <string>Изменение состояния выбранного датчика.</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QPushButton" name="normal_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>110</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
+            </property>
+            <property name="title">
+             <string>Изменение состояния выбранного датчика.</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <widget class="QPushButton" name="normal_btn">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {
 	background-color: rgb(157, 242, 160);
 	border: none;
 
@@ -204,34 +146,34 @@ QPushButton:pressed {
 	border-bottom: 2px solid rgb(0, 130, 0);
 }
 </string>
-               </property>
-               <property name="text">
-                <string>Норма</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="fire_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>110</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="baseSize">
-                <size>
-                 <width>100</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
+                   </property>
+                   <property name="text">
+                    <string>Норма</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="fire_btn">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="baseSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {
 	background-color: rgb(173, 0, 0);
 	font: 75 10pt &quot;Georgia&quot;;
 	color: rgb(0, 0, 0);
@@ -254,34 +196,34 @@ QPushButton:pressed {
 	border-bottom: 2px solid rgb(0, 130, 0);
 }
 </string>
-               </property>
-               <property name="text">
-                <string>Пожар</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="failure_btn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>110</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
+                   </property>
+                   <property name="text">
+                    <string>Пожар</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="failure_btn">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>110</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton {
 	background-color: rgb(255, 140, 0);
 	font: 75 10pt &quot;Georgia&quot;;
 	color: rgb(0, 0, 0);
@@ -303,96 +245,899 @@ QPushButton:pressed {
 	border-right: 2px solid rgb(0, 130, 0);	
 	border-bottom: 2px solid rgb(0, 130, 0);
 }</string>
-               </property>
-               <property name="text">
-                <string>Неисправность</string>
-               </property>
-              </widget>
+                   </property>
+                   <property name="text">
+                    <string>Неисправность</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </item>
             </layout>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QRadioButton" name="radioButton">
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_2">
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_3">
+                <property name="text">
+                 <string>3</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_4">
+                <property name="text">
+                 <string>4</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_5">
+                <property name="text">
+                 <string>5</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton_6">
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QLabel" name="ipr_label">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>ИПР</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="ip_101_lbl">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="settings_tab">
+       <attribute name="title">
+        <string>Настройки</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>10</y>
+          <width>331</width>
+          <height>91</height>
+         </rect>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="0" colspan="4">
-       <widget class="QTableWidget" name="output_table"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QGroupBox" name="groupBox_random">
         <property name="styleSheet">
          <string notr="true">QGroupBox {
 	color: rgb(255, 255, 255);
-	
-}
-</string>
+}</string>
         </property>
         <property name="title">
-         <string>Автоматическое срабатывание датчиков </string>
+         <string>Конфигурация</string>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QPushButton" name="random_start_btn">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-	background-color: rgb(170, 170, 0);
-	font: 75 10pt &quot;Georgia&quot;;
-	color: rgb(0, 0, 0);
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>137</width>
+           <height>18</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
 }</string>
-             </property>
-             <property name="text">
-              <string>Запустить</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="random_stop_btn">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-	background-color: rgb(170, 170, 0);
-	font: 75 10pt &quot;Georgia&quot;;
-	color: rgb(0, 0, 0);
+         </property>
+         <property name="text">
+          <string>Сохранить конфигурацию</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>137</width>
+           <height>18</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
 }</string>
-             </property>
-             <property name="text">
-              <string>Остановить</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
+         </property>
+         <property name="text">
+          <string>Загрузить конфигурацию</string>
+         </property>
+        </widget>
        </widget>
-      </item>
-     </layout>
+       <widget class="QGroupBox" name="port_and_ne_dev_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>370</y>
+          <width>301</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox {
+	color: rgb(255, 255, 255);
+	font: 10pt &quot;Tahoma&quot;;
+}</string>
+        </property>
+        <property name="title">
+         <string>Port -&gt; Net Device</string>
+        </property>
+        <widget class="QTableWidget" name="port_and_net_dev_tableWidget">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>70</y>
+           <width>261</width>
+           <height>321</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QHeaderView::section:horizontal {
+    color: #fff;
+    background-color: rgb(0, 85, 127);
+ }
+QTableWidget {
+	background-color: rgb(0, 0, 127);
+	color: rgb(85, 255, 0);
+	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
+}
+</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="send_table_btn">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>30</y>
+           <width>231</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+         </property>
+         <property name="text">
+          <string>Наложить проклятье, выбрать заклинание</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="ports_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>370</y>
+          <width>241</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox {
+	color: rgb(255, 255, 255);
+	font: 10pt &quot;Tahoma&quot;;
+}</string>
+        </property>
+        <property name="title">
+         <string>Ports</string>
+        </property>
+        <widget class="QListWidget" name="ports_listWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>211</width>
+           <height>331</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="get_ports_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>211</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+         </property>
+         <property name="text">
+          <string>Получить список портов</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="net_dev_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>630</x>
+          <y>370</y>
+          <width>251</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox {
+	color: rgb(255, 255, 255);
+	font: 10pt &quot;Tahoma&quot;;
+}</string>
+        </property>
+        <property name="title">
+         <string>Net devices</string>
+        </property>
+        <widget class="QListWidget" name="net_dev_listWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>231</width>
+           <height>331</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="get_net_dev_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>221</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+         </property>
+         <property name="text">
+          <string>Получить список сетевых устройств</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>140</y>
+          <width>271</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+        </property>
+        <property name="text">
+         <string>Сопоставление портов и сетевых устройств</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>10</y>
+          <width>311</width>
+          <height>311</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox {
+	color: rgb(255, 255, 255);
+}</string>
+        </property>
+        <property name="title">
+         <string>Параметры подключения к базе данных</string>
+        </property>
+        <widget class="QLabel" name="port_db_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>60</y>
+           <width>47</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+         </property>
+         <property name="text">
+          <string>Port</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="host_db_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>47</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+         </property>
+         <property name="text">
+          <string>Host</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="user_db_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>47</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+         </property>
+         <property name="text">
+          <string>User</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="pass_db_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>120</y>
+           <width>47</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+         </property>
+         <property name="text">
+          <string>Password</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="name_db_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>150</y>
+           <width>47</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+         </property>
+         <property name="text">
+          <string>Name DB</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="host_db_lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>30</y>
+           <width>141</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+background-color: rgb(0, 74, 109);
+color: rgb(4, 255, 0);
+}
+
+QToolTip {
+	color: rgb(0, 0, 127);
+}</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="port_db_lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>60</y>
+           <width>141</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+background-color: rgb(0, 74, 109);
+color: rgb(4, 255, 0);
+}
+
+QToolTip {
+	color: rgb(0, 0, 127);
+}</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="user_db_lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>90</y>
+           <width>141</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+background-color: rgb(0, 74, 109);
+color: rgb(4, 255, 0);
+}
+
+QToolTip {
+	color: rgb(0, 0, 127);
+}</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="pass_db_lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>120</y>
+           <width>141</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+background-color: rgb(0, 74, 109);
+color: rgb(4, 255, 0);
+}
+
+QToolTip {
+	color: rgb(0, 0, 127);
+}</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="name_db_lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>150</y>
+           <width>141</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QLineEdit {
+background-color: rgb(0, 74, 109);
+color: rgb(4, 255, 0);
+}
+
+QToolTip {
+	color: rgb(0, 0, 127);
+}</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="save_db_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>260</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+         </property>
+         <property name="text">
+          <string>Save</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="cancel_db_btn">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>260</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+         </property>
+         <property name="text">
+          <string>Cancel</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="check_db_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>200</y>
+           <width>281</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+         </property>
+         <property name="text">
+          <string>Проверить настройки подключения</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>110</y>
+          <width>271</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+        </property>
+        <property name="text">
+         <string>Параметры подключения к базе данных</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="join_btn">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>340</y>
+          <width>91</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	background-color: rgb(0, 74, 109);
+	color: rgb(255, 255, 127);
+	border: none;
+	border-left: 2px solid rgb(0, 83, 122);
+	border-top: 2px solid rgb(0, 83, 122);
+	border-right: 2px solid rgb(0, 50, 74);	
+	border-bottom: 2px solid rgb(0, 50, 74);
+}
+
+QPushButton:hover {
+	background-color: rgb(0, 74, 109);
+	color:rgb(0, 255, 0);
+}
+
+QPushButton:pressed {
+	background-color: rgb(0, 74, 109);
+	color: rgb(0, 255, 0);
+	border-left: 2px solid rgb(0, 64, 94);
+	border-top: 2px solid rgb(0, 64, 94);
+	border-right: 2px solid rgb(0, 83, 122);	
+	border-bottom: 2px solid rgb(0, 83, 122);
+}</string>
+        </property>
+        <property name="text">
+         <string>Поженить</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
