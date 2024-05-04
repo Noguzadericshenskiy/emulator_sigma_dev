@@ -6,10 +6,15 @@ authors = ["Гридин Роман <grg@sigma-is.ru>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+#python = "^3.11"
+python = ">=3.11.0,<3.11.10"
+pyside6 = "^6.6.2"
+pymodbus = "^3.6.6"
+helper = "^2.5.0"
+loguru = "^0.7.2"
+pyserial = "^3.5"
 sqlalchemy = "^2.0.29"
 psycopg2 = "^2.9.9"
-
 
 [build-system]
 requires = ["poetry-core"]
