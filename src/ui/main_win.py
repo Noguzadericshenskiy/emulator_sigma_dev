@@ -303,7 +303,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_3 = QPushButton(self.groupBox_3)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(10, 20, 137, 18))
+        self.pushButton_3.setGeometry(QRect(10, 20, 161, 18))
         self.pushButton_3.setStyleSheet(u"QPushButton {\n"
 "	background-color: rgb(0, 74, 109);\n"
 "	color: rgb(255, 255, 127);\n"
@@ -329,7 +329,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_4 = QPushButton(self.groupBox_3)
         self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setGeometry(QRect(10, 50, 137, 18))
+        self.pushButton_4.setGeometry(QRect(10, 50, 161, 18))
         self.pushButton_4.setStyleSheet(u"QPushButton {\n"
 "	background-color: rgb(0, 74, 109);\n"
 "	color: rgb(255, 255, 127);\n"
@@ -375,7 +375,7 @@ class Ui_MainWindow(object):
 "")
         self.send_table_btn = QPushButton(self.port_and_ne_dev_groupBox)
         self.send_table_btn.setObjectName(u"send_table_btn")
-        self.send_table_btn.setGeometry(QRect(30, 30, 231, 23))
+        self.send_table_btn.setGeometry(QRect(20, 30, 261, 23))
         self.send_table_btn.setStyleSheet(u"QPushButton {\n"
 "	background-color: rgb(0, 74, 109);\n"
 "	color: rgb(255, 255, 127);\n"
@@ -401,14 +401,17 @@ class Ui_MainWindow(object):
 "}")
         self.ports_groupBox = QGroupBox(self.settings_tab)
         self.ports_groupBox.setObjectName(u"ports_groupBox")
-        self.ports_groupBox.setGeometry(QRect(360, 370, 241, 401))
+        self.ports_groupBox.setGeometry(QRect(360, 370, 311, 401))
         self.ports_groupBox.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 10pt \"Tahoma\";\n"
 "}")
         self.ports_listWidget = QListWidget(self.ports_groupBox)
         self.ports_listWidget.setObjectName(u"ports_listWidget")
-        self.ports_listWidget.setGeometry(QRect(10, 60, 211, 331))
+        self.ports_listWidget.setGeometry(QRect(10, 60, 281, 331))
+        self.ports_listWidget.setStyleSheet(u"QListWidget {\n"
+"	color: rgb(85, 255, 255);\n"
+"}")
         self.get_ports_btn = QPushButton(self.ports_groupBox)
         self.get_ports_btn.setObjectName(u"get_ports_btn")
         self.get_ports_btn.setGeometry(QRect(10, 20, 211, 23))
@@ -437,7 +440,7 @@ class Ui_MainWindow(object):
 "}")
         self.net_dev_groupBox = QGroupBox(self.settings_tab)
         self.net_dev_groupBox.setObjectName(u"net_dev_groupBox")
-        self.net_dev_groupBox.setGeometry(QRect(630, 370, 251, 401))
+        self.net_dev_groupBox.setGeometry(QRect(690, 370, 251, 401))
         self.net_dev_groupBox.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 10pt \"Tahoma\";\n"
@@ -445,6 +448,9 @@ class Ui_MainWindow(object):
         self.net_dev_listWidget = QListWidget(self.net_dev_groupBox)
         self.net_dev_listWidget.setObjectName(u"net_dev_listWidget")
         self.net_dev_listWidget.setGeometry(QRect(10, 60, 231, 331))
+        self.net_dev_listWidget.setStyleSheet(u"QListWidget {\n"
+"	color: rgb(85, 255, 255);\n"
+"}")
         self.get_net_dev_btn = QPushButton(self.net_dev_groupBox)
         self.get_net_dev_btn.setObjectName(u"get_net_dev_btn")
         self.get_net_dev_btn.setGeometry(QRect(10, 20, 221, 23))
@@ -499,7 +505,7 @@ class Ui_MainWindow(object):
 "}")
         self.groupBox_2 = QGroupBox(self.settings_tab)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(20, 10, 311, 311))
+        self.groupBox_2.setGeometry(QRect(20, 10, 261, 311))
         self.groupBox_2.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "}")
@@ -517,19 +523,19 @@ class Ui_MainWindow(object):
 "}")
         self.user_db_lbl = QLabel(self.groupBox_2)
         self.user_db_lbl.setObjectName(u"user_db_lbl")
-        self.user_db_lbl.setGeometry(QRect(10, 90, 47, 14))
+        self.user_db_lbl.setGeometry(QRect(10, 90, 51, 16))
         self.user_db_lbl.setStyleSheet(u"QLabel {\n"
 "	color: rgb(255, 255, 255);\n"
 "}")
         self.pass_db_lbl = QLabel(self.groupBox_2)
         self.pass_db_lbl.setObjectName(u"pass_db_lbl")
-        self.pass_db_lbl.setGeometry(QRect(10, 120, 47, 14))
+        self.pass_db_lbl.setGeometry(QRect(10, 120, 61, 16))
         self.pass_db_lbl.setStyleSheet(u"QLabel {\n"
 "	color: rgb(255, 255, 255);\n"
 "}")
         self.name_db_lbl = QLabel(self.groupBox_2)
         self.name_db_lbl.setObjectName(u"name_db_lbl")
-        self.name_db_lbl.setGeometry(QRect(10, 150, 47, 14))
+        self.name_db_lbl.setGeometry(QRect(10, 150, 61, 16))
         self.name_db_lbl.setStyleSheet(u"QLabel {\n"
 "	color: rgb(255, 255, 255);\n"
 "}")
@@ -614,35 +620,9 @@ class Ui_MainWindow(object):
 "	border-right: 2px solid rgb(0, 83, 122);	\n"
 "	border-bottom: 2px solid rgb(0, 83, 122);\n"
 "}")
-        self.cancel_db_btn = QPushButton(self.groupBox_2)
-        self.cancel_db_btn.setObjectName(u"cancel_db_btn")
-        self.cancel_db_btn.setGeometry(QRect(110, 260, 75, 23))
-        self.cancel_db_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
         self.check_db_btn = QPushButton(self.groupBox_2)
         self.check_db_btn.setObjectName(u"check_db_btn")
-        self.check_db_btn.setGeometry(QRect(10, 200, 281, 31))
+        self.check_db_btn.setGeometry(QRect(10, 200, 241, 31))
         self.check_db_btn.setStyleSheet(u"QPushButton {\n"
 "	background-color: rgb(0, 74, 109);\n"
 "	color: rgb(255, 255, 127);\n"
@@ -694,7 +674,7 @@ class Ui_MainWindow(object):
 "}")
         self.join_btn = QPushButton(self.settings_tab)
         self.join_btn.setObjectName(u"join_btn")
-        self.join_btn.setGeometry(QRect(570, 340, 91, 23))
+        self.join_btn.setGeometry(QRect(630, 330, 91, 23))
         self.join_btn.setStyleSheet(u"QPushButton {\n"
 "	background-color: rgb(0, 74, 109);\n"
 "	color: rgb(255, 255, 127);\n"
@@ -758,7 +738,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u044e", None))
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u044e", None))
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
-        self.send_table_btn.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u0440\u043e\u043a\u043b\u044f\u0442\u044c\u0435, \u0432\u044b\u0431\u0440\u0430\u0442\u044c \u0437\u0430\u043a\u043b\u0438\u043d\u0430\u043d\u0438\u0435", None))
+        self.send_table_btn.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u043b\u043e\u0436\u0438\u0442\u044c \u043f\u0440\u043e\u043a\u043b\u044f\u0442\u044c\u0435", None))
         self.ports_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Ports", None))
         self.get_ports_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0440\u0442\u043e\u0432", None))
         self.net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Net devices", None))
@@ -770,8 +750,35 @@ class Ui_MainWindow(object):
         self.user_db_lbl.setText(QCoreApplication.translate("MainWindow", u"User", None))
         self.pass_db_lbl.setText(QCoreApplication.translate("MainWindow", u"Password", None))
         self.name_db_lbl.setText(QCoreApplication.translate("MainWindow", u"Name DB", None))
+#if QT_CONFIG(tooltip)
+        self.host_db_lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0410\u0434\u0440\u0435\u0441 (IP4) \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f \u043a \u0411\u0414</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.host_db_lineEdit.setInputMask(QCoreApplication.translate("MainWindow", u"000\\.000\\.000\\.000", None))
+        self.host_db_lineEdit.setText(QCoreApplication.translate("MainWindow", u"...", None))
+#if QT_CONFIG(tooltip)
+        self.port_db_lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u041d\u043e\u043c\u0435\u0440 \u043f\u043e\u0440\u0442\u0430 \u0434\u043e\u043b\u0436\u0435\u043d \u0431\u044b\u0442\u044c \u0432 \u0434\u0438\u0430\u043f\u0430\u0437\u043e\u043d\u0435 <span style=\" font-family:'JetBrains Mono','monospace'; font-size:10pt; font-weight:600; font-style:italic; color:#ff0000;\">1024-49151</span></p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.port_db_lineEdit.setInputMask(QCoreApplication.translate("MainWindow", u"00009", None))
+        self.port_db_lineEdit.setText("")
+#if QT_CONFIG(tooltip)
+        self.user_db_lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u041b\u043e\u0433\u0438\u043d \u0431\u0430\u0437\u044b \u0434\u0430\u043d\u043d\u044b\u0445</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.user_db_lineEdit.setText("")
+#if QT_CONFIG(tooltip)
+        self.pass_db_lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u041f\u0430\u0440\u043e\u043b\u044c \u0431\u0430\u0437\u044b \u0434\u0430\u043d\u043d\u044b\u0445</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.pass_db_lineEdit.setText("")
+#if QT_CONFIG(tooltip)
+        self.name_db_lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0418\u043c\u044f \u0431\u0430\u0437\u044b \u0434\u0430\u043d\u043d\u044b\u0445</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.name_db_lineEdit.setText("")
+#if QT_CONFIG(tooltip)
+        self.save_db_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0421\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u043d\u0430\u0441\u0442\u0440\u043e\u0435\u043a \u0434\u043b\u044f \u0434\u0430\u043b\u044c\u043d\u0435\u0439\u0448\u0435\u0439 \u0440\u0430\u0431\u043e\u0442\u044b </p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.save_db_btn.setText(QCoreApplication.translate("MainWindow", u"Save", None))
-        self.cancel_db_btn.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
+#if QT_CONFIG(tooltip)
+        self.check_db_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u041f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f \u043a \u0431\u0430\u0437\u0435 \u0434\u0430\u043d\u043d\u044b\u0445</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.check_db_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f \u043a \u0431\u0430\u0437\u0435 \u0434\u0430\u043d\u043d\u044b\u0445", None))
         self.join_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0436\u0435\u043d\u0438\u0442\u044c", None))

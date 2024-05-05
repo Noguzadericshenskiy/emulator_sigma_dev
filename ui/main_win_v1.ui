@@ -415,7 +415,7 @@ QPushButton:pressed {
           <rect>
            <x>10</x>
            <y>20</y>
-           <width>137</width>
+           <width>161</width>
            <height>18</height>
           </rect>
          </property>
@@ -453,7 +453,7 @@ QPushButton:pressed {
           <rect>
            <x>10</x>
            <y>50</y>
-           <width>137</width>
+           <width>161</width>
            <height>18</height>
           </rect>
          </property>
@@ -530,9 +530,9 @@ QTableWidget {
         <widget class="QPushButton" name="send_table_btn">
          <property name="geometry">
           <rect>
-           <x>30</x>
+           <x>20</x>
            <y>30</y>
-           <width>231</width>
+           <width>261</width>
            <height>23</height>
           </rect>
          </property>
@@ -562,7 +562,7 @@ QPushButton:pressed {
 }</string>
          </property>
          <property name="text">
-          <string>Наложить проклятье, выбрать заклинание</string>
+          <string>Наложить проклятье</string>
          </property>
         </widget>
        </widget>
@@ -571,7 +571,7 @@ QPushButton:pressed {
          <rect>
           <x>360</x>
           <y>370</y>
-          <width>241</width>
+          <width>311</width>
           <height>401</height>
          </rect>
         </property>
@@ -589,9 +589,14 @@ QPushButton:pressed {
           <rect>
            <x>10</x>
            <y>60</y>
-           <width>211</width>
+           <width>281</width>
            <height>331</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QListWidget {
+	color: rgb(85, 255, 255);
+}</string>
          </property>
         </widget>
         <widget class="QPushButton" name="get_ports_btn">
@@ -636,7 +641,7 @@ QPushButton:pressed {
        <widget class="QGroupBox" name="net_dev_groupBox">
         <property name="geometry">
          <rect>
-          <x>630</x>
+          <x>690</x>
           <y>370</y>
           <width>251</width>
           <height>401</height>
@@ -659,6 +664,11 @@ QPushButton:pressed {
            <width>231</width>
            <height>331</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QListWidget {
+	color: rgb(85, 255, 255);
+}</string>
          </property>
         </widget>
         <widget class="QPushButton" name="get_net_dev_btn">
@@ -743,7 +753,7 @@ QPushButton:pressed {
          <rect>
           <x>20</x>
           <y>10</y>
-          <width>311</width>
+          <width>261</width>
           <height>311</height>
          </rect>
         </property>
@@ -796,8 +806,8 @@ QPushButton:pressed {
           <rect>
            <x>10</x>
            <y>90</y>
-           <width>47</width>
-           <height>14</height>
+           <width>51</width>
+           <height>16</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -814,8 +824,8 @@ QPushButton:pressed {
           <rect>
            <x>10</x>
            <y>120</y>
-           <width>47</width>
-           <height>14</height>
+           <width>61</width>
+           <height>16</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -832,8 +842,8 @@ QPushButton:pressed {
           <rect>
            <x>10</x>
            <y>150</y>
-           <width>47</width>
-           <height>14</height>
+           <width>61</width>
+           <height>16</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -854,6 +864,9 @@ QPushButton:pressed {
            <height>20</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Адрес (IP4) подключения к БД&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
 background-color: rgb(0, 74, 109);
@@ -863,6 +876,12 @@ color: rgb(4, 255, 0);
 QToolTip {
 	color: rgb(0, 0, 127);
 }</string>
+         </property>
+         <property name="inputMask">
+          <string>000\.000\.000\.000</string>
+         </property>
+         <property name="text">
+          <string>...</string>
          </property>
         </widget>
         <widget class="QLineEdit" name="port_db_lineEdit">
@@ -874,6 +893,9 @@ QToolTip {
            <height>20</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Номер порта должен быть в диапазоне &lt;span style=&quot; font-family:'JetBrains Mono','monospace'; font-size:10pt; font-weight:600; font-style:italic; color:#ff0000;&quot;&gt;1024-49151&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
 background-color: rgb(0, 74, 109);
@@ -883,6 +905,12 @@ color: rgb(4, 255, 0);
 QToolTip {
 	color: rgb(0, 0, 127);
 }</string>
+         </property>
+         <property name="inputMask">
+          <string>00009</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
         <widget class="QLineEdit" name="user_db_lineEdit">
@@ -894,6 +922,9 @@ QToolTip {
            <height>20</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Логин базы данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
 background-color: rgb(0, 74, 109);
@@ -903,6 +934,9 @@ color: rgb(4, 255, 0);
 QToolTip {
 	color: rgb(0, 0, 127);
 }</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
         <widget class="QLineEdit" name="pass_db_lineEdit">
@@ -914,6 +948,9 @@ QToolTip {
            <height>20</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль базы данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
 background-color: rgb(0, 74, 109);
@@ -923,6 +960,9 @@ color: rgb(4, 255, 0);
 QToolTip {
 	color: rgb(0, 0, 127);
 }</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
         <widget class="QLineEdit" name="name_db_lineEdit">
@@ -934,6 +974,9 @@ QToolTip {
            <height>20</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Имя базы данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">QLineEdit {
 background-color: rgb(0, 74, 109);
@@ -944,6 +987,9 @@ QToolTip {
 	color: rgb(0, 0, 127);
 }</string>
          </property>
+         <property name="text">
+          <string/>
+         </property>
         </widget>
         <widget class="QPushButton" name="save_db_btn">
          <property name="geometry">
@@ -953,6 +999,9 @@ QToolTip {
            <width>75</width>
            <height>23</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сохранение настроек для дальнейшей работы &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
@@ -983,52 +1032,17 @@ QPushButton:pressed {
           <string>Save</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="cancel_db_btn">
-         <property name="geometry">
-          <rect>
-           <x>110</x>
-           <y>260</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
-         </property>
-         <property name="text">
-          <string>Cancel</string>
-         </property>
-        </widget>
         <widget class="QPushButton" name="check_db_btn">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>200</y>
-           <width>281</width>
+           <width>241</width>
            <height>31</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Проверка подключения к базе данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
@@ -1101,8 +1115,8 @@ QPushButton:pressed {
        <widget class="QPushButton" name="join_btn">
         <property name="geometry">
          <rect>
-          <x>570</x>
-          <y>340</y>
+          <x>630</x>
+          <y>330</y>
           <width>91</width>
           <height>23</height>
          </rect>
