@@ -78,10 +78,8 @@ def save_conn_to_file(params):
     with open(PATH, "r") as file:
         data = json.load(file)
         data["parameters_connect_db"] = params
-        print(data)
     with open(PATH, "w") as file:
         json.dump(data, file)
-        print(data)
 
 
 def get_conn_from_file() -> dict:

@@ -1,6 +1,9 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QTableWidgetItem
+from typing import Any
+from PySide6.QtGui import QColor, Qt, QBrush
+from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QTableWidgetItem, QHeaderView, \
+    QAbstractItemView
 
 from src.ui.main_win import Ui_MainWindow
 from src.utilites.setup import (
@@ -13,10 +16,17 @@ from src.utilites.setup import (
     check_file,
     get_conn_from_file
 )
+from src.utilites.database import (
+    get_net_devices_from_db,
+    check_conn,
+    handler_devices,
+)
+from src.utilites.servers import ServerMB
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
+        self.servers = []
         super().__init__()
         self.setWindowTitle("Эмулятор датчиков Modbus")
         self.ports = []
@@ -26,12 +36,18 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
         check_file()
         self._set_parameters()
+        self.ui.check_db_btn.clicked.connect(self._check_connect)
+        self.ui.send_table_btn.clicked.connect(self._fill_table)
         self.ui.get_ports_btn.clicked.connect(self._output_ports)
         self.ui.get_net_dev_btn.clicked.connect(self._output_net_devices)
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
         self.ui.save_db_btn.clicked.connect(self._save_params_conn)
+        self.ui.normal_btn.clicked.connect(self._norma_btn)
+        self.ui.fire_btn.clicked.connect(self._fire_btn)
+        self.ui.failure_btn.clicked.connect(self._failure_btn)
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
+
 
     def _set_parameters(self):
         params_conn = get_conn_from_file()
@@ -41,50 +57,213 @@ class MainWindow(QMainWindow):
         self.ui.pass_db_lineEdit.setText(params_conn["password"])
         self.ui.name_db_lineEdit.setText(params_conn["name"])
 
+    def _get_params_conn(self):
+        params_conn = dict()
+        params_conn["host"] = self.ui.host_db_lineEdit.text()
+        params_conn["port"] = self.ui.port_db_lineEdit.text()
+        params_conn["user"] = self.ui.user_db_lineEdit.text()
+        params_conn["password"] = self.ui.pass_db_lineEdit.text()
+        params_conn["name"] = self.ui.name_db_lineEdit.text()
+        return params_conn
+
     def _check_connect(self):
+        # if check_conn(self._get_params_conn()):
+        #     print("ok")
+        #     li = get_net_devices_from_db(self._get_params_conn())
+        #     print(li)
+        # else:
+        #     print("no")
         ...
+    def _fill_table(self):
+        """"""
+        output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
+        num_rows = len(output_data_sensors)
+        self.ui.output_table.setRowCount(num_rows)
+        self.ui.output_table.setColumnCount(128)
+        # self.ui.output_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.output_table.setHorizontalHeaderLabels(["PORT", "Net-Dev"] + [str(i) for i in range(1, 129)])
+        for num_row in range(num_rows):
+            sensors = []
+            row = output_data_sensors[num_row] #['COM7', 'CКАУ03Д->6030', {'type': 1, 'state': 'N', 'slave': '4'}, {...
+            port = row[0]
+            net_dev = row[1]
+            self.ui.output_table.setItem(num_row, 0, QTableWidgetItem(port))
+            self.ui.output_table.setItem(num_row, 1, QTableWidgetItem(net_dev))
+            for num_column in range(2, len(row)):
+                sensor = row[num_column]
+                self.ui.output_table.setItem(
+                    num_row, num_column,
+                    QTableWidgetItem(f'{sensor["type"]} {sensor["state"]} {sensor["slave"]}'))
+                self.ui.output_table.item(num_row, num_column).setBackground(QColor(157, 242, 160))
+                sensor["row"] = num_row
+                sensor["column"] = num_column
+                sensors.append(sensor)
+
+            # print(sensors) #[{'type': 1, 'state': 'N', 'slave': '4', 'row': 0, 'column': 2},
+            thread: ServerMB = ServerMB(sensors, port)
+            thread.start()
+            self.servers.append(thread)
+        self.ui.tabWidget.setCurrentWidget(self.ui.main_tab)
+        self.ui.output_table.sortItems(0, order=Qt.SortOrder.AscendingOrder)
+        self.ui.output_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
 
     def _save_params_conn(self):
-        host = self.ui.host_db_lineEdit.text()
-        port = self.ui.port_db_lineEdit.text()
-        user = self.ui.user_db_lineEdit.text()
-        password = self.ui.pass_db_lineEdit.text()
-        name_db = self.ui.user_db_lineEdit.text()
-        parameters = {"user": user, "password": password, "name": name_db, "host": host, "port": port}
+        parameters = self._get_params_conn()
         save_conn_to_file(parameters)
 
     def _output_ports(self):
         self.ui.ports_listWidget.clear()
         self.ports = get_ports_info()
         for i in self.ports:
-            # self.ui.ports_listWidget.itemWidget(QListWidgetItem("i"))
             self.ui.ports_listWidget.addItem(QListWidgetItem(i[1]))
 
     def _output_net_devices(self):
         self.ui.net_dev_listWidget.clear()
-        self.net_devices = get_net_devices()
-        for net_dev in self.net_devices:
-            self.ui.net_dev_listWidget.addItem(QListWidgetItem(net_dev))
+        self.net_devices = get_net_devices_from_db(self._get_params_conn())
+        if self.net_devices:
+            for net_dev in self.net_devices:
+                self.ui.net_dev_listWidget.addItem(QListWidgetItem(net_dev[2]))
 
     def _join_port_and_net_device(self):
         row_port = self.ui.ports_listWidget.currentRow()
         row_net_device = self.ui.net_dev_listWidget.currentRow()
         port = self.ports[row_port][0]
-        net_device = self.net_devices[row_net_device]
+        # net_device = self.net_devices[row_net_device]
+        for dev_i in self.net_devices:
+            if dev_i[2] == self.net_devices[row_net_device][2]:
+                net_device = dev_i[2]
+                if check_join_table_output(port, net_device, self.ports_net_devs):
+                    cur_row = self.ui.port_and_net_dev_tableWidget.rowCount() + 1
+                    self.ui.port_and_net_dev_tableWidget.setRowCount(cur_row)
+                    self.ui.port_and_net_dev_tableWidget.setColumnCount(2)
 
-        if check_join_table_output(port, net_device, self.ports_net_devs):
-            cur_row = self.ui.port_and_net_dev_tableWidget.rowCount() + 1
-            self.ui.port_and_net_dev_tableWidget.setRowCount(cur_row)
-            self.ui.port_and_net_dev_tableWidget.setColumnCount(2)
-
-            self.ui.port_and_net_dev_tableWidget.setHorizontalHeaderLabels(["port", "net device"])
-            self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 0, QTableWidgetItem(port))
-            self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 1, QTableWidgetItem(net_device))
-            self.ports_net_devs.append((port, net_device))
+                    self.ui.port_and_net_dev_tableWidget.setHorizontalHeaderLabels(["port", "net device"])
+                    self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 0, QTableWidgetItem(port))
+                    self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 1, QTableWidgetItem(net_device))
+                    self.ports_net_devs.append((port, net_device, dev_i))
+                    self.ui.ports_listWidget.currentItem().setBackground(QColor("red"))
+                    self.ui.net_dev_listWidget.currentItem().setBackground(QColor("red"))
+                break
 
     def _clear_table_ports_net_dev(self):
         self.ui.port_and_net_dev_tableWidget.clear()
 
+    def _get_item_from_table(self):
+        dev = []
+        for row in range(self.ui.port_and_net_dev_tableWidget.rowCount()):
+            dev.append((self.ui.port_and_net_dev_tableWidget.item(row, 0).text(),
+                        self.ui.port_and_net_dev_tableWidget.item(row, 1).text()))
+        return dev
+
+    def _norma_btn(self):
+        sensor_params = self._get_current_params()
+        self._set_status_norma(sensor_params)
+
+    def _fire_btn(self):
+        sensor_params = self._get_current_params()
+        self._set_status_fire(sensor_params)
+
+    def _failure_btn(self):
+        sensor_params = self._get_current_params()
+        self._set_status_failure(sensor_params)
+
+    def _set_status_norma(self, params: dict):
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} N {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(157, 242, 160))
+        params["state"] = "N"
+        self._send_in_thread(port, params)
+
+    def _set_status_fire(self, params: dict):
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
+        params["state"] = "F"
+        self._send_in_thread(port, params)
+
+    def _set_status_failure(self, params: dict):
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        self._send_in_thread(port, params)
+
+    def _get_current_params(self) -> dict:
+        """Получить значение выделенной ячейки
+        Возвращает словарь {'type': 1, 'state': 'N', 'slave': 4, 'row': 0, 'column': 2}"""
+        r: int = self.ui.output_table.currentRow()
+        c: int = self.ui.output_table.currentColumn()
+        if c != 1:
+            item = self.ui.output_table.item(r, c).text().split(" ")
+            return {'type': int(item[0]), 'state': item[1], 'slave': int(item[2]), 'row': r, 'column': c}
+
+    def _send_in_thread(self, name: str, params: dict) -> None:
+        """
+
+        :param name: str (COM1...) название потока (COM порт)
+        :return:
+        """
+        for thread in self.servers:
+            if thread.name == name:
+                thread.changing_state(params)
+
+
+    # def set_status_norma(self):
+    #     r: int = self.ui.output_table.currentRow()
+    #     c: int = self.ui.output_table.currentColumn()
+    #     if c > 1:
+    #         item = self.ui.output_table.item(r, c).text().split(" ")
+    #         status = item[1]
+    #         type_dev = item[0]
+    #         slave = item[2]
+    #         if status != "N":
+    #             self.ui.output_table.setItem(r, c, QTableWidgetItem(f"{type_dev} N {slave}"))
+    #             self.ui.output_table.item(r, c).setBackground(QColor(157, 242, 160))
+    #             # self.send_in_thread(self.ui.output_table.item(r, 0).text(), "N", c)
+    #
+    # def set_status_fire(self):
+    #     r = self.ui.output_table.currentRow()
+    #     c = self.ui.output_table.currentColumn()
+    #     if c > 1:
+    #         item = self.ui.output_table.item(r, c).text().split(" ")
+    #         status = item[1]
+    #         type_dev = item[0]
+    #         slave = item[2]
+    #         if status != "F":
+    #             self.ui.output_table.setItem(r, c, QTableWidgetItem(f"{type_dev} F {slave}"))
+    #             self.ui.output_table.item(r, c).setBackground(QColor(255, 0, 0))
+    #             self.send_in_thread(self.ui.output_table.item(r, 0).text(), "F", c)
+    #
+    # def set_status_failure(self):
+    #     r = self.ui.output_table.currentRow()
+    #     c = self.ui.output_table.currentColumn()
+    #     if c > 1:
+    #         item = self.ui.output_table.item(r, c).text().split(" ")
+    #         status = item[1]
+    #         type_dev = item[0]
+    #         slave = item[2]
+    #         if status != "E":
+    #             self.ui.output_table.setItem(r, c, QTableWidgetItem(f"{type_dev} E {slave}"))
+    #             self.ui.output_table.item(r, c).setBackground(QColor(255, 140, 0))
+    #             # self.send_in_thread(self.ui.output_table.item(r, 0).text(), "E", c)
+    #
+    # def send_in_thread(self, name: str, status: str, device_num: str) -> None:
+    #     """
+    #     :param name: str (COM1...) название потока (COM порт)
+    #     :param status: str (N | E | F) состояние датчика
+    #     :param device_num: str ("1"..."32") номер устройства в таблице (колонка)
+    #     :return:
+    #     """
+    #     for t in self.servers:
+    #         if t.name == name:
+    #             t.changing_state(device_num, "1", status)
 
 
 if __name__ == "__main__":
