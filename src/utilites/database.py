@@ -100,7 +100,7 @@ def get_net_devices_from_db(params_conn: dict):
     """
     list_dev = []
     stmt = select(NetDevice).where(
-        NetDevice.sync == True,
+        # NetDevice.sync == True,
         NetDevice.deleted == 0,
         NetDevice.type.in_(["KAU03DConfig", "SKAU03Config"])
     ).order_by(NetDevice.type)
@@ -148,8 +148,36 @@ def handler_devices(params_conn: dict, in_list) -> list[list]:
                 row_for_out.append(row_i[1])
                 for dev_i in devs:
                     if dev_i[4] == "ATTYPE_A2DPI":
-                        row_for_out.append({"type": 11, "state": "N", "slave": int(dev_i[1])})
+                        row_for_out.append({"type": 511, "state": "N", "slave": int(dev_i[1])})
                     elif dev_i[4] == "ATTYPE_A2RPI":
+                        row_for_out.append({"type": 52, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 53, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AOPI":
+                        row_for_out.append({"type": 54, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AMK":
+                        row_for_out.append({"type": 55, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_IRS":
+                        row_for_out.append({"type": 56, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AVI":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
+                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_MKZ":
                         row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
                     elif dev_i[4] == "ATTYPE_MKZ":
                         row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
@@ -174,10 +202,16 @@ def handler_devices(params_conn: dict, in_list) -> list[list]:
                         row_for_out.append({"type": 3, "state": "N", "slave": int(description_dev[1])})
                     elif description_dev[0] == "SKAU03ADDRESSTYPE_MD_KRECHET":
                         row_for_out.append({"type": 4, "state": "N", "slave": int(description_dev[1])})
+                    elif description_dev[0] == "SKAU03ADDRESSTYPE_MD_PHOENIX":
+                        row_for_out.append({"type": 5, "state": "N", "slave": int(description_dev[1])})
+                    elif description_dev[0] == "SKAU03ADDRESSTYPE_MD_IPESIKUF":
+                        row_for_out.append({"type": 6, "state": "N", "slave": int(description_dev[1])})
                     elif description_dev[0] == "SKAU03ADDRESSTYPE_MD_MIP":
                         row_for_out.append({"type": 7, "state": "N", "slave": int(description_dev[1])})
                     elif description_dev[0] == "SKAU03ADDRESSTYPE_MD_IPA":
                         row_for_out.append({"type": 8, "state": "N", "slave": int(description_dev[1])})
+                    elif description_dev[0] == "SKAU03ADDRESSTYPE_MD_AI":
+                        row_for_out.append({"type": 9, "state": "N", "slave": int(description_dev[1])})
 
                     elif description_dev[0] == "SKAU03ADDRESSTYPE_NO":
                         ...

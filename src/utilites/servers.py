@@ -13,7 +13,7 @@ from devices.registers_devises import (
     states_nls,
     states_ip_330_zik_krechet,
     state_ipes_ik_uf,
-    state_ip_329_330_phenix,
+    state_ip_329_330_phoenix,
     state_ipa,
     a2dpi_sigma,
     ir_sigma,
@@ -81,28 +81,16 @@ class ServerMB(Thread):
             self.slaves[slave] = states_ip_101(status, 100, slave)
         elif type_sensor == 4:
             self.slaves[slave] = states_ip_330_zik_krechet(status, 100, slave)
-
-
+        elif type_sensor == 5:
+            self.slaves[slave] = state_ip_329_330_phoenix(status, 100, slave)
+        elif type_sensor == 6:
+            self.slaves[slave] = state_ipes_ik_uf(status, 100, slave)
         elif type_sensor == 7:
             self.slaves[slave] = states_mip(status, 100, slave)
-
-
-
-        # if status == "N":
-        #     self.slaves[slave] = ModbusSlaveContext(hr=ModbusSparseDataBlock(
-        #             {0: [4, 4, 1, 1, 3, 3, 2, 5, 2, 100+slave, 0, 3, 0, 0], 50: [0, 13]},
-        #             mutable=True))
-        # elif status == "F":
-        #     self.slaves[slave] = ModbusSlaveContext(
-        #         hr=ModbusSparseDataBlock(
-        #             {0: [4, 4, 1, 1, 3, 3, 2, 5, 2, 100+slave, 0, 5, 256, 8, 0], 50: [0, 13]},
-        #             mutable=True))
-        # elif status == "E":
-        #     self.slaves[slave] = ModbusSlaveContext(
-        #         hr=ModbusSparseDataBlock(
-        #             {0: [4, 4, 1, 1, 3, 3, 2, 5, 2, 100+slave, 0, 6, 0, 0], 50: [0, 13]},
-        #             mutable=True))
-
+        elif type_sensor == 8:
+            self.slaves[slave] = state_ipa(status, 100, slave)
+        elif type_sensor == 9:
+            self.slaves[slave] = states_nls(status, 100, slave)
 
     async def _run_server(self):
         server = await StartAsyncSerialServer(
@@ -114,16 +102,6 @@ class ServerMB(Thread):
             framer=ModbusRtuFramer,
         )
         return server
-
-    # def _create_slaves_old(self):
-    #     slaves = {}
-    #     for i in range(1, 33):
-    #         store = ModbusSlaveContext(
-    #             hr=ModbusSparseDataBlock({0: [4, 4, 1, 1, 3, 3, 2, 5, 0, 100 + i, 0, 3, 0, 0], 50: [0, 13]},
-    #                                      mutable=True)
-    #         )
-    #         slaves[i] = store
-    #     return slaves
 
     def _create_slaves(self):
         slaves = {}
@@ -139,15 +117,15 @@ class ServerMB(Thread):
             elif sensor["type"] == 4:
                 store = states_ip_330_zik_krechet(sensor["state"], count_num, sensor["slave"])
             elif sensor["type"] == 5:
-                ...
+                store = state_ip_329_330_phoenix(sensor["state"], count_num, sensor["slave"])
             elif sensor["type"] == 6:
-                ...
+                store = state_ipes_ik_uf(sensor["state"], count_num, sensor["slave"])
             elif sensor["type"] == 7:
                 store = states_mip(sensor["state"], count_num, sensor["slave"])
             elif sensor["type"] == 8:
                 store = state_ipa(sensor["state"], count_num, sensor["slave"])
             elif sensor["type"] == 9:
-                ...
+                store = states_nls(sensor["state"], count_num, sensor["slave"])
             elif sensor["type"] == 11:
                 ...
             elif sensor["type"] == 12:

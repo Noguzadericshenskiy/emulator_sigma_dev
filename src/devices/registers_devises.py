@@ -6,15 +6,29 @@ type_list = {
     2: "ИПП-Гелиос",        # SKAU03ADDRESSTYPE_MD_GELIOS3IK
     3: "ИП-101",            # SKAU03ADDRESSTYPE_MD_EIPT
     4: "ИП-330-Кречет",     # SKAU03ADDRESSTYPE_MD_KRECHET
-    5: "ИП-329-Феникс",     #
-    6: "ИПЭС",              #
+    5: "ИП-329-Феникс",     # SKAU03ADDRESSTYPE_MD_PHOENIX
+    6: "ИПЭС",              # SKAU03ADDRESSTYPE_MD_IPESIKUF
     7: "МИП",               # SKAU03ADDRESSTYPE_MD_MIP
     8: "ИПА",               # SKAU03ADDRESSTYPE_MD_IPA
-    9: "NLS",               #
+    9: "NLS",               # SKAU03ADDRESSTYPE_MD_AI
 
-    11: "А2ДПИ",        # ATTYPE_A2DPI
-    12: "ИР-П",         # ATTYPE_A2RPI
-    13: "МКЗ",          # ATTYPE_MKZ
+    51: "А2ДПИ",        # ATTYPE_A2DPI
+    52: "ИР-П",         # ATTYPE_A2RPI
+    53: "МКЗ",          # ATTYPE_MKZ
+    54: "АОПИ",         # ATTYPE_AOPI
+    55: "АМК",          # ATTYPE_AMK
+    56: "ИРС",          # ATTYPE_IRS
+    57: "АВИ",          # ATTYPE_AVI
+    58: "АТИ",          # ATTYPE_ATI
+    59: "АРМини",       # ATTYPE_ARMINI
+    60: "АР-1",         # ATTYPE_AR1
+    61: "АР-5",         # ATTYPE_AR5
+    62: "ИСМ-5",        # ATTYPE_ISM5
+    63: "ИСМ-22-1",     # ATTYPE_ISM22_1
+    64: "ИСМ-22-2",     # ATTYPE_ISM22_2
+    65: "ИСМ-220",      # ATTYPE_ISM4
+    66: "ОСЗ",          # ATTYPE_OSZ
+    67: "ОСЗ9",         # ATTYPE_OSZ9
 }
 
 
@@ -111,9 +125,10 @@ def states_nls(status, num, slave=1):
 
     if status == "N":
         return ModbusSlaveContext(
+            ir=ModbusSparseDataBlock({0: [16511, 5312]*16,
+                                      20: [16511, 5312]*16}),
             hr=ModbusSparseDataBlock(
-                {0: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-                 20: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+                {20: [0]*16,
                  200: [], #имя модуля
                  212: [], #версия программы
                  512: [slave, 6],
@@ -122,10 +137,12 @@ def states_nls(status, num, slave=1):
                 mutable=True))
     elif status == "F":
         return ModbusSlaveContext(
+            ir=ModbusSparseDataBlock({0: [16767, 20707] * 16,
+                                      20: [16767, 20707] * 16}),
             hr=ModbusSparseDataBlock(
-                {0: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-                 20: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
-                 200: [], #имя модуля
+                {0: [4]*16,
+                 20: [4]*16,
+                 200: [], #имя модуля 4 регистра
                  212: [], #версия программы
                  512: [slave, 6],
                  522: [1]
@@ -133,6 +150,8 @@ def states_nls(status, num, slave=1):
                 mutable=True))
     elif status == "E":
         return ModbusSlaveContext(
+            ir=ModbusSparseDataBlock({0: [16252, 54290] * 16,
+                                      20: [16252, 54290] * 16}),
             hr=ModbusSparseDataBlock(
                 {0: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
                  20: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
@@ -193,43 +212,55 @@ def state_ipes_ik_uf(status, num, slave=1):
                 mutable=True))
 
 
-def state_ip_329_330_phenix(status, num, slave=1):
+def state_ip_329_330_phoenix(status, num, slave=1):
     """Регистры состояний Феникс ИК/УФ (ИП 329/330-1-1) (П О Ж Г А З П Р И Б О Р)"""
     if status == "N":
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
-                {1: [slave, 2, num, 1, 1, 1, 28672]},
+                {1: [slave, 2, num, 1, 1, 1, 64512, 2]},
                 mutable=True))
     elif status == "F":
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
-                {1: [slave, 2, num, 1, 1, 1, 28723]},
+                {1: [slave, 2, num, 1, 1, 1, 28723, 3]},
                 mutable=True))
     elif status == "E":
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
-                {1: [slave, 2, num, 1, 1, 1, 28676, ]},
+                {1: [slave, 2, num, 1, 1, 1, 28676, 16384]},
                 mutable=True))
 
 
 def state_ipa(status, num, slave=1):
     """Регистры состояний ИПА (аспирационник)"""
-    return ModbusSlaveContext(
-        hr=ModbusSparseDataBlock(
-            {1: [slave, 2, num, 1, 1, 1, 28672]},
-            mutable=True))
+
+    if status == "N":
+        return ModbusSlaveContext(
+            hr=ModbusSparseDataBlock(
+                {0: [0, 401, 2, 1, 0, 15, 23000, 100, 100, 240], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
+                mutable=True))
+    elif status == "F":
+        return ModbusSlaveContext(
+            hr=ModbusSparseDataBlock(
+                {0: [0, 51201, 4, 100, 9000, 6000, 40000, 100, 100, 240], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
+                mutable=True))
+    elif status == "E":
+        return ModbusSlaveContext(
+            hr=ModbusSparseDataBlock(
+                {0: [0, 51200, 1, 1, 0, 15, 23000, 100, 100, 240, ], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
+                mutable=True))
 
 
-def a2dpi_sigma(status, num, slave=1):
+def a2dpi_sigma(status, num, params, slave=1,):
     """А2ДПИ Сигма"""
+    ...
 
 
-
-def ir_sigma(status, num, slave=1):
+def ir_sigma(status, num, params, slave=1,):
     """ИР Сигма"""
     ...
 
 
-def mkz_sigma(status, num, slave=1):
+def mkz_sigma(status, num, params, slave=1):
     """МКЗ Сигма"""
     ...

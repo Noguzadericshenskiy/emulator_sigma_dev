@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v2.ui'
+## Form generated from reading UI file 'main_win_v3.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -40,7 +40,6 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setStyleSheet(u"QTabWidget {\n"
-"	\n"
 "	border-color: rgb(255, 255, 255);\n"
 "	border: none;\n"
 "	border-left: 1px solid rgb(0, 83, 122);\n"
@@ -391,6 +390,7 @@ class Ui_MainWindow(object):
         self.port_and_ne_dev_groupBox.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 10pt \"Tahoma\";\n"
+"	border: 1px solid rgb(255, 255, 255);\n"
 "}")
         self.port_and_net_dev_tableWidget = QTableWidget(self.port_and_ne_dev_groupBox)
         self.port_and_net_dev_tableWidget.setObjectName(u"port_and_net_dev_tableWidget")
@@ -407,8 +407,34 @@ class Ui_MainWindow(object):
 "")
         self.send_table_btn = QPushButton(self.port_and_ne_dev_groupBox)
         self.send_table_btn.setObjectName(u"send_table_btn")
-        self.send_table_btn.setGeometry(QRect(20, 30, 261, 23))
+        self.send_table_btn.setGeometry(QRect(20, 30, 151, 23))
         self.send_table_btn.setStyleSheet(u"QPushButton {\n"
+"	background-color: rgb(0, 74, 109);\n"
+"	color: rgb(255, 255, 127);\n"
+"	border: none;\n"
+"	border-left: 2px solid rgb(0, 83, 122);\n"
+"	border-top: 2px solid rgb(0, 83, 122);\n"
+"	border-right: 2px solid rgb(0, 50, 74);	\n"
+"	border-bottom: 2px solid rgb(0, 50, 74);\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"	background-color: rgb(0, 74, 109);\n"
+"	color:rgb(0, 255, 0);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"	background-color: rgb(0, 74, 109);\n"
+"	color: rgb(0, 255, 0);\n"
+"	border-left: 2px solid rgb(0, 64, 94);\n"
+"	border-top: 2px solid rgb(0, 64, 94);\n"
+"	border-right: 2px solid rgb(0, 83, 122);	\n"
+"	border-bottom: 2px solid rgb(0, 83, 122);\n"
+"}")
+        self.delete_line_btn = QPushButton(self.port_and_ne_dev_groupBox)
+        self.delete_line_btn.setObjectName(u"delete_line_btn")
+        self.delete_line_btn.setGeometry(QRect(184, 30, 101, 23))
+        self.delete_line_btn.setStyleSheet(u"QPushButton {\n"
 "	background-color: rgb(0, 74, 109);\n"
 "	color: rgb(255, 255, 127);\n"
 "	border: none;\n"
@@ -439,6 +465,7 @@ class Ui_MainWindow(object):
         self.ports_groupBox.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 10pt \"Tahoma\";\n"
+"	border: 1px solid rgb(255, 255, 255);\n"
 "}")
         self.ports_listWidget = QListWidget(self.ports_groupBox)
         self.ports_listWidget.setObjectName(u"ports_listWidget")
@@ -485,6 +512,7 @@ class Ui_MainWindow(object):
         self.net_dev_groupBox.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "	font: 10pt \"Tahoma\";\n"
+"	border: 1px solid rgb(255, 255, 255);\n"
 "}\n"
 "")
         self.net_dev_listWidget = QListWidget(self.net_dev_groupBox)
@@ -535,6 +563,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setMinimumSize(QSize(261, 311))
         self.groupBox_2.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
+"	border: 1px solid rgb(255, 255, 255);\n"
 "}")
         self.port_db_lbl = QLabel(self.groupBox_2)
         self.port_db_lbl.setObjectName(u"port_db_lbl")
@@ -707,7 +736,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -761,6 +790,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.main_tab), QCoreApplication.translate("MainWindow", u"\u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432", None))
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
         self.send_table_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440", None))
+        self.delete_line_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043f\u0438\u0441\u044c", None))
         self.ports_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Ports", None))
         self.get_ports_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0440\u0442\u043e\u0432", None))
         self.net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Net devices", None))
