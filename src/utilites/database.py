@@ -148,39 +148,39 @@ def handler_devices(params_conn: dict, in_list) -> list[list]:
                 row_for_out.append(row_i[1])
                 for dev_i in devs:
                     if dev_i[4] == "ATTYPE_A2DPI":
-                        row_for_out.append({"type": 511, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_A2RPI":
-                        row_for_out.append({"type": 52, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 53, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_AOPI":
-                        row_for_out.append({"type": 54, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_AMK":
-                        row_for_out.append({"type": 55, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_IRS":
-                        row_for_out.append({"type": 56, "state": "N", "slave": int(dev_i[1])})
+                        row_for_out.append({"type": 51, "state": "N", "slave": int(dev_i[1])})
                     elif dev_i[4] == "ATTYPE_AVI":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                        row_for_out.append({"type": 52, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AMK":
+                        row_for_out.append({"type": 53, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AR1":
+                        row_for_out.append({"type": 54, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AR5":
+                        row_for_out.append({"type": 55, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_ARMINI":
+                        row_for_out.append({"type": 56, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_ATI":
+                        row_for_out.append({"type": 57, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_AOPI":
+                        row_for_out.append({"type": 58, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_IRS":
+                        row_for_out.append({"type": 59, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_A2RPI":
+                        row_for_out.append({"type": 60, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_ISM5":
+                        row_for_out.append({"type": 61, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_ISM22_1":
+                        row_for_out.append({"type": 62, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_ISM22_2":
+                        row_for_out.append({"type": 63, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_ISM4":
+                        row_for_out.append({"type": 64, "state": "N", "slave": int(dev_i[1])})
                     elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
-                    elif dev_i[4] == "ATTYPE_MKZ":
-                        row_for_out.append({"type": 12, "state": "N", "slave": int(dev_i[1])})
+                        row_for_out.append({"type": 65, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_OSZ":
+                        row_for_out.append({"type": 66, "state": "N", "slave": int(dev_i[1])})
+                    elif dev_i[4] == "ATTYPE_OSZ9":
+                        row_for_out.append({"type": 67, "state": "N", "slave": int(dev_i[1])})
 
                 out_list.append(row_for_out)
 
