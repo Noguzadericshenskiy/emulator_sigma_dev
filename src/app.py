@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
                     num_row, num_column,
                     QTableWidgetItem(f'{sensor["type"]} {sensor["state"]} {sensor["slave"]}'))
                 self.ui.output_table.item(num_row, num_column).setBackground(QColor(157, 242, 160))
-                self.ui.output_table.item(num_row, num_column).setToolTip("< p style = 'color: white;' >Полная жопа< / p >")
+                self.ui.output_table.item(num_row, num_column).setToolTip("< p style = 'color: white;' >описание< / p >")
                 sensor["row"] = num_row
                 sensor["column"] = num_column
                 sensors.append(sensor)
