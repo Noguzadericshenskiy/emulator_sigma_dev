@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v3.ui'
+## Form generated from reading UI file 'main_win_v4.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -15,225 +15,41 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
-    QHeaderView, QLabel, QLineEdit, QListWidget,
-    QListWidgetItem, QMainWindow, QPushButton, QSizePolicy,
-    QSpacerItem, QTabWidget, QTableWidget, QTableWidgetItem,
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QGroupBox,
+    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
+    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
+    QSizePolicy, QTabWidget, QTableWidget, QTableWidgetItem,
     QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1681, 822)
-        MainWindow.setStyleSheet(u"background-color: rgb(0, 85, 127);")
+        MainWindow.resize(1287, 819)
+        MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setMaximumSize(QSize(1291, 16777215))
-        self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setEnabled(True)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy)
-        self.tabWidget.setStyleSheet(u"QTabWidget {\n"
-"	border-color: rgb(255, 255, 255);\n"
-"	border: none;\n"
-"	border-left: 1px solid rgb(0, 83, 122);\n"
-"	border-top: 1px solid rgb(0, 83, 122);\n"
-"	border-right: 1px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 1px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QTabBar {\n"
-"	color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QTabBar::tab:selected  {\n"
-"    background-color:rgb(0, 0, 127);\n"
-"	color: rgb(85, 255, 0);\n"
-"}\n"
-"")
+        self.tabWidget.setMinimumSize(QSize(1271, 800))
+        self.tabWidget.setStyleSheet(u"")
         self.tabWidget.setTabShape(QTabWidget.Triangular)
         self.main_tab = QWidget()
         self.main_tab.setObjectName(u"main_tab")
-        self.horizontalLayout_3 = QHBoxLayout(self.main_tab)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.gridLayout_2 = QGridLayout()
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_5.addItem(self.horizontalSpacer)
-
-        self.ipr_label = QLabel(self.main_tab)
-        self.ipr_label.setObjectName(u"ipr_label")
-        self.ipr_label.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.ipr_label.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.ipr_label.setMargin(5)
-        self.ipr_label.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.ipr_label)
-
-        self.ip_101_lbl = QLabel(self.main_tab)
-        self.ip_101_lbl.setObjectName(u"ip_101_lbl")
-        self.ip_101_lbl.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.ip_101_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.ip_101_lbl.setMargin(5)
-        self.ip_101_lbl.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.ip_101_lbl)
-
-        self.label_12 = QLabel(self.main_tab)
-        self.label_12.setObjectName(u"label_12")
-        self.label_12.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_12.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_12.setMargin(5)
-        self.label_12.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_12)
-
-        self.label_4 = QLabel(self.main_tab)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_4.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_4.setMargin(5)
-        self.label_4.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_4)
-
-        self.label_10 = QLabel(self.main_tab)
-        self.label_10.setObjectName(u"label_10")
-        self.label_10.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_10.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_10.setMargin(5)
-        self.label_10.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_10)
-
-        self.label_6 = QLabel(self.main_tab)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_6.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_6.setMargin(5)
-        self.label_6.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_6)
-
-        self.label = QLabel(self.main_tab)
-        self.label.setObjectName(u"label")
-        self.label.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label.setMargin(5)
-        self.label.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label)
-
-        self.label_3 = QLabel(self.main_tab)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_3.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_3.setMargin(5)
-        self.label_3.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_3)
-
-        self.label_2 = QLabel(self.main_tab)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_2.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_2.setMargin(5)
-        self.label_2.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_2)
-
-        self.label_7 = QLabel(self.main_tab)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_7.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_7.setMargin(5)
-        self.label_7.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_7)
-
-        self.label_8 = QLabel(self.main_tab)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_8.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_8.setMargin(5)
-        self.label_8.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_8)
-
-        self.label_5 = QLabel(self.main_tab)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(0, 160, 0);\n"
-"}\n"
-"")
-        self.label_5.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
-        self.label_5.setMargin(5)
-        self.label_5.setIndent(0)
-
-        self.horizontalLayout_5.addWidget(self.label_5)
-
-
-        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
-
-
-        self.gridLayout_2.addLayout(self.verticalLayout_2, 0, 2, 1, 1)
-
+        sizePolicy.setHeightForWidth(self.main_tab.sizePolicy().hasHeightForWidth())
+        self.main_tab.setSizePolicy(sizePolicy)
+        self.verticalLayout = QVBoxLayout(self.main_tab)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.groupBox = QGroupBox(self.main_tab)
         self.groupBox.setObjectName(u"groupBox")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
@@ -241,23 +57,19 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy1)
+        self.groupBox.setMinimumSize(QSize(371, 71))
         self.groupBox.setStyleSheet(u"QGroupBox {\n"
 "	color: rgb(255, 255, 255);\n"
 "	\n"
 "}\n"
 "")
-        self.gridLayout = QGridLayout(self.groupBox)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-
-        self.horizontalLayout = QHBoxLayout()
+        self.layoutWidget = QWidget(self.groupBox)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(10, 30, 344, 22))
+        self.horizontalLayout = QHBoxLayout(self.layoutWidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.normal_btn = QPushButton(self.groupBox)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.normal_btn = QPushButton(self.layoutWidget)
         self.normal_btn.setObjectName(u"normal_btn")
         sizePolicy1.setHeightForWidth(self.normal_btn.sizePolicy().hasHeightForWidth())
         self.normal_btn.setSizePolicy(sizePolicy1)
@@ -291,7 +103,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.normal_btn)
 
-        self.fire_btn = QPushButton(self.groupBox)
+        self.fire_btn = QPushButton(self.layoutWidget)
         self.fire_btn.setObjectName(u"fire_btn")
         sizePolicy1.setHeightForWidth(self.fire_btn.sizePolicy().hasHeightForWidth())
         self.fire_btn.setSizePolicy(sizePolicy1)
@@ -323,7 +135,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.fire_btn)
 
-        self.failure_btn = QPushButton(self.groupBox)
+        self.failure_btn = QPushButton(self.layoutWidget)
         self.failure_btn.setObjectName(u"failure_btn")
         sizePolicy1.setHeightForWidth(self.failure_btn.sizePolicy().hasHeightForWidth())
         self.failure_btn.setSizePolicy(sizePolicy1)
@@ -355,29 +167,257 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.failure_btn)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.horizontalLayout_2.addWidget(self.groupBox)
+
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.sensor52_lbl = QLabel(self.main_tab)
+        self.sensor52_lbl.setObjectName(u"sensor52_lbl")
+        self.sensor52_lbl.setStyleSheet(u"")
+        self.sensor52_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor52_lbl.setMargin(5)
+        self.sensor52_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor52_lbl, 1, 1, 1, 1)
+
+        self.sensor4_lbl = QLabel(self.main_tab)
+        self.sensor4_lbl.setObjectName(u"sensor4_lbl")
+        self.sensor4_lbl.setStyleSheet(u"")
+        self.sensor4_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor4_lbl.setMargin(5)
+        self.sensor4_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor4_lbl, 0, 3, 1, 1)
+
+        self.sensor3_lbl = QLabel(self.main_tab)
+        self.sensor3_lbl.setObjectName(u"sensor3_lbl")
+        self.sensor3_lbl.setStyleSheet(u"")
+        self.sensor3_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor3_lbl.setMargin(5)
+        self.sensor3_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor3_lbl, 0, 2, 1, 1)
+
+        self.sensor55_lbl = QLabel(self.main_tab)
+        self.sensor55_lbl.setObjectName(u"sensor55_lbl")
+        self.sensor55_lbl.setStyleSheet(u"")
+        self.sensor55_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor55_lbl.setMargin(5)
+        self.sensor55_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor55_lbl, 1, 4, 1, 1)
+
+        self.sensor65_lbl = QLabel(self.main_tab)
+        self.sensor65_lbl.setObjectName(u"sensor65_lbl")
+        self.sensor65_lbl.setStyleSheet(u"")
+        self.sensor65_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor65_lbl.setMargin(5)
+        self.sensor65_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor65_lbl, 1, 14, 1, 1)
+
+        self.sensor53_lbl = QLabel(self.main_tab)
+        self.sensor53_lbl.setObjectName(u"sensor53_lbl")
+        self.sensor53_lbl.setStyleSheet(u"")
+        self.sensor53_lbl.setFrameShape(QFrame.NoFrame)
+        self.sensor53_lbl.setFrameShadow(QFrame.Plain)
+        self.sensor53_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor53_lbl.setMargin(5)
+        self.sensor53_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor53_lbl, 1, 2, 1, 1)
+
+        self.sensor5_lbl = QLabel(self.main_tab)
+        self.sensor5_lbl.setObjectName(u"sensor5_lbl")
+        self.sensor5_lbl.setStyleSheet(u"")
+        self.sensor5_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor5_lbl.setMargin(5)
+        self.sensor5_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor5_lbl, 0, 4, 1, 1)
+
+        self.sensor54_lbl = QLabel(self.main_tab)
+        self.sensor54_lbl.setObjectName(u"sensor54_lbl")
+        self.sensor54_lbl.setStyleSheet(u"")
+        self.sensor54_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor54_lbl.setMargin(5)
+        self.sensor54_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor54_lbl, 1, 3, 1, 1)
+
+        self.sensor7_lbl = QLabel(self.main_tab)
+        self.sensor7_lbl.setObjectName(u"sensor7_lbl")
+        self.sensor7_lbl.setStyleSheet(u"")
+        self.sensor7_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor7_lbl.setMargin(5)
+        self.sensor7_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor7_lbl, 0, 6, 1, 1)
+
+        self.sensor63_lbl = QLabel(self.main_tab)
+        self.sensor63_lbl.setObjectName(u"sensor63_lbl")
+        self.sensor63_lbl.setStyleSheet(u"")
+        self.sensor63_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor63_lbl.setMargin(5)
+        self.sensor63_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor63_lbl, 1, 12, 1, 1)
+
+        self.sensor56_lbl = QLabel(self.main_tab)
+        self.sensor56_lbl.setObjectName(u"sensor56_lbl")
+        self.sensor56_lbl.setStyleSheet(u"")
+        self.sensor56_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor56_lbl.setMargin(5)
+        self.sensor56_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor56_lbl, 1, 5, 1, 1)
+
+        self.sensor61_lbl = QLabel(self.main_tab)
+        self.sensor61_lbl.setObjectName(u"sensor61_lbl")
+        self.sensor61_lbl.setStyleSheet(u"")
+        self.sensor61_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor61_lbl.setMargin(5)
+        self.sensor61_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor61_lbl, 1, 10, 1, 1)
+
+        self.sensor58_lbl = QLabel(self.main_tab)
+        self.sensor58_lbl.setObjectName(u"sensor58_lbl")
+        self.sensor58_lbl.setStyleSheet(u"")
+        self.sensor58_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor58_lbl.setMargin(5)
+        self.sensor58_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor58_lbl, 1, 7, 1, 1)
+
+        self.sensor62_lbl = QLabel(self.main_tab)
+        self.sensor62_lbl.setObjectName(u"sensor62_lbl")
+        self.sensor62_lbl.setStyleSheet(u"")
+        self.sensor62_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor62_lbl.setMargin(5)
+        self.sensor62_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor62_lbl, 1, 11, 1, 1)
+
+        self.sensor2_lbl = QLabel(self.main_tab)
+        self.sensor2_lbl.setObjectName(u"sensor2_lbl")
+        self.sensor2_lbl.setStyleSheet(u"")
+        self.sensor2_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor2_lbl.setMargin(5)
+        self.sensor2_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor2_lbl, 0, 1, 1, 1)
+
+        self.sensor59_lbl = QLabel(self.main_tab)
+        self.sensor59_lbl.setObjectName(u"sensor59_lbl")
+        self.sensor59_lbl.setStyleSheet(u"")
+        self.sensor59_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor59_lbl.setMargin(5)
+        self.sensor59_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor59_lbl, 1, 8, 1, 1)
+
+        self.sensor1_lbl = QLabel(self.main_tab)
+        self.sensor1_lbl.setObjectName(u"sensor1_lbl")
+        self.sensor1_lbl.setStyleSheet(u"")
+        self.sensor1_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor1_lbl.setMargin(5)
+        self.sensor1_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor1_lbl, 0, 0, 1, 1)
+
+        self.sensor9_lbl = QLabel(self.main_tab)
+        self.sensor9_lbl.setObjectName(u"sensor9_lbl")
+        self.sensor9_lbl.setStyleSheet(u"")
+        self.sensor9_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor9_lbl.setMargin(5)
+        self.sensor9_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor9_lbl, 0, 8, 1, 1)
+
+        self.sensor67_lbl = QLabel(self.main_tab)
+        self.sensor67_lbl.setObjectName(u"sensor67_lbl")
+        self.sensor67_lbl.setStyleSheet(u"")
+        self.sensor67_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor67_lbl.setMargin(5)
+        self.sensor67_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor67_lbl, 1, 16, 1, 1)
+
+        self.sensor8_lbl = QLabel(self.main_tab)
+        self.sensor8_lbl.setObjectName(u"sensor8_lbl")
+        self.sensor8_lbl.setStyleSheet(u"")
+        self.sensor8_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor8_lbl.setMargin(5)
+        self.sensor8_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor8_lbl, 0, 7, 1, 1)
+
+        self.sensor64_lbl = QLabel(self.main_tab)
+        self.sensor64_lbl.setObjectName(u"sensor64_lbl")
+        self.sensor64_lbl.setStyleSheet(u"")
+        self.sensor64_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor64_lbl.setMargin(5)
+        self.sensor64_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor64_lbl, 1, 13, 1, 1)
+
+        self.sensor6_lbl = QLabel(self.main_tab)
+        self.sensor6_lbl.setObjectName(u"sensor6_lbl")
+        self.sensor6_lbl.setStyleSheet(u"")
+        self.sensor6_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor6_lbl.setMargin(5)
+        self.sensor6_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor6_lbl, 0, 5, 1, 1)
+
+        self.sensor60_lbl = QLabel(self.main_tab)
+        self.sensor60_lbl.setObjectName(u"sensor60_lbl")
+        self.sensor60_lbl.setStyleSheet(u"")
+        self.sensor60_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor60_lbl.setMargin(5)
+        self.sensor60_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor60_lbl, 1, 9, 1, 1)
+
+        self.sensor66_lbl = QLabel(self.main_tab)
+        self.sensor66_lbl.setObjectName(u"sensor66_lbl")
+        self.sensor66_lbl.setStyleSheet(u"")
+        self.sensor66_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor66_lbl.setMargin(5)
+        self.sensor66_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor66_lbl, 1, 15, 1, 1)
+
+        self.sensor51_lbl = QLabel(self.main_tab)
+        self.sensor51_lbl.setObjectName(u"sensor51_lbl")
+        self.sensor51_lbl.setStyleSheet(u"")
+        self.sensor51_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor51_lbl.setMargin(5)
+        self.sensor51_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor51_lbl, 1, 0, 1, 1)
+
+        self.sensor57_lbl = QLabel(self.main_tab)
+        self.sensor57_lbl.setObjectName(u"sensor57_lbl")
+        self.sensor57_lbl.setStyleSheet(u"")
+        self.sensor57_lbl.setAlignment(Qt.AlignHCenter|Qt.AlignTop)
+        self.sensor57_lbl.setMargin(5)
+        self.sensor57_lbl.setIndent(0)
+
+        self.gridLayout.addWidget(self.sensor57_lbl, 1, 6, 1, 1)
 
 
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.horizontalLayout_2.addLayout(self.gridLayout)
 
 
-        self.gridLayout_2.addWidget(self.groupBox, 0, 1, 1, 1)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.output_table = QTableWidget(self.main_tab)
         self.output_table.setObjectName(u"output_table")
-        self.output_table.setStyleSheet(u"QHeaderView::section:horizontal {\n"
-"    color: #fff;\n"
-"    background-color: rgb(0, 85, 127);\n"
-" }\n"
-"QTableWidget {\n"
-"	font: 63 8pt \"Yu Gothic UI Semibold\";\n"
-"}\n"
-"")
+        self.output_table.setStyleSheet(u"")
 
-        self.gridLayout_2.addWidget(self.output_table, 2, 1, 1, 2)
-
-
-        self.horizontalLayout_3.addLayout(self.gridLayout_2)
+        self.verticalLayout.addWidget(self.output_table)
 
         self.tabWidget.addTab(self.main_tab, "")
         self.settings_tab = QWidget()
@@ -387,11 +427,7 @@ class Ui_MainWindow(object):
         self.port_and_ne_dev_groupBox.setGeometry(QRect(20, 370, 301, 401))
         sizePolicy1.setHeightForWidth(self.port_and_ne_dev_groupBox.sizePolicy().hasHeightForWidth())
         self.port_and_ne_dev_groupBox.setSizePolicy(sizePolicy1)
-        self.port_and_ne_dev_groupBox.setStyleSheet(u"QGroupBox {\n"
-"	color: rgb(255, 255, 255);\n"
-"	font: 10pt \"Tahoma\";\n"
-"	border: 1px solid rgb(255, 255, 255);\n"
-"}")
+        self.port_and_ne_dev_groupBox.setStyleSheet(u"")
         self.port_and_net_dev_tableWidget = QTableWidget(self.port_and_ne_dev_groupBox)
         self.port_and_net_dev_tableWidget.setObjectName(u"port_and_net_dev_tableWidget")
         self.port_and_net_dev_tableWidget.setGeometry(QRect(20, 70, 261, 321))
@@ -408,65 +444,17 @@ class Ui_MainWindow(object):
         self.send_table_btn = QPushButton(self.port_and_ne_dev_groupBox)
         self.send_table_btn.setObjectName(u"send_table_btn")
         self.send_table_btn.setGeometry(QRect(20, 30, 151, 23))
-        self.send_table_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.send_table_btn.setStyleSheet(u"")
         self.delete_line_btn = QPushButton(self.port_and_ne_dev_groupBox)
         self.delete_line_btn.setObjectName(u"delete_line_btn")
         self.delete_line_btn.setGeometry(QRect(184, 30, 101, 23))
-        self.delete_line_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.delete_line_btn.setStyleSheet(u"")
         self.ports_groupBox = QGroupBox(self.settings_tab)
         self.ports_groupBox.setObjectName(u"ports_groupBox")
-        self.ports_groupBox.setGeometry(QRect(360, 370, 311, 401))
+        self.ports_groupBox.setGeometry(QRect(340, 370, 311, 401))
         sizePolicy1.setHeightForWidth(self.ports_groupBox.sizePolicy().hasHeightForWidth())
         self.ports_groupBox.setSizePolicy(sizePolicy1)
-        self.ports_groupBox.setStyleSheet(u"QGroupBox {\n"
-"	color: rgb(255, 255, 255);\n"
-"	font: 10pt \"Tahoma\";\n"
-"	border: 1px solid rgb(255, 255, 255);\n"
-"}")
+        self.ports_groupBox.setStyleSheet(u"")
         self.ports_listWidget = QListWidget(self.ports_groupBox)
         self.ports_listWidget.setObjectName(u"ports_listWidget")
         self.ports_listWidget.setGeometry(QRect(10, 60, 281, 331))
@@ -481,305 +469,96 @@ class Ui_MainWindow(object):
         self.get_ports_btn = QPushButton(self.ports_groupBox)
         self.get_ports_btn.setObjectName(u"get_ports_btn")
         self.get_ports_btn.setGeometry(QRect(10, 20, 211, 23))
-        self.get_ports_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.get_ports_btn.setStyleSheet(u"")
         self.net_dev_groupBox = QGroupBox(self.settings_tab)
         self.net_dev_groupBox.setObjectName(u"net_dev_groupBox")
-        self.net_dev_groupBox.setGeometry(QRect(690, 370, 251, 401))
+        self.net_dev_groupBox.setGeometry(QRect(670, 370, 251, 401))
         sizePolicy1.setHeightForWidth(self.net_dev_groupBox.sizePolicy().hasHeightForWidth())
         self.net_dev_groupBox.setSizePolicy(sizePolicy1)
-        self.net_dev_groupBox.setStyleSheet(u"QGroupBox {\n"
-"	color: rgb(255, 255, 255);\n"
-"	font: 10pt \"Tahoma\";\n"
-"	border: 1px solid rgb(255, 255, 255);\n"
-"}\n"
-"")
+        self.net_dev_groupBox.setStyleSheet(u"")
         self.net_dev_listWidget = QListWidget(self.net_dev_groupBox)
         self.net_dev_listWidget.setObjectName(u"net_dev_listWidget")
         self.net_dev_listWidget.setGeometry(QRect(10, 60, 231, 331))
-        self.net_dev_listWidget.setStyleSheet(u"QListWidget {\n"
-"	color: rgb(85, 255, 255);\n"
-"}\n"
-"\n"
-"QListWidget::item:selected {\n"
-"    background-color: rgb(0, 74, 109);\n"
-"}\n"
-"\n"
-"QListWidget:hower {\n"
-"   background-color: rgb(0, 124, 181);\n"
-"}")
+        self.net_dev_listWidget.setStyleSheet(u"")
         self.get_net_dev_btn = QPushButton(self.net_dev_groupBox)
         self.get_net_dev_btn.setObjectName(u"get_net_dev_btn")
         self.get_net_dev_btn.setGeometry(QRect(10, 20, 221, 23))
-        self.get_net_dev_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.get_net_dev_btn.setStyleSheet(u"")
         self.groupBox_2 = QGroupBox(self.settings_tab)
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.groupBox_2.setGeometry(QRect(20, 10, 261, 311))
         sizePolicy1.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
         self.groupBox_2.setSizePolicy(sizePolicy1)
         self.groupBox_2.setMinimumSize(QSize(261, 311))
-        self.groupBox_2.setStyleSheet(u"QGroupBox {\n"
-"	color: rgb(255, 255, 255);\n"
-"	border: 1px solid rgb(255, 255, 255);\n"
-"}")
+        self.groupBox_2.setStyleSheet(u"")
         self.port_db_lbl = QLabel(self.groupBox_2)
         self.port_db_lbl.setObjectName(u"port_db_lbl")
         self.port_db_lbl.setGeometry(QRect(10, 60, 47, 16))
-        self.port_db_lbl.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"}")
+        self.port_db_lbl.setStyleSheet(u"")
         self.host_db_lbl = QLabel(self.groupBox_2)
         self.host_db_lbl.setObjectName(u"host_db_lbl")
         self.host_db_lbl.setGeometry(QRect(10, 30, 47, 14))
-        self.host_db_lbl.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"}")
+        self.host_db_lbl.setStyleSheet(u"")
         self.user_db_lbl = QLabel(self.groupBox_2)
         self.user_db_lbl.setObjectName(u"user_db_lbl")
         self.user_db_lbl.setGeometry(QRect(10, 90, 51, 16))
-        self.user_db_lbl.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"}")
+        self.user_db_lbl.setStyleSheet(u"")
         self.pass_db_lbl = QLabel(self.groupBox_2)
         self.pass_db_lbl.setObjectName(u"pass_db_lbl")
         self.pass_db_lbl.setGeometry(QRect(10, 120, 61, 16))
-        self.pass_db_lbl.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"}")
+        self.pass_db_lbl.setStyleSheet(u"")
         self.name_db_lbl = QLabel(self.groupBox_2)
         self.name_db_lbl.setObjectName(u"name_db_lbl")
         self.name_db_lbl.setGeometry(QRect(10, 150, 61, 16))
-        self.name_db_lbl.setStyleSheet(u"QLabel {\n"
-"	color: rgb(255, 255, 255);\n"
-"}")
+        self.name_db_lbl.setStyleSheet(u"")
         self.host_db_lineEdit = QLineEdit(self.groupBox_2)
         self.host_db_lineEdit.setObjectName(u"host_db_lineEdit")
         self.host_db_lineEdit.setGeometry(QRect(110, 30, 141, 20))
-        self.host_db_lineEdit.setStyleSheet(u"QLineEdit {\n"
-"background-color: rgb(0, 74, 109);\n"
-"color: rgb(4, 255, 0);\n"
-"}\n"
-"\n"
-"QToolTip {\n"
-"	color: rgb(0, 0, 127);\n"
-"}")
+        self.host_db_lineEdit.setStyleSheet(u"")
         self.port_db_lineEdit = QLineEdit(self.groupBox_2)
         self.port_db_lineEdit.setObjectName(u"port_db_lineEdit")
         self.port_db_lineEdit.setGeometry(QRect(110, 60, 141, 20))
-        self.port_db_lineEdit.setStyleSheet(u"QLineEdit {\n"
-"background-color: rgb(0, 74, 109);\n"
-"color: rgb(4, 255, 0);\n"
-"}\n"
-"\n"
-"QToolTip {\n"
-"	color: rgb(0, 0, 127);\n"
-"}")
+        self.port_db_lineEdit.setStyleSheet(u"")
         self.user_db_lineEdit = QLineEdit(self.groupBox_2)
         self.user_db_lineEdit.setObjectName(u"user_db_lineEdit")
         self.user_db_lineEdit.setGeometry(QRect(110, 90, 141, 20))
-        self.user_db_lineEdit.setStyleSheet(u"QLineEdit {\n"
-"background-color: rgb(0, 74, 109);\n"
-"color: rgb(4, 255, 0);\n"
-"}\n"
-"\n"
-"QToolTip {\n"
-"	color: rgb(0, 0, 127);\n"
-"}")
+        self.user_db_lineEdit.setStyleSheet(u"")
         self.pass_db_lineEdit = QLineEdit(self.groupBox_2)
         self.pass_db_lineEdit.setObjectName(u"pass_db_lineEdit")
         self.pass_db_lineEdit.setGeometry(QRect(110, 120, 141, 20))
-        self.pass_db_lineEdit.setStyleSheet(u"QLineEdit {\n"
-"background-color: rgb(0, 74, 109);\n"
-"color: rgb(4, 255, 0);\n"
-"}\n"
-"\n"
-"QToolTip {\n"
-"	color: rgb(0, 0, 127);\n"
-"}")
+        self.pass_db_lineEdit.setStyleSheet(u"")
         self.name_db_lineEdit = QLineEdit(self.groupBox_2)
         self.name_db_lineEdit.setObjectName(u"name_db_lineEdit")
         self.name_db_lineEdit.setGeometry(QRect(110, 150, 141, 20))
-        self.name_db_lineEdit.setStyleSheet(u"QLineEdit {\n"
-"background-color: rgb(0, 74, 109);\n"
-"color: rgb(4, 255, 0);\n"
-"}\n"
-"\n"
-"QToolTip {\n"
-"	color: rgb(0, 0, 127);\n"
-"}")
+        self.name_db_lineEdit.setStyleSheet(u"")
         self.save_db_btn = QPushButton(self.groupBox_2)
         self.save_db_btn.setObjectName(u"save_db_btn")
         self.save_db_btn.setGeometry(QRect(10, 260, 75, 23))
-        self.save_db_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.save_db_btn.setStyleSheet(u"")
         self.check_db_btn = QPushButton(self.groupBox_2)
         self.check_db_btn.setObjectName(u"check_db_btn")
         self.check_db_btn.setGeometry(QRect(10, 200, 241, 31))
-        self.check_db_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.check_db_btn.setStyleSheet(u"")
         self.join_btn = QPushButton(self.settings_tab)
         self.join_btn.setObjectName(u"join_btn")
-        self.join_btn.setGeometry(QRect(640, 330, 91, 23))
-        self.join_btn.setStyleSheet(u"QPushButton {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(255, 255, 127);\n"
-"	border: none;\n"
-"	border-left: 2px solid rgb(0, 83, 122);\n"
-"	border-top: 2px solid rgb(0, 83, 122);\n"
-"	border-right: 2px solid rgb(0, 50, 74);	\n"
-"	border-bottom: 2px solid rgb(0, 50, 74);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color:rgb(0, 255, 0);\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"	background-color: rgb(0, 74, 109);\n"
-"	color: rgb(0, 255, 0);\n"
-"	border-left: 2px solid rgb(0, 64, 94);\n"
-"	border-top: 2px solid rgb(0, 64, 94);\n"
-"	border-right: 2px solid rgb(0, 83, 122);	\n"
-"	border-bottom: 2px solid rgb(0, 83, 122);\n"
-"}")
+        self.join_btn.setGeometry(QRect(590, 320, 151, 23))
+        self.join_btn.setStyleSheet(u"")
         self.tabWidget.addTab(self.settings_tab, "")
 
-        self.verticalLayout_3.addWidget(self.tabWidget)
+        self.verticalLayout_2.addWidget(self.tabWidget)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u042d\u043c\u0443\u043b\u044f\u0442\u043e\u0440 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432 ModBus & Sigma", None))
-        self.ipr_label.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-535\n"
-"\n"
-"1", None))
-        self.ip_101_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u041f\n"
-"\u0413\u0435\u043b\u0438\u043e\u0441\n"
-"2", None))
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-101\n"
-"\n"
-"3", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-330\n"
-"\u041a\u0440\u0435\u0447\u0435\u0442\n"
-"4", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-329\n"
-"\u0424\u0435\u043d\u0438\u043a\u0441\n"
-"5", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u042d\u0421\n"
-"\n"
-"6", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0418\u041f\n"
-"\n"
-"7", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u0410\n"
-"\n"
-"8", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"NLS\n"
-"\n"
-"9", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"\u04102\u0414\u041f\u0418\n"
-"\n"
-"11", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0420\n"
-"\n"
-"12", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"\u041c\u041a\u0417\n"
-"\n"
-"13", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
 #if QT_CONFIG(whatsthis)
         self.groupBox.setWhatsThis(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0414\u043b\u044f \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0434\u0430\u0442\u0447\u0438\u043a\u0430 \u043d\u0443\u0436\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c \u0434\u0430\u0442\u0447\u0438\u043a \u0432 \u0442\u0430\u0431\u043b\u0438\u0446\u0435 \u0438 \u043d\u0430\u0436\u0430\u0442\u044c \u043d\u0430 \u0441\u043e\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u044e\u0449\u0443\u044e \u043a\u043d\u043e\u043f\u043a\u0443 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f.</p></body></html>", None))
 #endif // QT_CONFIG(whatsthis)
@@ -787,13 +566,91 @@ class Ui_MainWindow(object):
         self.normal_btn.setText(QCoreApplication.translate("MainWindow", u"\u041d\u043e\u0440\u043c\u0430", None))
         self.fire_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0436\u0430\u0440", None))
         self.failure_btn.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0435\u0438\u0441\u043f\u0440\u0430\u0432\u043d\u043e\u0441\u0442\u044c", None))
+        self.sensor52_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0412\u0418\n"
+"\n"
+"52", None))
+        self.sensor4_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-330\n"
+"\u041a\u0440\u0435\u0447\u0435\u0442\n"
+"4", None))
+        self.sensor3_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-101\n"
+"\n"
+"3", None))
+        self.sensor55_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0420-5\n"
+"\n"
+"55", None))
+        self.sensor65_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041c\u041a\u0417\n"
+"\n"
+"65", None))
+        self.sensor53_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u041c\u041a\n"
+"\n"
+"53", None))
+        self.sensor5_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-329\n"
+"\u0424\u0435\u043d\u0438\u043a\u0441\n"
+"5", None))
+        self.sensor54_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0420-1\n"
+"\n"
+"54", None))
+        self.sensor7_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041c\u0418\u041f\n"
+"\n"
+"7", None))
+        self.sensor63_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0421\u041c-22-2\n"
+"\n"
+"63", None))
+        self.sensor56_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0420\u041c\u0438\u043d\u0438\n"
+"\n"
+"56", None))
+        self.sensor61_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0421\u041c-5\n"
+"\n"
+"61", None))
+        self.sensor58_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u041e\u041f\u0418\n"
+"\n"
+"58", None))
+        self.sensor62_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0421\u041c-22-1\n"
+"\n"
+"62", None))
+        self.sensor2_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u041f\n"
+"\u0413\u0435\u043b\u0438\u043e\u0441\n"
+"2", None))
+        self.sensor59_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0420\u0421\n"
+"\n"
+"59", None))
+        self.sensor1_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-535\n"
+"\n"
+"1", None))
+        self.sensor9_lbl.setText(QCoreApplication.translate("MainWindow", u"NLS\n"
+"\n"
+"9", None))
+        self.sensor67_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0421\u04179\n"
+"\n"
+"67", None))
+        self.sensor8_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u0410\n"
+"\n"
+"8", None))
+        self.sensor64_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0421\u041c-220\n"
+"\n"
+"64", None))
+        self.sensor6_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u042d\u0421\n"
+"\n"
+"6", None))
+        self.sensor60_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0420-\u041f\n"
+"\n"
+"60", None))
+        self.sensor66_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0421\u0417\n"
+"\n"
+"66", None))
+        self.sensor51_lbl.setText(QCoreApplication.translate("MainWindow", u"\u04102\u0414\u041f\u0418\n"
+"\n"
+"51", None))
+        self.sensor57_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0422\u0418\n"
+"\n"
+"57", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.main_tab), QCoreApplication.translate("MainWindow", u"\u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432", None))
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
         self.send_table_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440", None))
         self.delete_line_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043f\u0438\u0441\u044c", None))
-        self.ports_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Ports", None))
+        self.ports_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0440\u0442\u044b", None))
         self.get_ports_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0440\u0442\u043e\u0432", None))
-        self.net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Net devices", None))
+        self.net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e", None))
         self.get_net_dev_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u0441\u0435\u0442\u0435\u0432\u044b\u0445 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u0430\u0440\u0430\u043c\u0435\u0442\u0440\u044b \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f \u043a \u0431\u0430\u0437\u0435 \u0434\u0430\u043d\u043d\u044b\u0445", None))
         self.port_db_lbl.setText(QCoreApplication.translate("MainWindow", u"Port", None))

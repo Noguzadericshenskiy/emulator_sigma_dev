@@ -1,9 +1,10 @@
 import asyncio
 
 from threading import Thread
-from pymodbus.datastore import ModbusServerContext, ModbusSlaveContext, ModbusSparseDataBlock
+from pymodbus.datastore import ModbusServerContext
 from pymodbus.framer import ModbusRtuFramer
 from pymodbus.server import StartAsyncSerialServer
+from PySide6.QtCore import Signal, QThread
 
 from devices.registers_devises import (
     states_ipp_helios,
@@ -15,31 +16,10 @@ from devices.registers_devises import (
     state_ipes_ik_uf,
     state_ip_329_330_phoenix,
     state_ipa,
-    a2dpi_sigma,
-    ir_sigma,
-    mkz_sigma
 )
 
 
-class ServerAH(Thread):
-    """Эмулятор адресных устройств АШ Сигма
-        передается конфигурация 1 ряда согласно порта из списка.
-    :param name: название сетевого контроллера
-    :param devices: адресные устройства
-    """
-    def __init__(self, devices, name, ):
-        super().__init__()
-        self.slaves = {}
-        self.context = None
-        self.name = name
-        self.devices = devices
-        self.daemon = True
-
-    def run(self) -> None:
-        ...
-
-
-class ServerMB(Thread):
+class ServerMB(QThread):
     """
     Эмулятор адресных устройств ModBus на один порт
         передается конфигурация устройств 1 ряда виджета .
@@ -57,7 +37,6 @@ class ServerMB(Thread):
         self.name = name
         self.sensors = sensors
         self.daemon = True
-
 
     def run(self) -> None:
         self.slaves = self._create_slaves()
@@ -91,6 +70,10 @@ class ServerMB(Thread):
             self.slaves[slave] = state_ipa(status, 100, slave)
         elif type_sensor == 9:
             self.slaves[slave] = states_nls(status, 100, slave)
+        elif type_sensor == 10:
+            ...
+        elif type_sensor == 11:
+            ...
 
     async def _run_server(self):
         server = await StartAsyncSerialServer(

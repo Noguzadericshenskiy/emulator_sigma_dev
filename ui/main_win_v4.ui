@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1857</width>
-    <height>818</height>
+    <width>1287</width>
+    <height>819</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 85, 127);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -36,24 +36,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">QTabWidget {
-	border-color: rgb(255, 255, 255);
-	border: none;
-	border-left: 1px solid rgb(0, 83, 122);
-	border-top: 1px solid rgb(0, 83, 122);
-	border-right: 1px solid rgb(0, 50, 74);	
-	border-bottom: 1px solid rgb(0, 50, 74);
-}
-
-QTabBar {
-	color: rgb(255, 255, 255);
-}
-
-QTabBar::tab:selected  {
-    background-color:rgb(0, 0, 127);
-	color: rgb(85, 255, 0);
-}
-</string>
+       <string notr="true"/>
       </property>
       <property name="tabShape">
        <enum>QTabWidget::Triangular</enum>
@@ -101,7 +84,7 @@ QTabBar::tab:selected  {
             <property name="title">
              <string>Изменение состояния выбранного датчика.</string>
             </property>
-            <widget class="QWidget" name="">
+            <widget class="QWidget" name="layoutWidget">
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -264,13 +247,9 @@ QPushButton:pressed {
           <item>
            <layout class="QGridLayout" name="gridLayout">
             <item row="1" column="1">
-             <widget class="QLabel" name="label_8">
+             <widget class="QLabel" name="sensor52_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>АВИ
@@ -289,13 +268,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="3">
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="sensor4_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИП-330
@@ -314,13 +289,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QLabel" name="label_12">
+             <widget class="QLabel" name="sensor3_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИП-101
@@ -339,13 +310,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="4">
-             <widget class="QLabel" name="label_22">
+             <widget class="QLabel" name="sensor55_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>АР-5
@@ -364,13 +331,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="14">
-             <widget class="QLabel" name="label_9">
+             <widget class="QLabel" name="sensor65_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>МКЗ
@@ -389,13 +352,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="2">
-             <widget class="QLabel" name="label_21">
+             <widget class="QLabel" name="sensor53_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
@@ -420,13 +379,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="4">
-             <widget class="QLabel" name="label_10">
+             <widget class="QLabel" name="sensor5_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИП-329
@@ -445,13 +400,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="3">
-             <widget class="QLabel" name="label_16">
+             <widget class="QLabel" name="sensor54_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>АР-1
@@ -470,13 +421,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="6">
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="sensor7_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>МИП
@@ -495,13 +442,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="12">
-             <widget class="QLabel" name="label_23">
+             <widget class="QLabel" name="sensor63_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИСМ-22-2
@@ -520,13 +463,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="5">
-             <widget class="QLabel" name="label_14">
+             <widget class="QLabel" name="sensor56_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>АРМини
@@ -545,13 +484,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="10">
-             <widget class="QLabel" name="label_18">
+             <widget class="QLabel" name="sensor61_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИСМ-5
@@ -570,13 +505,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="7">
-             <widget class="QLabel" name="label_11">
+             <widget class="QLabel" name="sensor58_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>АОПИ
@@ -595,13 +526,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="11">
-             <widget class="QLabel" name="label_13">
+             <widget class="QLabel" name="sensor62_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИСМ-22-1
@@ -620,13 +547,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLabel" name="ip_101_lbl">
+             <widget class="QLabel" name="sensor2_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИПП
@@ -645,13 +568,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="8">
-             <widget class="QLabel" name="label_15">
+             <widget class="QLabel" name="sensor59_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИРС
@@ -670,13 +589,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLabel" name="ipr_label">
+             <widget class="QLabel" name="sensor1_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИП-535
@@ -695,13 +610,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="8">
-             <widget class="QLabel" name="label_2">
+             <widget class="QLabel" name="sensor9_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>NLS
@@ -720,13 +631,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="16">
-             <widget class="QLabel" name="label_25">
+             <widget class="QLabel" name="sensor67_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ОСЗ9
@@ -745,13 +652,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="7">
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="sensor8_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИПА
@@ -770,13 +673,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="13">
-             <widget class="QLabel" name="label_19">
+             <widget class="QLabel" name="sensor64_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИСМ-220
@@ -795,13 +694,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="0" column="5">
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="sensor6_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИПЭС
@@ -820,13 +715,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="9">
-             <widget class="QLabel" name="label_20">
+             <widget class="QLabel" name="sensor60_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ИР-П
@@ -845,13 +736,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="15">
-             <widget class="QLabel" name="label_24">
+             <widget class="QLabel" name="sensor66_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>ОСЗ
@@ -870,13 +757,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="sensor51_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>А2ДПИ
@@ -895,13 +778,9 @@ QPushButton:pressed {
              </widget>
             </item>
             <item row="1" column="6">
-             <widget class="QLabel" name="label_17">
+             <widget class="QLabel" name="sensor57_lbl">
               <property name="styleSheet">
-               <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(0, 160, 0);
-}
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>АТИ
@@ -926,14 +805,7 @@ QPushButton:pressed {
         <item>
          <widget class="QTableWidget" name="output_table">
           <property name="styleSheet">
-           <string notr="true">QHeaderView::section:horizontal {
-    color: #fff;
-    background-color: rgb(0, 85, 127);
- }
-QTableWidget {
-	font: 63 8pt &quot;Yu Gothic UI Semibold&quot;;
-}
-</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -959,11 +831,7 @@ QTableWidget {
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">QGroupBox {
-	color: rgb(255, 255, 255);
-	font: 10pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(255, 255, 255);
-}</string>
+         <string notr="true"/>
         </property>
         <property name="title">
          <string>Port -&gt; Net Device</string>
@@ -1000,29 +868,7 @@ QTableWidget {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Запустить эмулятор</string>
@@ -1038,29 +884,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Удалить запись</string>
@@ -1083,11 +907,7 @@ QPushButton:pressed {
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">QGroupBox {
-	color: rgb(255, 255, 255);
-	font: 10pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(255, 255, 255);
-}</string>
+         <string notr="true"/>
         </property>
         <property name="title">
          <string>Порты</string>
@@ -1122,29 +942,7 @@ QListWidget::item:selected {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Получить список портов</string>
@@ -1167,12 +965,7 @@ QPushButton:pressed {
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">QGroupBox {
-	color: rgb(255, 255, 255);
-	font: 10pt &quot;Tahoma&quot;;
-	border: 1px solid rgb(255, 255, 255);
-}
-</string>
+         <string notr="true"/>
         </property>
         <property name="title">
          <string>Сетевое устройство</string>
@@ -1187,17 +980,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QListWidget {
-	color: rgb(85, 255, 255);
-}
-
-QListWidget::item:selected {
-    background-color: rgb(0, 74, 109);
-}
-
-QListWidget:hower {
-   background-color: rgb(0, 124, 181);
-}</string>
+          <string notr="true"/>
          </property>
         </widget>
         <widget class="QPushButton" name="get_net_dev_btn">
@@ -1210,29 +993,7 @@ QListWidget:hower {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Получить список сетевых устройств</string>
@@ -1261,10 +1022,7 @@ QPushButton:pressed {
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QGroupBox {
-	color: rgb(255, 255, 255);
-	border: 1px solid rgb(255, 255, 255);
-}</string>
+         <string notr="true"/>
         </property>
         <property name="title">
          <string>Параметры подключения к базе данных</string>
@@ -1279,9 +1037,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Port</string>
@@ -1297,9 +1053,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Host</string>
@@ -1315,9 +1069,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>User</string>
@@ -1333,9 +1085,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Password</string>
@@ -1351,9 +1101,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLabel {
-	color: rgb(255, 255, 255);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Name DB</string>
@@ -1372,14 +1120,7 @@ QPushButton:pressed {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Адрес (IP4) подключения к БД&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit {
-background-color: rgb(0, 74, 109);
-color: rgb(4, 255, 0);
-}
-
-QToolTip {
-	color: rgb(0, 0, 127);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="inputMask">
           <string>000\.000\.000\.000</string>
@@ -1401,14 +1142,7 @@ QToolTip {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Номер порта должен быть в диапазоне &lt;span style=&quot; font-family:'JetBrains Mono','monospace'; font-size:10pt; font-weight:600; font-style:italic; color:#ff0000;&quot;&gt;1024-49151&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit {
-background-color: rgb(0, 74, 109);
-color: rgb(4, 255, 0);
-}
-
-QToolTip {
-	color: rgb(0, 0, 127);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="inputMask">
           <string>00009</string>
@@ -1430,14 +1164,7 @@ QToolTip {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Логин базы данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit {
-background-color: rgb(0, 74, 109);
-color: rgb(4, 255, 0);
-}
-
-QToolTip {
-	color: rgb(0, 0, 127);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -1456,14 +1183,7 @@ QToolTip {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Пароль базы данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit {
-background-color: rgb(0, 74, 109);
-color: rgb(4, 255, 0);
-}
-
-QToolTip {
-	color: rgb(0, 0, 127);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -1482,14 +1202,7 @@ QToolTip {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Имя базы данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QLineEdit {
-background-color: rgb(0, 74, 109);
-color: rgb(4, 255, 0);
-}
-
-QToolTip {
-	color: rgb(0, 0, 127);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string/>
@@ -1508,29 +1221,7 @@ QToolTip {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Сохранение настроек для дальнейшей работы &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Save</string>
@@ -1549,29 +1240,7 @@ QPushButton:pressed {
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Проверка подключения к базе данных&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Проверить настройки подключения</string>
@@ -1588,29 +1257,7 @@ QPushButton:pressed {
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">QPushButton {
-	background-color: rgb(0, 74, 109);
-	color: rgb(255, 255, 127);
-	border: none;
-	border-left: 2px solid rgb(0, 83, 122);
-	border-top: 2px solid rgb(0, 83, 122);
-	border-right: 2px solid rgb(0, 50, 74);	
-	border-bottom: 2px solid rgb(0, 50, 74);
-}
-
-QPushButton:hover {
-	background-color: rgb(0, 74, 109);
-	color:rgb(0, 255, 0);
-}
-
-QPushButton:pressed {
-	background-color: rgb(0, 74, 109);
-	color: rgb(0, 255, 0);
-	border-left: 2px solid rgb(0, 64, 94);
-	border-top: 2px solid rgb(0, 64, 94);
-	border-right: 2px solid rgb(0, 83, 122);	
-	border-bottom: 2px solid rgb(0, 83, 122);
-}</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>Объединить</string>

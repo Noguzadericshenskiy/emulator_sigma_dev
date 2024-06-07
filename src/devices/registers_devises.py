@@ -11,6 +11,8 @@ type_list = {
     7: "МИП",               # SKAU03ADDRESSTYPE_MD_MIP
     8: "ИПА",               # SKAU03ADDRESSTYPE_MD_IPA
     9: "NLS",               # SKAU03ADDRESSTYPE_MD_AI
+    10: "ExИП-535",          # SKAU03ADDRESSTYPE_MD_EXIP535
+    11: "ИП-329/330 Вега",  # SKAU03ADDRESSTYPE_MD_VEGA
 
     51: "А2ДПИ",        # ATTYPE_A2DPI
     52: "АВИ",          # ATTYPE_AVI
@@ -251,16 +253,11 @@ def state_ipa(status, num, slave=1):
                 mutable=True))
 
 
-def a2dpi_sigma(status, num, params, slave=1,):
-    """А2ДПИ Сигма"""
+def state_exip_535():
     ...
 
 
-def ir_sigma(status, num, params, slave=1,):
-    """ИР Сигма"""
+def state_ip_329_330_vega():
     ...
 
 
-def mkz_sigma(status, num, params, slave=1):
-    """МКЗ Сигма"""
-    ...
