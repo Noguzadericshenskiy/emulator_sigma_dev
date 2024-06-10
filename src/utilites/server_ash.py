@@ -33,7 +33,8 @@ class ServerAH(QThread):
 
     def init_sensors(self):
         for sensor in self.sensors:
-            print(sensor)
+            # print(sensor)
+            ...
 
     def handler_response(self):
         while True:

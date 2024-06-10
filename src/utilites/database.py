@@ -231,9 +231,6 @@ def handler_devices(params_conn: dict, in_list):
                 stmt_ad = stmt_ad.distinct(Ka2AddressTraintable.address)
 
                 devs = conn.execute(stmt_ad).all()
-                # sensors_row.append(row_i[0])
-                # sensors_row.append(row_i[1])
-                # logger.info(f"dev {devs} ")
                 for dev_i in devs:
                     # logger.info(f"dev  {dev_i.devicetype} {dev_i.address} {dev_i.serialnumber}")
                     if dev_i[4] == "ATTYPE_A2DPI":
