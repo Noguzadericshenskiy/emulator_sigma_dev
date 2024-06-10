@@ -168,7 +168,7 @@ def get_net_devices_from_db(params_conn: dict):
         NetDevice.deleted == 0,
         NetDevice.type.in_(["KAU03DConfig", "SKAU03Config"])
     ).order_by(NetDevice.type)
-    engine = engine_db(params_conn)
+    engine = engine_db(params_conn,)
 
     with engine.connect() as conn:
         devices = conn.execute(stmt)
