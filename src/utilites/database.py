@@ -312,8 +312,8 @@ def handler_devices(params_conn: dict, in_list):
                     SKAU03Config.deleted == 0)
                 ans = conn.execute(stmt_ad).one()
                 devs = ans.sensoraddressarray.split("=")
-                sensors_row.append(row_i[0])
-                sensors_row.append(row_i[1])
+                # sensors_row.append(row_i[0])
+                # sensors_row.append(row_i[1])
                 for dev_i in devs:
                     description_dev = dev_i.split("|")
                     if description_dev[0] == "SKAU03ADDRESSTYPE_MD_EIPR":
@@ -344,7 +344,10 @@ def handler_devices(params_conn: dict, in_list):
                         ...
                     else:
                         print(description_dev[0])
-                out_list.append(sensors_row)
+                # out_list.append(sensors_row)
+                out_list.append({"port": row_i[0], "net_device": row_i[1],
+                                 "net_dev": "SKAU03Config", "sensors": sensors_row})
+                logger.info(out_list)
     return out_list
 
 

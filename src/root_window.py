@@ -103,8 +103,8 @@ class MainWindow(QMainWindow):
                     num_row, num_column,
                     QTableWidgetItem(f'{sensor["type"]} {sensor["state"]} {sensor["slave"]}'))
                 self.ui.output_table.item(num_row, num_column).setBackground(QColor(157, 242, 160))
-                self.ui.output_table.item(num_row, num_column).setToolTip(
-                    f"< p style = 'color: blue;' >s/n {sensor['serialnumber']}< / p >")
+                # self.ui.output_table.item(num_row, num_column).setToolTip(
+                #     f"< p style = 'color: blue;' >s/n {sensor['serialnumber']}< / p >")
                 sensor["row"] = num_row
                 sensor["column"] = num_column
                 sensors.append(sensor)
@@ -238,7 +238,7 @@ class MainWindow(QMainWindow):
         for i in range(self.ui.ports_listWidget.count()):
             if f"({row_item[0]})" in self.ui.ports_listWidget.item(i).text():
                 print(self.ui.ports_listWidget.item(i).text())
-                self.ui.ports_listWidget.item(i).setBackground(QColor((0, 85, 127)))
+                # self.ui.ports_listWidget.item(i).setBackground(QColor((0, 85, 127)))
                 break
             else:
                 print("none")
