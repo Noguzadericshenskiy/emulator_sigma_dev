@@ -27,7 +27,7 @@ class ServerAH(QThread):
         self.name = name
         self.port = name
         self.daemon = True
-        # self.conn = None
+        self.conn = None
         self.sensors = sensors
         self.f_run = True
         self.f_change_state = False
@@ -38,15 +38,24 @@ class ServerAH(QThread):
         self.conn = Serial(
             port=self.port,
             baudrate=19200,
-            # timeout=2,
+            timeout=0.3,
             # rs485_mode=rs485.RS485Settings()
         )
-
-        self._delete_config(self.sn_emul)
-        time.sleep(1)
-        self.conn.read_all()
-        self._create_sensors(self.sn_emul)
+        #
+        # self._delete_config(self.sn_emul)
+        # self._create_sensors(self.sn_emul)
         self._set_state(self.sn_emul)
+
+        logger.info("run ")
+        while self.f_run:
+            if self.f_change_state:
+                logger.info("Изменить состояние")
+                # self.chang_state()
+                self.changing_state()
+            else:
+                # self._status_request(self.sn_emul)
+                self._set_state(self.sn_emul)
+
 
     # rts_level_for_tx=True, rts_level_for_rx=False
     # self.conn.setRTS(True)
@@ -62,15 +71,16 @@ class ServerAH(QThread):
     # msg_get_status = bytearray(b"\xB6\x49\x43\x81\x02\x01\xC1")
     # msg_get_status = add_crc(msg_get_status, crc_ccitt_16_kermit_b(msg_get_status))
 
-        logger.info("run ")
-        while self.f_run:
-            time.sleep(0.1)
-            if self.f_change_state:
-                logger.info("Изменить состояние")
-            else:
-                self._status_request(self.sn_emul)
-
-
+    #     c = 1
+    #     logger.info("run ")
+    #     while self.f_run:
+    #         # time.sleep(0.1)
+    #         print(f"{self.f_change_state}  {c}")
+    #         if self.f_change_state:
+    #             logger.info("Изменить состояние")
+    #         else:
+    #             self._status_request(self.sn_emul)
+    #         c += 1
 
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
@@ -78,10 +88,15 @@ class ServerAH(QThread):
         msg.extend(b"\x01\xA0")
         msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
         self.conn.write(msg)
+        self.conn.read(11)
+        self.conn.reset_input_buffer()
+        start = time.time()
+        while time.time() - start < 2:
+            ...
+        logger.info("Перезагрузка завершена")
 
     def _create_sensors(self, sn):
         for sensor in self.sensors:
-            time.sleep(0.1)
             serialnumber = int(sensor["serialnumber"])
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn.to_bytes(2, byteorder='little', signed=True))
@@ -92,9 +107,21 @@ class ServerAH(QThread):
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
             logger.info(f"{sensor}")
-            self._send_msg(msg, 7)
+            self._send_msg(msg, 11)
 
-    def _send_msg(self, msg, len_ans):
+    def _send_msg(self, msg, l):
+        self.conn.write(msg)
+        logger.info(f"send  in-{self.conn.in_waiting} out-{self.conn.out_waiting} {msg.hex()}")
+        f = True
+        while f:
+            if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
+                logger.info("start")
+                ans = self.conn.read(l)
+                logger.info(f"read {ans.hex()}, {ans[5:7].hex()}")
+                f = False
+
+
+    def _send_msg1(self, msg, len_ans):
         f_send = True
         count = 0
         while f_send:
@@ -115,14 +142,13 @@ class ServerAH(QThread):
                     if ans[7:8] == b'\x00' and ans[8:9] == b'\x00':
                         logger.info(f"ans-ok={ans.hex()} state-{ans[7:9].hex()}")
                         f_send = False
-                        self.conn.flush()
                     elif ans[7:8] == b'\x00' and ans[8:9] == b'\x81':
                         logger.info(f"ans-bad={ans.hex()} state-{ans[7:9].hex()}")
             logger.info(f"end count-{count} {self.conn.in_waiting} {self.conn.out_waiting}")
 
+
     def _set_state(self, sn_emul):
         for sensor in self.sensors:
-            time.sleep(0.1)
             logger.info(sensor)
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
@@ -135,33 +161,20 @@ class ServerAH(QThread):
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
             logger.info(msg.hex())
-            self._send_msg(msg, 7)
+            self._send_msg(msg, 11)
 
     def changing_state(self, params):
         self.f_change_state = True
-        logger.info(params)
+        logger.info(f"change {self.f_change_state}  {params}")
 
         for sensor in self.sensors:
             if sensor["slave"] == params["slave"]:
-                state = self._compare_state(self._compare_type(params["type"]), params["state"])
-                logger.info(sensor)
-                logger.info(state)
-                msg = bytearray(b"\xB6\x49\x43")
-                msg.extend(self.sn_emul.to_bytes(2, byteorder='little', signed=True))
-                msg.extend(b"\x0A")
-                msg.extend(b"\xC2")
-                msg.extend(int(sensor["serialnumber"]).to_bytes(3, byteorder='little', signed=True))
-                msg.extend(self._compare_type(sensor["type"]))
-                msg.extend(state)
-                msg.extend(b"\x80")
-                msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-                msg = self._indicate_send_b6_b9(msg)
-                logger.info(msg.hex())
-                self._send_msg(msg, 7)
-                break
+                sensor["state"] = params["state"]
 
         self.f_change_state = False
 
+    def chang_state(self):
+        ...
     
     def _status_request(self, sn_emul):
         msg = (bytearray(b"\xB6\x49\x43"))
@@ -171,7 +184,6 @@ class ServerAH(QThread):
         msg = self._indicate_send_b6_b9(msg)
         logger.info(f"send {msg.hex()}")
         self.conn.write(msg)
-        self.conn.flush()
         if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
             ans = bytearray(b"\xB9\x46")
             type_s = self.conn.read().hex()
@@ -181,6 +193,7 @@ class ServerAH(QThread):
             cmd = self.conn.read().hex()
             logger.info(f"read [{ans}] [{type_s} {sn_l} {sn_h}] [{l}] [{cmd}]")
             self.conn.read_all()
+
             # self.conn.flush()
             # for index in range(3):
             #     b = self.conn.read()
@@ -205,7 +218,7 @@ class ServerAH(QThread):
         #             logger.info(f"ans-bad={ans.hex()} state-{ans[7:9].hex()}")
         # logger.info(f"end count-{count}")
 
-    def _compare_type(self, type_sens):
+    def _compare_type(self, type_sens: int) -> bytes:
         match type_sens:
             case 51:            # A2DPI
                 return b"\x19"
