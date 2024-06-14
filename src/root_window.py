@@ -237,7 +237,6 @@ class MainWindow(QMainWindow):
 
         for i in range(self.ui.ports_listWidget.count()):
             if f"({row_item[0]})" in self.ui.ports_listWidget.item(i).text():
-                print(self.ui.ports_listWidget.item(i).text())
                 # self.ui.ports_listWidget.item(i).setBackground(QColor((0, 85, 127)))
                 break
             else:
