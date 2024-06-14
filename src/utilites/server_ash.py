@@ -42,8 +42,8 @@ class ServerAH(QThread):
             # rs485_mode=rs485.RS485Settings()
         )
         #
-        # self._delete_config(self.sn_emul)
-        # self._create_sensors(self.sn_emul)
+        self._delete_config(self.sn_emul)
+        self._create_sensors(self.sn_emul)
         self._set_state(self.sn_emul)
 
         logger.info("run ")
@@ -120,7 +120,6 @@ class ServerAH(QThread):
                 logger.info(f"read {ans.hex()}, {ans[5:7].hex()}")
                 f = False
 
-
     def _send_msg1(self, msg, len_ans):
         f_send = True
         count = 0
@@ -156,7 +155,7 @@ class ServerAH(QThread):
             msg.extend(b"\xC2")
             msg.extend(int(sensor["serialnumber"]).to_bytes(3, byteorder='little', signed=True))
             msg.extend(self._compare_type(sensor["type"]))
-            msg.extend(b"\x00\x00\x00\x00")
+            msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"]))
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
@@ -274,6 +273,7 @@ class ServerAH(QThread):
                     case "E":
                         return b"\x00\x00\x00\x40"
             case b'\x0C':   #АР1
+                # 13 бит-шум, 14 бит-обрыв, 15 бит кз
                 match state:
                     case "N":
                         return b"\x00\x00\x00\x00"

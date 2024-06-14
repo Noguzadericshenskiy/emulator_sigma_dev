@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1287</width>
-    <height>819</height>
+    <width>1291</width>
+    <height>824</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,7 +42,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="main_tab">
        <property name="sizePolicy">
@@ -922,13 +922,7 @@ QTableWidget {
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QListWidget {
-	color: rgb(85, 255, 255);
-}
-
-QListWidget::item:selected {
-    background-color: rgb(0, 74, 109);
-}
+          <string notr="true">
 </string>
          </property>
         </widget>
