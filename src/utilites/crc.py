@@ -34,19 +34,6 @@ crc_ccitt_table = [
 ]
 
 
-def crc_ccitt_16_kermit_hex(data_h: bytes):
-    """Вычисление CRC16 CCITT Kermit
-        :param data_h: bytes hex string
-
-    :return : int
-    """
-    data_str = (int(data_h[i:i + 2], 16) for i in range(0, len(data_h), 2))
-    crc = 0x0000
-    for i in data_str:
-        crc = (crc >> 8) ^ crc_ccitt_table[(crc ^ i) & 0xff]
-    return crc
-
-
 def crc_ccitt_16_kermit_b(data_h: bytes) -> int:
     crc = 0x0000
     for i in data_h:
@@ -54,19 +41,7 @@ def crc_ccitt_16_kermit_b(data_h: bytes) -> int:
     return crc
 
 
-def revers_bytes(bytes: int):
-    lo = bytes % 256
-    hi = bytes // 256
-    return hex(lo * 256 + hi)
-
-
 def add_crc(data, crc):
     data.append(crc % 256)
     data.append(crc // 256)
     return data
-
-
-def check_crc(crc_in, data):
-    crc = crc_ccitt_16_kermit_b(data)
-    if crc == crc_in:
-        return True

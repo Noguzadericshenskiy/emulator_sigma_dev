@@ -19,7 +19,7 @@ from src.utilites.database import (
     check_conn,
     handler_devices,
 )
-from src.utilites.servers import ServerMB
+from src.utilites.server_mb import ServerMB
 from src.utilites.server_ash import ServerAH
 from src.utilites.dialogues import (
     err_message,
@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
         self.ui.user_db_lineEdit.setText(params_conn["user"])
         self.ui.pass_db_lineEdit.setText(params_conn["password"])
         self.ui.name_db_lineEdit.setText(params_conn["name"])
-
+        self.ui.break_r_btn.click()
 
     def _get_params_conn(self):
         params_conn = dict()
@@ -188,6 +188,7 @@ class MainWindow(QMainWindow):
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} N {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(157, 242, 160))
         params["state"] = "N"
+        params["err"] = None
         self._send_in_thread(port, params)
 
     def _set_status_fire(self, params: dict):
@@ -197,6 +198,7 @@ class MainWindow(QMainWindow):
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
         params["state"] = "F"
+        params["err"] = None
         self._send_in_thread(port, params)
 
     def _set_status_failure(self, params: dict):
@@ -205,9 +207,16 @@ class MainWindow(QMainWindow):
         port = self.ui.output_table.item(row, 0).text()
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        err = self.ui.kz_r_btn.clicked
         params["state"] = "E"
+        if self.ui.kz_r_btn.isChecked():
+            params["err"] = 1
+        elif self.ui.break_r_btn.isChecked():
+            params["err"] = 2
+        elif self.ui.option_r_btn.isChecked():
+            params["err"] = 3
         self._send_in_thread(port, params)
-
+        logger.info(err)
 
     def _get_current_params(self) -> dict:
         """Получить значение выделенной ячейки

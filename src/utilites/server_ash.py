@@ -155,7 +155,7 @@ class ServerAH(QThread):
             msg.extend(b"\xC2")
             msg.extend(int(sensor["serialnumber"]).to_bytes(3, byteorder='little', signed=True))
             msg.extend(self._compare_type(sensor["type"]))
-            msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"]))
+            msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"], sensor["err"]))
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
@@ -169,7 +169,7 @@ class ServerAH(QThread):
         for sensor in self.sensors:
             if sensor["slave"] == params["slave"]:
                 sensor["state"] = params["state"]
-
+                sensor["err"] = params["err"]
         self.f_change_state = False
 
     def chang_state(self):
@@ -254,7 +254,7 @@ class ServerAH(QThread):
                 new_msg.append(i_byte)
         return new_msg
 
-    def _compare_state(self, type_sens, state):
+    def _compare_state(self, type_sens, state, err=None):
         match type_sens:
             case b'\x19':    #A2ДПИ
                 match state:
@@ -280,4 +280,10 @@ class ServerAH(QThread):
                     case "F":
                         return b"\x00\x00\x00\x80"
                     case "E":
-                        ...
+                        match err:
+                            case 1:
+                                return b"\x00\x80\x00\x40"
+                            case 2:
+                                return b"\x00\x40\x00\x00"
+                            case 3:
+                                return b"\x00\x20\x00\x00"
