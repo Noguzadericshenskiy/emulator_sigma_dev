@@ -1,6 +1,9 @@
-from PySide6.QtGui import QColor, Qt, QBrush
-from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem, QTableWidgetItem, QHeaderView, \
-    QAbstractItemView
+from PySide6.QtGui import QColor, Qt
+from PySide6.QtWidgets import (
+    QMainWindow,
+    QListWidgetItem,
+    QTableWidgetItem,
+    QAbstractItemView)
 from loguru import logger
 
 from src.ui.main_win import Ui_MainWindow
@@ -8,7 +11,6 @@ from src.utilites.setup import (
     NumbersIPValidator,
     PortValidator,
     get_ports_info,
-    get_net_devices,
     check_join_table_output,
     save_conn_to_file,
     check_file,
@@ -16,16 +18,17 @@ from src.utilites.setup import (
 )
 from src.utilites.database import (
     get_net_devices_from_db,
-    check_conn,
     handler_devices,
+    check_conn,
 )
 from src.utilites.server_mb import ServerMB
 from src.utilites.server_ash import ServerAH
 from src.utilites.dialogues import (
-    err_message,
-    title_err_select_sensor,
-    text_err_select_sensor,
-    err_selection, )
+    err_selection,
+    ok_connect,
+    err_connect,
+    err_selection_port_net_dev,
+)
 
 
 class MainWindow(QMainWindow):
@@ -72,13 +75,10 @@ class MainWindow(QMainWindow):
         return params_conn
 
     def _check_connect(self):
-        # if check_conn(self._get_params_conn()):
-        #     print("ok")
-        #     li = get_net_devices_from_db(self._get_params_conn())
-        #     print(li)
-        # else:
-        #     print("no")
-        ...
+        if check_conn(self._get_params_conn()):
+            ok_connect(self)
+        else:
+            err_connect(self)
 
     def _fill_table(self):
         """"""
@@ -240,13 +240,36 @@ class MainWindow(QMainWindow):
 
     def _delet_line(self):
         row_num = self.ui.port_and_net_dev_tableWidget.currentRow()
-        row_item = self.ports_net_devs[row_num] #('COM3', 'CКАУ03Д->6030', (1, 'SKAU03Config', 'CКАУ03Д->6030', '6030'))
-        self.ports_net_devs.pop(row_num)
-        self.ui.port_and_net_dev_tableWidget.removeRow(row_num)
+        if row_num == -1:
+            err_selection_port_net_dev(self)
+        else:
+            self.ports_net_devs.pop(row_num)
+            row_item = self.ports_net_devs[row_num]
+            self.ui.port_and_net_dev_tableWidget.removeRow(row_num)
+            for num_row_port in range(self.ui.ports_listWidget.count()):
+                if f"({row_item[0]})" in self.ui.ports_listWidget.item(num_row_port).text().split():
+                    self.ui.ports_listWidget.item(num_row_port-1).setBackground(QColor(0, 85, 127))
+            for num_row_net_dev in range(self.ui.net_dev_listWidget.count()):
+                if row_item[1] == self.ui.net_dev_listWidget.item(num_row_net_dev).text():
+                    self.ui.net_dev_listWidget.item(num_row_net_dev-1).setBackground(QColor(0, 85, 127))
 
-        for i in range(self.ui.ports_listWidget.count()):
-            if f"({row_item[0]})" in self.ui.ports_listWidget.item(i).text():
-                # self.ui.ports_listWidget.item(i).setBackground(QColor((0, 85, 127)))
-                break
-            else:
-                print("none")
+            logger.info(f"{self.ports_net_devs}")
+
+
+
+        # try:
+        #     row_num = self.ui.port_and_net_dev_tableWidget.currentRow()
+        #     row_item = self.ports_net_devs[row_num] #('COM3', 'CКАУ03Д->6030', (1, 'SKAU03Config', 'CКАУ03Д->6030', '6030'))
+        #     self.ports_net_devs.pop(row_num)
+        #     self.ui.port_and_net_dev_tableWidget.removeRow(row_num)
+        #
+        #     for i in range(self.ui.ports_listWidget.count()):
+        #         logger.info(i)
+        #
+        #         if f"({row_item[0]})" in self.ui.ports_listWidget.item(i).text():
+        #             # self.ui.ports_listWidget.item(i).setBackground(QColor((0, 85, 127)))
+        #             break
+        #         else:
+        #             print("none")
+        # except IndexError:
+        #     err_selection_port_net_dev(self)

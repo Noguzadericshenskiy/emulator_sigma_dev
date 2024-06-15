@@ -1,4 +1,7 @@
 import sqlalchemy
+import psycopg2
+
+from psycopg2 import OperationalError
 from sqlalchemy import create_engine, select, Integer, Boolean
 from sqlalchemy.orm import mapped_column, Mapped, DeclarativeBase
 
@@ -147,9 +150,17 @@ def engine_db(params_db: dict) -> sqlalchemy.Engine:
 def check_conn(params_conn) -> bool:
     "Проверка подключения к БД"
     try:
-        conn = engine_db(params_conn)
+        conn = psycopg2.connect(
+            dbname=params_conn["name"],
+            user=params_conn["user"],
+            password=params_conn["password"],
+            host=params_conn["host"],
+            port=params_conn["port"],
+            connect_timeout=2,
+        )
+        conn.close()
         return True
-    except Exception:
+    except OperationalError:
         return False
 
 
