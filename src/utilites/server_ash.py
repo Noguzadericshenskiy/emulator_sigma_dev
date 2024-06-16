@@ -30,9 +30,8 @@ class ServerAH(QThread):
         self.conn = None
         self.sensors = sensors
         self.f_run = True
-        self.f_change_state = False
         self.sn_emul = 641
-
+        self.f_response = False
 
     def run(self) -> None:
         self.conn = Serial(
@@ -41,29 +40,23 @@ class ServerAH(QThread):
             timeout=0.3,
             # rs485_mode=rs485.RS485Settings()
         )
-        #
+
         self._delete_config(self.sn_emul)
         self._create_sensors(self.sn_emul)
         self._set_state(self.sn_emul)
-
         logger.info("run ")
         while self.f_run:
-            if self.f_change_state:
-                logger.info("Изменить состояние")
-                # self.chang_state()
-                self.changing_state()
-            else:
-                # self._status_request(self.sn_emul)
-                self._set_state(self.sn_emul)
+            self._set_state(self.sn_emul)
+
+            # if self.f_change_state:
+            #     logger.info("Изменить состояние")
+            #     # self.chang_state()
+            #     self.changing_state()
+            # else:
+            #     # self._status_request(self.sn_emul)
+            #     self._set_state(self.sn_emul)
 
 
-    # rts_level_for_tx=True, rts_level_for_rx=False
-    # self.conn.setRTS(True)
-    # self.conn.rs485_mode
-    # self.conn.set_buffer_size(1, 1)
-    # logger.info(self.sensors)
-    # self.init_sensors()
-    # self.handler_init_response()
     # msg_create_dev = bytearray(b"\xB6\x49\x43\x81\x02\x06\xC3\x01\x00\x00\x19\x01")
     # msg_create_dev = add_crc(msg_create_dev, crc_ccitt_16_kermit_b(msg_create_dev))
     # msg_set_status = bytearray(b"\xB6\x49\x43\x81\x02\x0A\xC2\x01\x00\x00\x19\x00\x00\x00\x00\x00")
@@ -71,32 +64,52 @@ class ServerAH(QThread):
     # msg_get_status = bytearray(b"\xB6\x49\x43\x81\x02\x01\xC1")
     # msg_get_status = add_crc(msg_get_status, crc_ccitt_16_kermit_b(msg_get_status))
 
-    #     c = 1
-    #     logger.info("run ")
-    #     while self.f_run:
-    #         # time.sleep(0.1)
-    #         print(f"{self.f_change_state}  {c}")
-    #         if self.f_change_state:
-    #             logger.info("Изменить состояние")
-    #         else:
-    #             self._status_request(self.sn_emul)
-    #         c += 1
-
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
         msg.extend(sn.to_bytes((sn.bit_length() + 7) // 8, byteorder='little')) #add sn
         msg.extend(b"\x01\xA0")
         msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
+        msg = self._indicate_send_b6_b9(msg)
+        self.conn.reset_input_buffer()
         self.conn.write(msg)
+        self.conn.flush()
         self.conn.read(11)
         self.conn.reset_input_buffer()
         start = time.time()
         while time.time() - start < 2:
             ...
-        logger.info("Перезагрузка завершена")
+
+    def _send_msg(self, msg):
+        self.conn.reset_input_buffer()
+        self.conn.write(msg)
+        self.conn.flush()
+        f_ans = True
+        while f_ans:
+            if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
+                b_arr = self.conn.read_all()
+                if self._clear_response(b_arr):
+                    f_ans = False
+                    self.f_response = False
+                else:
+                    f_ans = False
+
+    def _clear_response(self, b_arr):
+        # ans = bytearray(b"\xB9\x46")
+        ld = []
+        for i in range(len(b_arr)):
+            p = b_arr[i]
+            if b_arr[i] == 182 or b_arr[i] == 185:
+                ld.append(i)
+        if ld:
+            for i in ld:
+                b_arr.pop(i + 1)
+        logger.info(f"cl d  {b_arr.hex()}")
+
+        return True
 
     def _create_sensors(self, sn):
         for sensor in self.sensors:
+            self.f_response = True
             serialnumber = int(sensor["serialnumber"])
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn.to_bytes(2, byteorder='little', signed=True))
@@ -107,48 +120,12 @@ class ServerAH(QThread):
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
             logger.info(f"{sensor}")
-            self._send_msg(msg, 11)
-
-    def _send_msg(self, msg, l):
-        self.conn.write(msg)
-        logger.info(f"send  in-{self.conn.in_waiting} out-{self.conn.out_waiting} {msg.hex()}")
-        f = True
-        while f:
-            if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
-                logger.info("start")
-                ans = self.conn.read(l)
-                logger.info(f"read {ans.hex()}, {ans[5:7].hex()}")
-                f = False
-
-    def _send_msg1(self, msg, len_ans):
-        f_send = True
-        count = 0
-        while f_send:
-            count += 1
-            logger.info(f"send {msg.hex()} {count} in-{self.conn.in_waiting} out-{self.conn.out_waiting}")
-            self.conn.write(msg)
-            if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
-                ans = bytearray(b"\xB9\x46")
-                for index in range(len_ans):
-                    b = self.conn.read()
-                    if b == b"\xB9" and b == b"\xB6":
-                        self.conn.read()
-                    ans.append(int.from_bytes(b, "little"))
-                crc_ans = self.conn.read(2)
-                crc = crc_ccitt_16_kermit_b(ans)
-                if int.from_bytes(crc_ans, 'little') == crc:
-                    logger.info(f"crc ok")
-                    if ans[7:8] == b'\x00' and ans[8:9] == b'\x00':
-                        logger.info(f"ans-ok={ans.hex()} state-{ans[7:9].hex()}")
-                        f_send = False
-                    elif ans[7:8] == b'\x00' and ans[8:9] == b'\x81':
-                        logger.info(f"ans-bad={ans.hex()} state-{ans[7:9].hex()}")
-            logger.info(f"end count-{count} {self.conn.in_waiting} {self.conn.out_waiting}")
-
+            while self.f_response:
+                self._send_msg(msg)
 
     def _set_state(self, sn_emul):
         for sensor in self.sensors:
-            logger.info(sensor)
+            self.f_response = True
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
             msg.extend(b"\x0A")
@@ -159,22 +136,16 @@ class ServerAH(QThread):
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
-            logger.info(msg.hex())
-            self._send_msg(msg, 11)
+            while self.f_response:
+                self._send_msg(msg)
 
     def changing_state(self, params):
-        self.f_change_state = True
-        logger.info(f"change {self.f_change_state}  {params}")
-
         for sensor in self.sensors:
             if sensor["slave"] == params["slave"]:
                 sensor["state"] = params["state"]
                 sensor["err"] = params["err"]
-        self.f_change_state = False
+                break
 
-    def chang_state(self):
-        ...
-    
     def _status_request(self, sn_emul):
         msg = (bytearray(b"\xB6\x49\x43"))
         msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
@@ -193,29 +164,15 @@ class ServerAH(QThread):
             logger.info(f"read [{ans}] [{type_s} {sn_l} {sn_h}] [{l}] [{cmd}]")
             self.conn.read_all()
 
-            # self.conn.flush()
-            # for index in range(3):
-            #     b = self.conn.read()
-            #     if b == b"\xB9" and b == b"\xB6":
-            #         self.conn.read()
-            #     ans.append(int.from_bytes(b, "little"))
-            # len_msg = self.conn.read()
-            # ans.extend(len_msg)
-            # logger.info(ans.hex())
-            # logger.info(len_msg)
-            # if int(len_msg)
-
-
-        #     crc_ans = self.conn.read(2)
-        #     crc = crc_ccitt_16_kermit_b(ans)
-        #     if int.from_bytes(crc_ans, 'little') == crc:
-        #         logger.info(f"crc ok")
-        #         if ans[7:8] == b'\x00' and ans[8:9] == b'\x00':
-        #             logger.info(f"ans-ok={ans.hex()} state-{ans[7:9].hex()}")
-        #             f_send = False
-        #         elif ans[7:8] == b'\x00' and ans[8:9] == b'\x81':
-        #             logger.info(f"ans-bad={ans.hex()} state-{ans[7:9].hex()}")
-        # logger.info(f"end count-{count}")
+    def _indicate_send_b6_b9(self, array_bytes: bytearray):
+        new_msg = bytearray(b"\xB6\x49")
+        for i_byte in array_bytes[2:]:
+            if i_byte == 182 or i_byte == 185:
+                new_msg.append(i_byte)
+                new_msg.append(0)
+            else:
+                new_msg.append(i_byte)
+        return new_msg
 
     def _compare_type(self, type_sens: int) -> bytes:
         match type_sens:
@@ -243,16 +200,6 @@ class ServerAH(QThread):
                 return b"\x09"
             case _:
                 return b"\x19"
-
-    def _indicate_send_b6_b9(self, array_bytes: bytearray):
-        new_msg = bytearray(b"\xB6\x49")
-        for i_byte in array_bytes[2:]:
-            if i_byte == 182 or i_byte == 185:
-                new_msg.append(i_byte)
-                new_msg.append(0)
-            else:
-                new_msg.append(i_byte)
-        return new_msg
 
     def _compare_state(self, type_sens, state, err=None):
         match type_sens:
