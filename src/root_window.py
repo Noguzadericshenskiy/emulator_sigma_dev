@@ -243,33 +243,12 @@ class MainWindow(QMainWindow):
         if row_num == -1:
             err_selection_port_net_dev(self)
         else:
-            self.ports_net_devs.pop(row_num)
             row_item = self.ports_net_devs[row_num]
             self.ui.port_and_net_dev_tableWidget.removeRow(row_num)
             for num_row_port in range(self.ui.ports_listWidget.count()):
                 if f"({row_item[0]})" in self.ui.ports_listWidget.item(num_row_port).text().split():
-                    self.ui.ports_listWidget.item(num_row_port-1).setBackground(QColor(0, 85, 127))
+                    self.ui.ports_listWidget.item(num_row_port).setBackground(QColor(0, 85, 127))
             for num_row_net_dev in range(self.ui.net_dev_listWidget.count()):
                 if row_item[1] == self.ui.net_dev_listWidget.item(num_row_net_dev).text():
-                    self.ui.net_dev_listWidget.item(num_row_net_dev-1).setBackground(QColor(0, 85, 127))
-
-            logger.info(f"{self.ports_net_devs}")
-
-
-
-        # try:
-        #     row_num = self.ui.port_and_net_dev_tableWidget.currentRow()
-        #     row_item = self.ports_net_devs[row_num] #('COM3', 'CКАУ03Д->6030', (1, 'SKAU03Config', 'CКАУ03Д->6030', '6030'))
-        #     self.ports_net_devs.pop(row_num)
-        #     self.ui.port_and_net_dev_tableWidget.removeRow(row_num)
-        #
-        #     for i in range(self.ui.ports_listWidget.count()):
-        #         logger.info(i)
-        #
-        #         if f"({row_item[0]})" in self.ui.ports_listWidget.item(i).text():
-        #             # self.ui.ports_listWidget.item(i).setBackground(QColor((0, 85, 127)))
-        #             break
-        #         else:
-        #             print("none")
-        # except IndexError:
-        #     err_selection_port_net_dev(self)
+                    self.ui.net_dev_listWidget.item(num_row_net_dev).setBackground(QColor(0, 85, 127))
+            self.ports_net_devs.pop(row_num)
