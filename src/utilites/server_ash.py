@@ -172,9 +172,6 @@ class ServerAH(QThread):
                 sensor["err"] = params["err"]
         self.f_change_state = False
 
-    def chang_state(self):
-        ...
-    
     def _status_request(self, sn_emul):
         msg = (bytearray(b"\xB6\x49\x43"))
         msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
@@ -241,8 +238,7 @@ class ServerAH(QThread):
                 return b"\x16"
             case 67:            # ОСЗ9
                 return b"\x09"
-            case _:
-                return b"\x19"
+
 
     def _indicate_send_b6_b9(self, array_bytes: bytearray):
         new_msg = bytearray(b"\xB6\x49")
@@ -279,6 +275,18 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x00"
                     case "F":
                         return b"\x00\x00\x00\x80"
+                    case "E":
+                        match err:
+                            case 1:
+                                return b"\x00\x80\x00\x40"
+                            case 2:
+                                return b"\x00\x40\x00\x00"
+                            case 3:
+                                return b"\x00\x20\x00\x00"
+            case b'\x01':   #МКЗ
+                match state:
+                    case "N":
+                        return b"\x00\x00\x00\x00"
                     case "E":
                         match err:
                             case 1:
