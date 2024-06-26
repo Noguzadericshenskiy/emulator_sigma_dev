@@ -101,6 +101,29 @@ class Ka2AddressTraintableAR1(Base):
     __table_args__ = {'schema': 'configurator'}
 
 
+class Ka2AddressTraintableMKZ(Base):
+    __tablename__ = "ka2addresstraintableattype_mkz"
+
+    id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
+    bcpid: Mapped[int] = mapped_column(BIGINT)
+    deleted: Mapped[int] = mapped_column(BIGINT, default=0)
+    address: Mapped[str] = mapped_column(VARCHAR, primary_key=True)
+    isolator: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
+
+    __table_args__ = {'schema': 'configurator'}
+
+
+class Ka2AddressTraintableAMK(Base):
+    __tablename__ = "ka2addresstraintableattype_amk"
+
+    id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
+    bcpid: Mapped[int] = mapped_column(BIGINT)
+    deleted: Mapped[int] = mapped_column(BIGINT, default=0)
+    address: Mapped[str] = mapped_column(VARCHAR, primary_key=True)
+
+    __table_args__ = {'schema': 'configurator'}
+
+
 class Ka2AddressTraintableAOPI(Base):
     __tablename__ = "ka2addresstraintableattype_aopi"
 
@@ -112,18 +135,6 @@ class Ka2AddressTraintableAOPI(Base):
     trainr2: Mapped[str] = mapped_column(VARCHAR(1024))
     fdefault: Mapped[bool] = mapped_column(Boolean, nullable=True)
     threshold: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
-
-    __table_args__ = {'schema': 'configurator'}
-
-
-class Ka2AddressTraintableMKZ(Base):
-    __tablename__ = "ka2addresstraintableattype_mkz"
-
-    id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
-    bcpid: Mapped[int] = mapped_column(BIGINT)
-    deleted: Mapped[int] = mapped_column(BIGINT, default=0)
-    address: Mapped[str] = mapped_column(VARCHAR, primary_key=True)
-    isolator: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
 
     __table_args__ = {'schema': 'configurator'}
 
@@ -216,6 +227,8 @@ def handler_devices(params_conn: dict, in_list):
                                  Ka2AddressTraintableA2RPI,
                                  Ka2AddressTraintableAR1,
                                  Ka2AddressTraintableMKZ,
+                                 Ka2AddressTraintableAMK,
+
                                  Ka2AddressTraintableAOPI,
                                  )
                 stmt_ad = stmt_ad.where(Ka2AddressTraintable.id == row_i[2][0], Ka2AddressTraintable.deleted == 0)
@@ -231,9 +244,14 @@ def handler_devices(params_conn: dict, in_list):
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableMKZ,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintableMKZ.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintableMKZ.id))
+                stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableAMK,
+                                            (Ka2AddressTraintable.address == Ka2AddressTraintableAMK.address and
+                                             Ka2AddressTraintable.id == Ka2AddressTraintableAMK.id))
+
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableAOPI,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintableAOPI.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintableAOPI.id))
+
                 stmt_ad = stmt_ad.distinct(Ka2AddressTraintable.address)
                 stmt_ad = stmt_ad.order_by(Ka2AddressTraintable.address)
 
@@ -253,7 +271,13 @@ def handler_devices(params_conn: dict, in_list):
                         case "ATTYPE_AVI":
                             sensors_row.append({"type": 52, "state": "N", "slave": int(dev_i[1])})
                         case "ATTYPE_AMK":
-                            sensors_row.append({"type": 53, "state": "N", "slave": int(dev_i[1])})
+                            sensors_row.append({
+                                "type": 53,
+                                "state": "N",
+                                "slave": int(dev_i[1]),
+                                "serialnumber": dev_i.serialnumber,
+                                "err": None,
+                            })
                         case "ATTYPE_AR1":
                             sensors_row.append({
                                 "type": 54,

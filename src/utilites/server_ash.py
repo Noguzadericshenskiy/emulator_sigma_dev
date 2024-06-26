@@ -42,7 +42,9 @@ class ServerAH(QThread):
         )
 
         self._delete_config(self.sn_emul)
+        logger.info("end del")
         self._create_sensors(self.sn_emul)
+        logger.info("end create")
         self._set_state(self.sn_emul)
         logger.info("run ")
         while self.f_run:
@@ -56,13 +58,6 @@ class ServerAH(QThread):
             #     # self._status_request(self.sn_emul)
             #     self._set_state(self.sn_emul)
 
-
-    # msg_create_dev = bytearray(b"\xB6\x49\x43\x81\x02\x06\xC3\x01\x00\x00\x19\x01")
-    # msg_create_dev = add_crc(msg_create_dev, crc_ccitt_16_kermit_b(msg_create_dev))
-    # msg_set_status = bytearray(b"\xB6\x49\x43\x81\x02\x0A\xC2\x01\x00\x00\x19\x00\x00\x00\x00\x00")
-    # msg_set_status = add_crc(msg_set_status, crc_ccitt_16_kermit_b(msg_set_status))
-    # msg_get_status = bytearray(b"\xB6\x49\x43\x81\x02\x01\xC1")
-    # msg_get_status = add_crc(msg_get_status, crc_ccitt_16_kermit_b(msg_get_status))
 
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
@@ -79,19 +74,37 @@ class ServerAH(QThread):
         while time.time() - start < 2:
             ...
 
-    def _send_msg(self, msg):
+    # def _send_msg(self, msg):
+    #     self.conn.reset_input_buffer()
+    #     self.conn.write(msg)
+    #     self.conn.flush()
+    #     f_ans = True
+    #     while f_ans:
+    #         if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
+    #             b_arr = self.conn.read_all()
+    #             if self._clear_response(b_arr):
+    #                 f_ans = False
+    #                 self.f_response = False
+    #             else:
+    #                 f_ans = False
+
+    def _send_msg(self, msg, num_ans):
         self.conn.reset_input_buffer()
         self.conn.write(msg)
         self.conn.flush()
         f_ans = True
         while f_ans:
             if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
-                b_arr = self.conn.read_all()
-                if self._clear_response(b_arr):
+                ans = bytearray(b"\xB9\x46")
+                for _ in range(num_ans - 2):
+                    b = self.conn.read()
+                    if b == b"\xB9" or b == b"\xB6":
+                        self.conn.read()
+                    ans.extend(b)
+                self.conn.reset_output_buffer()
+                if crc_ccitt_16_kermit_b(ans) == 0:
                     f_ans = False
                     self.f_response = False
-                else:
-                    f_ans = False
 
     def _clear_response(self, b_arr):
         # ans = bytearray(b"\xB9\x46")
@@ -121,7 +134,7 @@ class ServerAH(QThread):
             msg = self._indicate_send_b6_b9(msg)
             logger.info(f"{sensor}")
             while self.f_response:
-                self._send_msg(msg)
+                self._send_msg(msg, 11)
 
     def _set_state(self, sn_emul):
         for sensor in self.sensors:
@@ -137,7 +150,7 @@ class ServerAH(QThread):
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
             while self.f_response:
-                self._send_msg(msg)
+                self._send_msg(msg, 11)
 
     def changing_state(self, params):
         for sensor in self.sensors:
@@ -198,8 +211,8 @@ class ServerAH(QThread):
                 return b"\x16"
             case 67:            # ОСЗ9
                 return b"\x09"
-            case _:
-                return b"\x19"
+            # case _:
+            #     return b"\x19"
 
     def _compare_state(self, type_sens, state, err=None):
         match type_sens:
@@ -210,7 +223,13 @@ class ServerAH(QThread):
                     case "F":
                         return b"\x00\x00\x00\x80"
                     case "E":
-                        ...
+                        match err:
+                            case 1:
+                                return b"\x04\x00\x00\x00"
+                            case 2:
+                                return b"\x03\x00\x00\x00"
+                            case 3:
+                                return b"\x02\x00\x00\x00"
             case b'\x18':   #ИР
                 match state:
                     case "N":
@@ -234,3 +253,19 @@ class ServerAH(QThread):
                                 return b"\x00\x40\x00\x00"
                             case 3:
                                 return b"\x00\x20\x00\x00"
+            case b'\x01':   #МКЗ
+                match state:
+                    case "N":
+                        return b"\x00\x00\x00\x00"
+                    case "F":
+                        return b"\x00\x00\x00\x00"
+                    case "E":
+                        return b"\x00\x00\x00\x40"
+            case b'\x0F':   #АМК
+                match state:
+                    case "N":
+                        return b"\x00\x00\x00\x00"
+                    case "F":
+                        return b"\x00\x00\x00\x80"
+                    case "E":
+                        return b"\x00\x00\x00\x40"
