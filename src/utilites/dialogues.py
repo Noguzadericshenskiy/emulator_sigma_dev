@@ -51,5 +51,15 @@ def err_selection_port_net_dev(parent):
         defaultButton=QMessageBox.Discard,
     )
 
+def err_set_fire(parent):
+    QMessageBox.critical(
+        parent,
+        "Error set state sensor fire ",
+        "< p style = 'color: white;' > У этого устройства нельзя установить режим ПОЖАР\n" 
+        "Для данного типа устройства доступны состояния НОРМА и НЕИСПРАВНОСТЬ\n< / p >",
+        buttons=QMessageBox.Discard,
+        defaultButton=QMessageBox.Discard,
+    )
+
 # def err_message(parent, title, text_msg):
 #     QMessageBox.critical(parent, title, text_msg, buttons=QMessageBox.Discard, defaultButton=QMessageBox.Discard)

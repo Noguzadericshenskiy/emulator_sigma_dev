@@ -28,6 +28,7 @@ from src.utilites.dialogues import (
     ok_connect,
     err_connect,
     err_selection_port_net_dev,
+    err_set_fire,
 )
 
 
@@ -195,11 +196,14 @@ class MainWindow(QMainWindow):
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
-        params["state"] = "F"
-        params["err"] = None
-        self._send_in_thread(port, params)
+        if params["type"] != 65:
+            self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
+            self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
+            params["state"] = "F"
+            params["err"] = None
+            self._send_in_thread(port, params)
+        else:
+            err_set_fire(self)
 
     def _set_status_failure(self, params: dict):
         row = params["row"]
