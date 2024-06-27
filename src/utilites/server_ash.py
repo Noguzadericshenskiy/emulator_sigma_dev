@@ -105,20 +105,6 @@ class ServerAH(QThread):
                     f_ans = False
                     self.f_response = False
 
-    def _clear_response(self, b_arr):
-        # ans = bytearray(b"\xB9\x46")
-        ld = []
-        for i in range(len(b_arr)):
-            p = b_arr[i]
-            if b_arr[i] == 182 or b_arr[i] == 185:
-                ld.append(i)
-        if ld:
-            for i in ld:
-                b_arr.pop(i + 1)
-        logger.info(f"cl d  {b_arr.hex()}")
-
-        return True
-
     def _create_sensors(self, sn):
         for sensor in self.sensors:
             self.f_response = True
