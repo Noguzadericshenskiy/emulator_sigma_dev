@@ -1,6 +1,6 @@
 import time
 
-from serial import Serial, rs485
+from serial import Serial
 from PySide6.QtCore import Signal, QThread
 from loguru import logger
 
@@ -38,7 +38,6 @@ class ServerAH(QThread):
             port=self.port,
             baudrate=19200,
             timeout=0.3,
-            # rs485_mode=rs485.RS485Settings()
         )
 
         self._delete_config(self.sn_emul)
@@ -74,7 +73,7 @@ class ServerAH(QThread):
         while time.time() - start < 2:
             ...
 
-    # def _send_msg(self, msg):
+    # def _send_msg(self, msg, n):
     #     self.conn.reset_input_buffer()
     #     self.conn.write(msg)
     #     self.conn.flush()
@@ -132,12 +131,13 @@ class ServerAH(QThread):
             msg.append(int(sensor["slave"]))
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6_b9(msg)
-            logger.info(f"{sensor}")
+            logger.info(msg.hex(sep="-"))
             while self.f_response:
                 self._send_msg(msg, 11)
 
     def _set_state(self, sn_emul):
         for sensor in self.sensors:
+            logger.info(f"{sensor} {len(self.sensors)}")
             self.f_response = True
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
@@ -151,6 +151,7 @@ class ServerAH(QThread):
             msg = self._indicate_send_b6_b9(msg)
             while self.f_response:
                 self._send_msg(msg, 11)
+                logger.info(f"{msg.hex(sep='-')} {sensor}")
 
     def changing_state(self, params):
         for sensor in self.sensors:
@@ -159,28 +160,28 @@ class ServerAH(QThread):
                 sensor["err"] = params["err"]
                 break
 
-    def _status_request(self, sn_emul):
-        msg = (bytearray(b"\xB6\x49\x43"))
-        msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
-        msg.extend(b"\x01\xC1")
-        msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-        msg = self._indicate_send_b6_b9(msg)
-        logger.info(f"send {msg.hex()}")
-        self.conn.write(msg)
-        if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
-            ans = bytearray(b"\xB9\x46")
-            type_s = self.conn.read().hex()
-            sn_l = self.conn.read().hex()
-            sn_h = self.conn.read().hex()
-            l = self.conn.read().hex()
-            cmd = self.conn.read().hex()
-            logger.info(f"read [{ans}] [{type_s} {sn_l} {sn_h}] [{l}] [{cmd}]")
-            self.conn.read_all()
+    # def _status_request(self, sn_emul):
+    #     msg = (bytearray(b"\xB6\x49\x43"))
+    #     msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
+    #     msg.extend(b"\x01\xC1")
+    #     msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
+    #     # msg = self._indicate_send_b6_b9(msg)
+    #     logger.info(f"send {msg.hex()}")
+    #     self.conn.write(msg)
+    #     if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
+    #         ans = bytearray(b"\xB9\x46")
+    #         type_s = self.conn.read().hex()
+    #         sn_l = self.conn.read().hex()
+    #         sn_h = self.conn.read().hex()
+    #         l = self.conn.read().hex()
+    #         cmd = self.conn.read().hex()
+    #         logger.info(f"read [{ans}] [{type_s} {sn_l} {sn_h}] [{l}] [{cmd}]")
+    #         self.conn.read_all()
 
     def _indicate_send_b6_b9(self, array_bytes: bytearray):
         new_msg = bytearray(b"\xB6\x49")
         for i_byte in array_bytes[2:]:
-            if i_byte == 182 or i_byte == 185:
+            if i_byte == 182:
                 new_msg.append(i_byte)
                 new_msg.append(0)
             else:
