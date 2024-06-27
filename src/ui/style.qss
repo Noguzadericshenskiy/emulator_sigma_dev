@@ -113,8 +113,85 @@ QTableWidget {
 QLabel#sensor1_lbl, #sensor2_lbl, #sensor3_lbl, #sensor4_lbl, #sensor5_lbl,
 #sensor6_lbl, #sensor7_lbl, #sensor8_lbl, #sensor9_lbl, #sensor51_lbl,
 #sensor52_lbl, #sensor53_lbl, #sensor54_lbl, #sensor55_lbl, #sensor56_lbl,
- #sensor57_lbl, #sensor58_lbl, #sensor59_lbl, #sensor60_lbl, #sensor61_lbl,
- #sensor62_lbl, #sensor63_lbl, #sensor64_lbl, #sensor65_lbl, #sensor66_lbl,
- #sensor67_lbl  {
+#sensor57_lbl, #sensor58_lbl, #sensor59_lbl, #sensor60_lbl, #sensor61_lbl,
+#sensor62_lbl, #sensor63_lbl, #sensor64_lbl, #sensor65_lbl, #sensor66_lbl,
+#sensor67_lbl  {
     border: 1px solid rgb(0, 160, 0);
+}
+
+QPushButton#norma_btn {
+    background-color: rgb(157, 242, 160);
+	border: none;
+
+ 	font: 75 10pt "Georgia";
+ 	color: rgb(0, 0, 0);
+ 	border-radius: 6px;
+}
+
+QPushButton#norma_btn:hover {
+ 	background-color: rgb(152, 234, 154);
+ 	border-left: 2px solid rgb(0, 160, 0);
+ 	border-top: 2px solid rgb(0, 160, 0);
+ 	border-right: 2px solid rgb(0, 160, 0);
+ 	border-bottom: 2px solid rgb(0, 160, 0);
+}
+
+QPushButton#norma_btn:pressed {
+ 	background-color: rgb(157, 242, 160);
+ 	background-color: rgb(143, 220, 146);
+ 	border-left: 2px solid rgb(0, 130, 0);
+ 	border-top: 2px solid rgb(0, 130, 0);
+ 	border-right: 2px solid rgb(0, 130, 0);
+ 	border-bottom: 2px solid rgb(0, 130, 0);
+}
+
+
+QPushButton#fire_btn, #alarm_btn {
+	background-color: rgb(173, 0, 0);
+	font: 75 10pt "Georgia";
+	color: rgb(0, 0, 0);
+	border-radius: 6px;
+}
+
+QPushButton#fire_btn:hover, #alarm_btn:hover {
+	background-color: rgb(173, 0, 0);;
+	border-left: 2px solid rgb(0, 160, 0);
+	border-top: 2px solid rgb(0, 160, 0);
+	border-right: 2px solid rgb(0, 160, 0);
+	border-bottom: 2px solid rgb(0, 160, 0);
+}
+
+QPushButton#fire_btn:pressed, #alarm_btn:hover {
+	background-color: rgb(173, 0, 0);
+	border-left: 2px solid rgb(0, 130, 0);
+	border-top: 2px solid rgb(0, 130, 0);
+	border-right: 2px solid rgb(0, 130, 0);
+	border-bottom: 2px solid rgb(0, 130, 0);
+}
+
+
+QPushButton#kz_btn, #break_btn, #non_calibration_btn,
+#dirt_btn, #sensitivity_btn {
+	background-color: rgb(255, 140, 0);
+	font: 75 10pt "Georgia";
+	color: rgb(0, 0, 0);
+	border-radius: 6px;
+}
+
+QPushButton#kz_btn:hover, #break_btn:hover, #non_calibration_btn:hover,
+#dirt_btn:hover, #sensitivity_btn:hover {
+	background-color: rgb(255, 140, 0);
+	border-left: 2px solid rgb(0, 160, 0);
+	border-top: 2px solid rgb(0, 160, 0);
+	border-right: 2px solid rgb(0, 160, 0);
+	border-bottom: 2px solid rgb(0, 160, 0);
+}
+
+QPushButton#kz_btn:pressed, #break_btn:pressed, #non_calibration_btn:pressed,
+#dirt_btn:pressed, #sensitivity_btn:pressed {
+	background-color: rgb(255, 140, 0);
+	border-left: 2px solid rgb(0, 130, 0);
+	border-top: 2px solid rgb(0, 130, 0);
+	border-right: 2px solid rgb(0, 130, 0);
+	border-bottom: 2px solid rgb(0, 130, 0);
 }

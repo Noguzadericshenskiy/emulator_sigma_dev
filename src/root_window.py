@@ -1,9 +1,14 @@
 from PySide6.QtGui import QColor, Qt
+from PySide6.QtCore import QRect
 from PySide6.QtWidgets import (
     QMainWindow,
     QListWidgetItem,
     QTableWidgetItem,
-    QAbstractItemView)
+    QAbstractItemView,
+    QPushButton,
+    QVBoxLayout,
+    QHBoxLayout
+)
 from loguru import logger
 
 from src.ui.main_win import Ui_MainWindow
@@ -51,11 +56,131 @@ class MainWindow(QMainWindow):
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
         self.ui.save_db_btn.clicked.connect(self._save_params_conn)
         self.ui.delete_line_btn.clicked.connect(self._delet_line)
-        self.ui.normal_btn.clicked.connect(self._norma_btn)
-        self.ui.fire_btn.clicked.connect(self._fire_btn)
-        self.ui.failure_btn.clicked.connect(self._failure_btn)
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
+        self.ui.output_table.clicked.connect(self.ch_state)
+
+        self.vbox = QVBoxLayout(self.ui.groupBox)
+        self.hbox_top = QHBoxLayout(self.ui.groupBox)
+        self.hbox_bottom = QHBoxLayout(self.ui.groupBox)
+        self.vbox.addLayout(self.hbox_top)
+        self.vbox.addLayout(self.hbox_bottom)
+
+    def states_buttons(self):
+        self.norma_btn = QPushButton()
+        self.norma_btn.setObjectName(u"norma_btn")
+        self.norma_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.norma_btn.setText("Норма")
+
+        self.fire_btn = QPushButton()
+        self.fire_btn.setObjectName(u"fire_btn")
+        self.fire_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.fire_btn.setText("Пожар")
+
+        self.alarm_btn = QPushButton()
+        self.alarm_btn.setObjectName(u"alarm_btn")
+        self.alarm_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.alarm_btn.setText("Тревога")
+
+        self.break_btn = QPushButton()
+        self.break_btn.setObjectName(u"break_btn")
+        self.break_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.break_btn.setText("Обрыв")
+
+        self.non_calibration_btn = QPushButton()
+        self.non_calibration_btn.setObjectName(u"non_calibration_btn")
+        self.non_calibration_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.non_calibration_btn.setText("Нет калибровки")
+
+        self.dirt_btn = QPushButton()
+        self.dirt_btn.setObjectName(u"dirt_btn")
+        self.dirt_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.dirt_btn.setText("Пыль")
+
+        self.sensitivity_btn = QPushButton()
+        self.sensitivity_btn.setObjectName(u"sensitivity_btn")
+        self.sensitivity_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.sensitivity_btn.setText("Чувствительность")
+        self.sensitivity_btn.setToolTip("Потеря чувствительности")
+
+        self.kz_btn = QPushButton()
+        self.kz_btn.setObjectName(u"kz_btn")
+        self.kz_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.kz_btn.setText("Сработал МКЗ")
+
+        self.hbox_top.addWidget(self.norma_btn)
+        self.hbox_top.addWidget(self.fire_btn)
+        self.hbox_top.addWidget(self.alarm_btn)
+        self.hbox_bottom.addWidget(self.kz_btn)
+        self.hbox_bottom.addWidget(self.break_btn)
+        self.hbox_bottom.addWidget(self.non_calibration_btn)
+        self.hbox_bottom.addWidget(self.dirt_btn)
+        self.hbox_bottom.addWidget(self.sensitivity_btn)
+
+        self.norma_btn.clicked.connect(self._norma_state)
+        self.fire_btn.clicked.connect(self._it_worked_state)
+        self.alarm_btn.clicked.connect(self._it_worked_state)
+        self.break_btn.clicked.connect(self._break_state)
+        self.non_calibration_btn.clicked.connect(self._non_calibration_state)
+        self.dirt_btn.clicked.connect(self._dirt_state)
+        self.sensitivity_btn.clicked.connect(self._sensitivity_state)
+
+    def ch_state(self):
+        row = self.ui.output_table.currentRow()
+        column = self.ui.output_table.currentColumn()
+        type_sensor = self.ui.output_table.item(row, column).text().split()[0]
+        self._clear_layouts()
+        self.states_buttons()
+        match type_sensor:
+            case '51': #A2ДПИ
+                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()} {self.ui.groupBox.layout()}")
+                self.alarm_btn.hide()
+                self.break_btn.hide()
+                self.alarm_btn.hide()
+                self.kz_btn.hide()
+                logger.info(f"51-2- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+
+            case "60": #ИР
+                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                self.alarm_btn.hide()
+                self.break_btn.hide()
+                self.non_calibration_btn.hide()
+                self.dirt_btn.hide()
+                self.sensitivity_btn.hide()
+            case "54": #АР1
+                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                self.alarm_btn.hide()
+                self.break_btn.hide()
+                self.non_calibration_btn.hide()
+                self.dirt_btn.hide()
+                self.sensitivity_btn.hide()
+                self.alarm_btn.hide()
+            case "65": #МКЗ
+                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                self.alarm_btn.hide()
+                self.break_btn.hide()
+                self.non_calibration_btn.hide()
+                self.dirt_btn.hide()
+                self.sensitivity_btn.hide()
+            case "53": #АМК
+                logger.info(f"53- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                self.fire_btn.hide()
+                self.break_btn.hide()
+                self.non_calibration_btn.hide()
+                self.dirt_btn.hide()
+                self.sensitivity_btn.hide()
+                logger.info(f"53-2- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+
+    def _clear_layouts(self):
+        logger.info(f"clear 1- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+
+        for i in reversed(range(self.hbox_bottom.count())):
+            ch = self.hbox_bottom.itemAt(i).widget()
+            ch.deleteLater()
+        for i in reversed(range(self.hbox_top.count())):
+            ch = self.hbox_top.itemAt(i).widget()
+            ch.deleteLater()
+        logger.info(f"clear 2- {self.hbox_top.count()} {self.hbox_bottom.count()}")
 
     def _set_parameters(self):
         params_conn = get_conn_from_file()
@@ -64,7 +189,7 @@ class MainWindow(QMainWindow):
         self.ui.user_db_lineEdit.setText(params_conn["user"])
         self.ui.pass_db_lineEdit.setText(params_conn["password"])
         self.ui.name_db_lineEdit.setText(params_conn["name"])
-        self.ui.break_r_btn.click()
+        # self.ui.break_r_btn.click()
 
     def _get_params_conn(self):
         params_conn = dict()
@@ -170,19 +295,8 @@ class MainWindow(QMainWindow):
                         self.ui.port_and_net_dev_tableWidget.item(row, 1).text()))
         return dev
 
-    def _norma_btn(self):
-        sensor_params = self._get_current_params()
-        self._set_status_norma(sensor_params)
-
-    def _fire_btn(self):
-        sensor_params = self._get_current_params()
-        self._set_status_fire(sensor_params)
-
-    def _failure_btn(self):
-        sensor_params = self._get_current_params()
-        self._set_status_failure(sensor_params)
-
-    def _set_status_norma(self, params: dict):
+    def _norma_state(self):
+        params = self._get_current_params()
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
@@ -192,35 +306,88 @@ class MainWindow(QMainWindow):
         params["err"] = None
         self._send_in_thread(port, params)
 
-    def _set_status_fire(self, params: dict):
+    def _it_worked_state(self):
+        params = self._get_current_params()
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
-        if params["type"] != 65:
-            self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
-            self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
-            params["state"] = "F"
-            params["err"] = None
-            self._send_in_thread(port, params)
-        else:
-            err_set_fire(self)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
+        params["state"] = "F"
+        params["err"] = None
+        self._send_in_thread(port, params)
 
-    def _set_status_failure(self, params: dict):
+    def _kz_state(self):
+        params = self._get_current_params()
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
-        err = self.ui.kz_r_btn.clicked
         params["state"] = "E"
-        if self.ui.kz_r_btn.isChecked():
-            params["err"] = 1
-        elif self.ui.break_r_btn.isChecked():
-            params["err"] = 2
-        elif self.ui.option_r_btn.isChecked():
-            params["err"] = 3
+        params["err"] = 1
         self._send_in_thread(port, params)
-        logger.info(err)
+
+    def _break_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 2
+        self._send_in_thread(port, params)
+
+    def _non_calibration_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 3
+        self._send_in_thread(port, params)
+
+    def _dirt_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 4
+        self._send_in_thread(port, params)
+
+    def _sensitivity_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 5
+        self._send_in_thread(port, params)
+
+    # def _set_status_failure(self, params: dict):
+    #     row = params["row"]
+    #     column = params["column"]
+    #     port = self.ui.output_table.item(row, 0).text()
+    #     self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+    #     self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        # err = self.ui.kz_r_btn.clicked
+        # params["state"] = "E"
+        # if self.ui.kz_r_btn.isChecked():
+        #     params["err"] = 1
+        # elif self.ui.break_r_btn.isChecked():
+        #     params["err"] = 2
+        # elif self.ui.option_r_btn.isChecked():
+        #     params["err"] = 3
+        # self._send_in_thread(port, params)
+        # logger.info(err)
 
     def _get_current_params(self) -> dict:
         """Получить значение выделенной ячейки
