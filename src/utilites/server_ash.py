@@ -180,7 +180,7 @@ class ServerAH(QThread):
     def _indicate_send_b6_b9(self, array_bytes: bytearray):
         new_msg = bytearray(b"\xB6\x49")
         for i_byte in array_bytes[2:]:
-            if i_byte == 182 or i_byte == 185:
+            if i_byte == 182:
                 new_msg.append(i_byte)
                 new_msg.append(0)
             else:
@@ -262,6 +262,15 @@ class ServerAH(QThread):
                     case "E":
                         return b"\x00\x00\x00\x40"
             case b'\x0F':   #АМК
+                match state:
+                    case "N":
+                        return b"\x00\x00\x00\x00"
+                    case "F":
+                        return b"\x00\x00\x00\x80"
+                    case "E":
+                        return b"\x00\x00\x00\x40"
+
+            case b'\x10':   #АТИ
                 match state:
                     case "N":
                         return b"\x00\x00\x00\x00"

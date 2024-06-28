@@ -60,11 +60,11 @@ class MainWindow(QMainWindow):
         self.ui.port_db_lineEdit.setValidator(PortValidator())
         self.ui.output_table.clicked.connect(self.ch_state)
 
-        self.vbox = QVBoxLayout(self.ui.groupBox)
-        self.hbox_top = QHBoxLayout(self.ui.groupBox)
-        self.hbox_bottom = QHBoxLayout(self.ui.groupBox)
-        self.vbox.addLayout(self.hbox_top)
-        self.vbox.addLayout(self.hbox_bottom)
+        self.vlay = QVBoxLayout(self.ui.groupBox)
+        self.hlay_top = QHBoxLayout(self.ui.groupBox)
+        self.hlay_bottom = QHBoxLayout(self.ui.groupBox)
+        self.vlay.addLayout(self.hlay_top)
+        self.vlay.addLayout(self.hlay_bottom)
 
     def states_buttons(self):
         self.norma_btn = QPushButton()
@@ -81,6 +81,11 @@ class MainWindow(QMainWindow):
         self.alarm_btn.setObjectName(u"alarm_btn")
         self.alarm_btn.setGeometry(QRect(20, 30, 151, 23))
         self.alarm_btn.setText("Тревога")
+
+        self.diff_fire_btn = QPushButton()
+        self.diff_fire_btn.setObjectName(u"diff_fire_btn")
+        self.diff_fire_btn.setGeometry(QRect(20, 30, 151, 23))
+        self.diff_fire_btn.setText("Тревога")
 
         self.break_btn = QPushButton()
         self.break_btn.setObjectName(u"break_btn")
@@ -108,17 +113,19 @@ class MainWindow(QMainWindow):
         self.kz_btn.setGeometry(QRect(20, 30, 151, 23))
         self.kz_btn.setText("Сработал МКЗ")
 
-        self.hbox_top.addWidget(self.norma_btn)
-        self.hbox_top.addWidget(self.fire_btn)
-        self.hbox_top.addWidget(self.alarm_btn)
-        self.hbox_bottom.addWidget(self.kz_btn)
-        self.hbox_bottom.addWidget(self.break_btn)
-        self.hbox_bottom.addWidget(self.non_calibration_btn)
-        self.hbox_bottom.addWidget(self.dirt_btn)
-        self.hbox_bottom.addWidget(self.sensitivity_btn)
+        self.hlay_top.addWidget(self.norma_btn)
+        self.hlay_top.addWidget(self.fire_btn)
+        self.hlay_top.addWidget(self.alarm_btn)
+        self.hlay_bottom.addWidget(self.diff_fire_btn)
+        self.hlay_bottom.addWidget(self.kz_btn)
+        self.hlay_bottom.addWidget(self.break_btn)
+        self.hlay_bottom.addWidget(self.non_calibration_btn)
+        self.hlay_bottom.addWidget(self.dirt_btn)
+        self.hlay_bottom.addWidget(self.sensitivity_btn)
 
         self.norma_btn.clicked.connect(self._norma_state)
         self.fire_btn.clicked.connect(self._it_worked_state)
+        self.diff_fire_btn.clicked.connect(self._b_31_state)
         self.alarm_btn.clicked.connect(self._it_worked_state)
         self.break_btn.clicked.connect(self._break_state)
         self.non_calibration_btn.clicked.connect(self._non_calibration_state)
@@ -130,25 +137,28 @@ class MainWindow(QMainWindow):
         column = self.ui.output_table.currentColumn()
         type_sensor = self.ui.output_table.item(row, column).text().split()[0]
         self._clear_layouts()
+        logger.info(f"cler- {self.hlay_top.count()} {self.hlay_bottom.count()} {self.ui.groupBox.layout()}")
         self.states_buttons()
+
         match type_sensor:
             case '51': #A2ДПИ
-                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()} {self.ui.groupBox.layout()}")
+                logger.info(f"51- {self.hlay_top.count()} {self.hlay_bottom.count()} {self.ui.groupBox.layout()}")
                 self.alarm_btn.hide()
                 self.break_btn.hide()
                 self.alarm_btn.hide()
                 self.kz_btn.hide()
-                logger.info(f"51-2- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                self.diff_fire_btn.hide()
+                logger.info(f"51-2- {self.hlay_top.count()} {self.hlay_bottom.count()}")
 
             case "60": #ИР
-                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                logger.info(f"51- {self.hlay_top.count()} {self.hlay_bottom.count()}")
                 self.alarm_btn.hide()
                 self.break_btn.hide()
                 self.non_calibration_btn.hide()
                 self.dirt_btn.hide()
                 self.sensitivity_btn.hide()
             case "54": #АР1
-                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                logger.info(f"51- {self.hlay_top.count()} {self.hlay_bottom.count()}")
                 self.alarm_btn.hide()
                 self.break_btn.hide()
                 self.non_calibration_btn.hide()
@@ -156,31 +166,36 @@ class MainWindow(QMainWindow):
                 self.sensitivity_btn.hide()
                 self.alarm_btn.hide()
             case "65": #МКЗ
-                logger.info(f"51- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                logger.info(f"51- {self.hlay_top.count()} {self.hlay_bottom.count()}")
                 self.alarm_btn.hide()
                 self.break_btn.hide()
                 self.non_calibration_btn.hide()
                 self.dirt_btn.hide()
                 self.sensitivity_btn.hide()
             case "53": #АМК
-                logger.info(f"53- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                logger.info(f"53- {self.hlay_top.count()} {self.hlay_bottom.count()}")
                 self.fire_btn.hide()
                 self.break_btn.hide()
                 self.non_calibration_btn.hide()
                 self.dirt_btn.hide()
                 self.sensitivity_btn.hide()
-                logger.info(f"53-2- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+                logger.info(f"53-2- {self.hlay_top.count()} {self.hlay_bottom.count()}")
+
 
     def _clear_layouts(self):
-        logger.info(f"clear 1- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+        logger.info(f"clear 1- {self.hlay_top.count()} {self.hlay_bottom.count()}")
+        num_wigget_top = self.hlay_top.count()
+        num_wigget_bottom = self.hlay_bottom.count()
+        if num_wigget_top > 0:
+            for i in range(num_wigget_top):
+                ch = self.hlay_top.takeAt(i)
+                ch.widget().deleteLater()
+        if num_wigget_bottom > 0:
+            for i in range(num_wigget_bottom):
+                ch = self.hlay_bottom.takeAt(i)
+                ch.widget().deleteLater()
 
-        for i in reversed(range(self.hbox_bottom.count())):
-            ch = self.hbox_bottom.itemAt(i).widget()
-            ch.deleteLater()
-        for i in reversed(range(self.hbox_top.count())):
-            ch = self.hbox_top.itemAt(i).widget()
-            ch.deleteLater()
-        logger.info(f"clear 2- {self.hbox_top.count()} {self.hbox_bottom.count()}")
+        logger.info(f"clear 2- {self.hlay_top.count()} {self.hlay_bottom.count()}")
 
     def _set_parameters(self):
         params_conn = get_conn_from_file()
@@ -317,7 +332,7 @@ class MainWindow(QMainWindow):
         params["err"] = None
         self._send_in_thread(port, params)
 
-    def _kz_state(self):
+    def _b_31_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
