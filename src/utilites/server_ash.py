@@ -1,6 +1,6 @@
 import time
 
-from serial import Serial, rs485
+from serial import Serial
 from PySide6.QtCore import Signal, QThread
 from loguru import logger
 
@@ -38,7 +38,6 @@ class ServerAH(QThread):
             port=self.port,
             baudrate=19200,
             timeout=0.3,
-            # rs485_mode=rs485.RS485Settings()
         )
 
         self._delete_config(self.sn_emul)
@@ -50,21 +49,13 @@ class ServerAH(QThread):
         while self.f_run:
             self._set_state(self.sn_emul)
 
-            # if self.f_change_state:
-            #     logger.info("Изменить состояние")
-            #     # self.chang_state()
-            #     self.changing_state()
-            # else:
-            #     # self._status_request(self.sn_emul)
-            #     self._set_state(self.sn_emul)
-
 
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
         msg.extend(sn.to_bytes((sn.bit_length() + 7) // 8, byteorder='little')) #add sn
         msg.extend(b"\x01\xA0")
         msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-        msg = self._indicate_send_b6_b9(msg)
+        msg = self._indicate_send_b6(msg)
         self.conn.reset_input_buffer()
         self.conn.write(msg)
         self.conn.flush()
@@ -106,19 +97,17 @@ class ServerAH(QThread):
                     f_ans = False
                     self.f_response = False
 
-    def _clear_response(self, b_arr):
-        # ans = bytearray(b"\xB9\x46")
-        ld = []
-        for i in range(len(b_arr)):
-            p = b_arr[i]
-            if b_arr[i] == 182 or b_arr[i] == 185:
-                ld.append(i)
-        if ld:
-            for i in ld:
-                b_arr.pop(i + 1)
-        logger.info(f"cl d  {b_arr.hex()}")
-
-        return True
+    # def _clear_response(self, b_arr):
+    #     # ans = bytearray(b"\xB9\x46")
+    #     ld = []
+    #     for i in range(len(b_arr)):
+    #         p = b_arr[i]
+    #         if b_arr[i] == 182 or b_arr[i] == 185:
+    #             ld.append(i)
+    #     if ld:
+    #         for i in ld:
+    #             b_arr.pop(i + 1)
+    #     return True
 
     def _create_sensors(self, sn):
         for sensor in self.sensors:
@@ -127,11 +116,11 @@ class ServerAH(QThread):
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn.to_bytes(2, byteorder='little', signed=True))
             msg.extend(b"\x06\xC3")
-            msg.extend(serialnumber.to_bytes(3, byteorder='little', signed=True))
+            msg.extend(serialnumber.to_bytes(3, byteorder='little'))
             msg.extend(self._compare_type(sensor["type"]))
             msg.append(int(sensor["slave"]))
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-            msg = self._indicate_send_b6_b9(msg)
+            msg = self._indicate_send_b6(msg)
             logger.info(f"{sensor}")
             while self.f_response:
                 self._send_msg(msg, 11)
@@ -148,7 +137,7 @@ class ServerAH(QThread):
             msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"], sensor["err"]))
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-            msg = self._indicate_send_b6_b9(msg)
+            msg = self._indicate_send_b6(msg)
             while self.f_response:
                 self._send_msg(msg, 11)
 
@@ -164,7 +153,7 @@ class ServerAH(QThread):
         msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
         msg.extend(b"\x01\xC1")
         msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-        msg = self._indicate_send_b6_b9(msg)
+        msg = self._indicate_send_b6(msg)
         logger.info(f"send {msg.hex()}")
         self.conn.write(msg)
         if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
@@ -177,7 +166,7 @@ class ServerAH(QThread):
             logger.info(f"read [{ans}] [{type_s} {sn_l} {sn_h}] [{l}] [{cmd}]")
             self.conn.read_all()
 
-    def _indicate_send_b6_b9(self, array_bytes: bytearray):
+    def _indicate_send_b6(self, array_bytes: bytearray):
         new_msg = bytearray(b"\xB6\x49")
         for i_byte in array_bytes[2:]:
             if i_byte == 182:
@@ -211,8 +200,6 @@ class ServerAH(QThread):
                 return b"\x16"
             case 67:            # ОСЗ9
                 return b"\x09"
-            # case _:
-            #     return b"\x19"
 
     def _compare_state(self, type_sens, state, err=None):
         match type_sens:
@@ -224,12 +211,10 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x80"
                     case "E":
                         match err:
-                            case 1:
-                                return b"\x04\x00\x00\x00"
-                            case 2:
-                                return b"\x03\x00\x00\x00"
                             case 3:
-                                return b"\x02\x00\x00\x00"
+                                return b"\x08\x00\x00\x00"
+                            case 2:
+                                return b"\x04\x00\x00\x00"
             case b'\x18':   #ИР
                 match state:
                     case "N":
@@ -247,12 +232,12 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x80"
                     case "E":
                         match err:
-                            case 1:
-                                return b"\x00\x80\x00\x40"
-                            case 2:
+                            case 13:
+                                return b"\x00\x20\x00\x40"
+                            case 14:
                                 return b"\x00\x40\x00\x00"
-                            case 3:
-                                return b"\x00\x20\x00\x00"
+                            case 15:
+                                return b"\x00\x80\x00\x00"
             case b'\x01':   #МКЗ
                 match state:
                     case "N":
@@ -267,8 +252,8 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x00"
                     case "F":
                         return b"\x00\x00\x00\x80"
-                    case "E":
-                        return b"\x00\x00\x00\x40"
+                    # case "E":
+                    #     return b"\x00\x00\x00\x40"
 
             case b'\x10':   #АТИ
                 match state:

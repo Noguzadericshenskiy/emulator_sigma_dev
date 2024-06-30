@@ -145,15 +145,14 @@ QPushButton#norma_btn:pressed {
  	border-bottom: 2px solid rgb(0, 130, 0);
 }
 
-
-QPushButton#fire_btn, #alarm_btn {
+QPushButton#fire_btn {
 	background-color: rgb(173, 0, 0);
 	font: 75 10pt "Georgia";
 	color: rgb(0, 0, 0);
 	border-radius: 6px;
 }
 
-QPushButton#fire_btn:hover, #alarm_btn:hover {
+QPushButton#fire_btn:hover {
 	background-color: rgb(173, 0, 0);;
 	border-left: 2px solid rgb(0, 160, 0);
 	border-top: 2px solid rgb(0, 160, 0);
@@ -161,7 +160,7 @@ QPushButton#fire_btn:hover, #alarm_btn:hover {
 	border-bottom: 2px solid rgb(0, 160, 0);
 }
 
-QPushButton#fire_btn:pressed, #alarm_btn:hover {
+QPushButton#fire_btn:pressed {
 	background-color: rgb(173, 0, 0);
 	border-left: 2px solid rgb(0, 130, 0);
 	border-top: 2px solid rgb(0, 130, 0);
@@ -169,16 +168,18 @@ QPushButton#fire_btn:pressed, #alarm_btn:hover {
 	border-bottom: 2px solid rgb(0, 130, 0);
 }
 
-QPushButton#kz_btn, #break_btn, #non_calibration_btn,
-#dirt_btn, #sensitivity_btn, #diff_fire_btn {
+QPushButton#kz_btn, #break_btn, #noise_btn,
+ #dirt_btn, #sensitivity_btn, #diff_fire_btn, #switch_btn,
+ #alarm_btn {
 	background-color: rgb(255, 140, 0);
 	font: 75 10pt "Georgia";
 	color: rgb(0, 0, 0);
 	border-radius: 6px;
 }
 
-QPushButton#kz_btn:hover, #break_btn:hover, #non_calibration_btn:hover,
-#dirt_btn:hover, #sensitivity_btn:hover, #diff_fire_btn:hover {
+QPushButton#kz_btn:hover, #break_btn:hover, #noise_btn:hover,
+ #dirt_btn:hover, #sensitivity_btn:hover, #diff_fire_btn:hover, #switch_btn:hover,
+ #alarm_btn:hover {
 	background-color: rgb(255, 140, 0);
 	border-left: 2px solid rgb(0, 160, 0);
 	border-top: 2px solid rgb(0, 160, 0);
@@ -186,8 +187,9 @@ QPushButton#kz_btn:hover, #break_btn:hover, #non_calibration_btn:hover,
 	border-bottom: 2px solid rgb(0, 160, 0);
 }
 
-QPushButton#kz_btn:pressed, #break_btn:pressed, #non_calibration_btn:pressed,
-#dirt_btn:pressed, #sensitivity_btn:pressed, #diff_fire_btn:pressed {
+QPushButton#kz_btn:pressed, #break_btn:pressed, #noise_btn:pressed,
+ #dirt_btn:pressed, #sensitivity_btn:pressed, #diff_fire_btn:pressed, #switch_btn:pressed,
+ #alarm_btn:pressed {
 	background-color: rgb(255, 140, 0);
 	border-left: 2px solid rgb(0, 130, 0);
 	border-top: 2px solid rgb(0, 130, 0);
