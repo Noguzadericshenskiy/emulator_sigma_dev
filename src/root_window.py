@@ -1,9 +1,14 @@
 from PySide6.QtGui import QColor, Qt
+from PySide6.QtCore import QRect
 from PySide6.QtWidgets import (
     QMainWindow,
     QListWidgetItem,
     QTableWidgetItem,
-    QAbstractItemView)
+    QAbstractItemView,
+    QPushButton,
+    QVBoxLayout,
+    QHBoxLayout
+)
 from loguru import logger
 
 from src.ui.main_win import Ui_MainWindow
@@ -30,6 +35,8 @@ from src.utilites.dialogues import (
     err_selection_port_net_dev,
 )
 
+from src.ui.button_states import StatesBtn
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -40,6 +47,7 @@ class MainWindow(QMainWindow):
         self.net_devices = []
         self.ports_net_devs = []
         self.ui = Ui_MainWindow()
+        self.btns = StatesBtn()
         self.ui.setupUi(self)
         check_file()
         self._set_parameters()
@@ -49,12 +57,118 @@ class MainWindow(QMainWindow):
         self.ui.get_net_dev_btn.clicked.connect(self._output_net_devices)
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
         self.ui.save_db_btn.clicked.connect(self._save_params_conn)
-        self.ui.delete_line_btn.clicked.connect(self._delet_line)
-        self.ui.normal_btn.clicked.connect(self._norma_btn)
-        self.ui.fire_btn.clicked.connect(self._fire_btn)
-        self.ui.failure_btn.clicked.connect(self._failure_btn)
+        self.ui.delete_line_btn.clicked.connect(self._delete_line)
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
+        self.ui.output_table.clicked.connect(self.change_state)
+        self.vlay = QVBoxLayout(self.ui.groupBox)
+        self.hlay_top = QHBoxLayout(self.ui.groupBox)
+        self.hlay_bottom = QHBoxLayout(self.ui.groupBox)
+        self.vlay.addLayout(self.hlay_top)
+        self.vlay.addLayout(self.hlay_bottom)
+
+    def set_btn_ir(self):
+        norma_btn = self.btns.btn_norma(self)
+        kz_btn = self.btns.btn_kz(self)
+        fire_btn = self.btns.btn_fire(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_bottom.addWidget(kz_btn)
+        self.hlay_top.addWidget(fire_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        kz_btn.clicked.connect(self._b_30_state)
+        fire_btn.clicked.connect(self._b_31_state)
+
+    def set_btn_a2dpi(self):
+        norma_btn = self.btns.btn_norma(self)
+        fire_btn = self.btns.btn_fire(self)
+        sensitivity_btn = self.btns.btn_sensitivity(self)
+        dirt_btn = self.btns.btn_dirt(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_top.addWidget(fire_btn)
+        self.hlay_bottom.addWidget(sensitivity_btn)
+        self.hlay_bottom.addWidget(dirt_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        fire_btn.clicked.connect(self._b_31_state)
+        sensitivity_btn.clicked.connect(self._b_3_state)
+        dirt_btn.clicked.connect(self._b_2_state)
+
+    def set_btn_ar1(self):
+        norma_btn = self.btns.btn_norma(self)
+        fire_btn = self.btns.btn_fire(self)
+        noise_btn = self.btns.btn_noise(self)
+        break_btn = self.btns.btn_break(self)
+        kz_btn = self.btns.btn_kz(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_top.addWidget(fire_btn)
+        self.hlay_bottom.addWidget(noise_btn)
+        self.hlay_bottom.addWidget(break_btn)
+        self.hlay_bottom.addWidget(kz_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        fire_btn.clicked.connect(self._b_31_state)
+        noise_btn.clicked.connect(self._b_13_state)
+        break_btn.clicked.connect(self._b_14_state)
+        kz_btn.clicked.connect(self._b_15_state)
+
+    def set_btn_mkz(self):
+        norma_btn = self.btns.btn_norma(self)
+        kz_btn = self.btns.btn_kz(self)
+        switch_btn = self.btns.btn_swich(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_bottom.addWidget(kz_btn)
+        self.hlay_bottom.addWidget(switch_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        kz_btn.clicked.connect(self._b_30_state)
+        switch_btn.clicked.connect(self._b_31_state)
+
+    def set_btn_amk(self):
+        norma_btn = self.btns.btn_norma(self)
+        alarm_btn = self.btns.btn_alarm(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_bottom.addWidget(alarm_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        alarm_btn.clicked.connect(self._b_31_state)
+
+    def set_btn_ati(self):
+        norma_btn = self.btns.btn_norma(self)
+        fire_btn = self.btns.btn_fire(self)
+        diff_fire_btn = self.btns.btn_diff_fire(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_top.addWidget(fire_btn)
+        self.hlay_bottom.addWidget(diff_fire_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        fire_btn.clicked.connect(self._b_31_state)
+        diff_fire_btn.clicked.connect(self._b_30_state)
+
+    def change_state(self):
+        row = self.ui.output_table.currentRow()
+        column = self.ui.output_table.currentColumn()
+        type_sensor = self.ui.output_table.item(row, column).text().split()[0]
+        self._clear_layouts()
+        match type_sensor:
+            case "65":  # МКЗ
+                self.set_btn_mkz()
+            case "60":  # ИР
+                self.set_btn_ir()
+            case '51': #A2ДПИ
+                self.set_btn_a2dpi()
+            case "54": #АР1
+                self.set_btn_ar1()
+            case "53": #АМК
+                self.set_btn_amk()
+            case "57": #АТИ
+                self.set_btn_ati()
+
+    def _clear_layouts(self):
+        num_widget_top = self.hlay_top.count()
+        num_widget_bottom = self.hlay_bottom.count()
+        if num_widget_top > 0:
+            for i in reversed(range(num_widget_top)):
+                ch = self.hlay_top.takeAt(i)
+                ch.widget().deleteLater()
+        if num_widget_bottom > 0:
+            for i in reversed(range(num_widget_bottom)):
+                ch = self.hlay_bottom.takeAt(i)
+                ch.widget().deleteLater()
 
     def _set_parameters(self):
         params_conn = get_conn_from_file()
@@ -63,7 +177,6 @@ class MainWindow(QMainWindow):
         self.ui.user_db_lineEdit.setText(params_conn["user"])
         self.ui.pass_db_lineEdit.setText(params_conn["password"])
         self.ui.name_db_lineEdit.setText(params_conn["name"])
-        self.ui.break_r_btn.click()
 
     def _get_params_conn(self):
         params_conn = dict()
@@ -81,7 +194,6 @@ class MainWindow(QMainWindow):
             err_connect(self)
 
     def _fill_table(self):
-        """"""
         output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
         num_rows = len(output_data_sensors)
         self.ui.output_table.setRowCount(num_rows)
@@ -169,19 +281,8 @@ class MainWindow(QMainWindow):
                         self.ui.port_and_net_dev_tableWidget.item(row, 1).text()))
         return dev
 
-    def _norma_btn(self):
-        sensor_params = self._get_current_params()
-        self._set_status_norma(sensor_params)
-
-    def _fire_btn(self):
-        sensor_params = self._get_current_params()
-        self._set_status_fire(sensor_params)
-
-    def _failure_btn(self):
-        sensor_params = self._get_current_params()
-        self._set_status_failure(sensor_params)
-
-    def _set_status_norma(self, params: dict):
+    def _norma_state(self):
+        params = self._get_current_params()
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
@@ -191,32 +292,93 @@ class MainWindow(QMainWindow):
         params["err"] = None
         self._send_in_thread(port, params)
 
-    def _set_status_fire(self, params: dict):
+    def _b_31_state(self):
+        params = self._get_current_params()
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 0, 0))
+        self.ui.output_table.item(row, column).setBackground(QColor(173, 0, 0))
         params["state"] = "F"
         params["err"] = None
         self._send_in_thread(port, params)
 
-    def _set_status_failure(self, params: dict):
+    def _b_30_state(self):
+        params = self._get_current_params()
         row = params["row"]
         column = params["column"]
         port = self.ui.output_table.item(row, 0).text()
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
-        err = self.ui.kz_r_btn.clicked
         params["state"] = "E"
-        if self.ui.kz_r_btn.isChecked():
-            params["err"] = 1
-        elif self.ui.break_r_btn.isChecked():
-            params["err"] = 2
-        elif self.ui.option_r_btn.isChecked():
-            params["err"] = 3
+        params["err"] = 30
         self._send_in_thread(port, params)
-        logger.info(err)
+
+    def _b_13_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 13
+        self._send_in_thread(port, params)
+
+    def _b_14_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 14
+        self._send_in_thread(port, params)
+
+    def _b_15_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 15
+        self._send_in_thread(port, params)
+
+    def _b_4_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 4
+        self._send_in_thread(port, params)
+
+    def _b_3_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 3
+        self._send_in_thread(port, params)
+
+    def _b_2_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 2
+        self._send_in_thread(port, params)
 
     def _get_current_params(self) -> dict:
         """Получить значение выделенной ячейки
@@ -238,7 +400,7 @@ class MainWindow(QMainWindow):
             if thread.name == name:
                 thread.changing_state(params)
 
-    def _delet_line(self):
+    def _delete_line(self):
         row_num = self.ui.port_and_net_dev_tableWidget.currentRow()
         if row_num == -1:
             err_selection_port_net_dev(self)

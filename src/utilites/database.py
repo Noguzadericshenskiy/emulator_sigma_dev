@@ -139,6 +139,19 @@ class Ka2AddressTraintableAOPI(Base):
     __table_args__ = {'schema': 'configurator'}
 
 
+class Ka2AddressTraintableATI(Base):
+    __tablename__ = "ka2addresstraintableattype_ati"
+
+    id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
+    bcpid: Mapped[int] = mapped_column(BIGINT)
+    deleted: Mapped[int] = mapped_column(BIGINT, default=0)
+    address: Mapped[str] = mapped_column(VARCHAR, primary_key=True)
+    firedetectmode: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
+    difffiredetectmodeon: Mapped[bool] = mapped_column(Boolean, nullable=True)
+
+    __table_args__ = {'schema': 'configurator'}
+
+
 def url_db(params: dict) -> str:
     """ Получаем url для подключения к БД"""
     user = params["user"]
@@ -228,6 +241,7 @@ def handler_devices(params_conn: dict, in_list):
                                  Ka2AddressTraintableAR1,
                                  Ka2AddressTraintableMKZ,
                                  Ka2AddressTraintableAMK,
+                                 Ka2AddressTraintableATI,
 
                                  Ka2AddressTraintableAOPI,
                                  )
@@ -247,13 +261,16 @@ def handler_devices(params_conn: dict, in_list):
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableAMK,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintableAMK.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintableAMK.id))
+                stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableATI,
+                                            (Ka2AddressTraintable.address == Ka2AddressTraintableATI.address and
+                                             Ka2AddressTraintable.id == Ka2AddressTraintableATI.id))
 
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableAOPI,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintableAOPI.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintableAOPI.id))
 
                 stmt_ad = stmt_ad.distinct(Ka2AddressTraintable.address)
-                stmt_ad = stmt_ad.order_by(Ka2AddressTraintable.address)
+                # stmt_ad = stmt_ad.order_by(Ka2AddressTraintable.address)
 
                 devs = conn.execute(stmt_ad).all()
 
@@ -292,7 +309,15 @@ def handler_devices(params_conn: dict, in_list):
                         case "ATTYPE_ARMINI":
                             sensors_row.append({"type": 56, "state": "N", "slave": int(dev_i[1])})
                         case "ATTYPE_ATI":
-                            sensors_row.append({"type": 57, "state": "N", "slave": int(dev_i[1])})
+                            sensors_row.append({
+                                "type": 57,
+                                "state": "N",
+                                "slave": int(dev_i[1]),
+                                "serialnumber": dev_i.serialnumber,
+                                "firedetectmode": dev_i.firedetectmode,
+                                "difffiredetectmodeon": dev_i.difffiredetectmodeon,
+                                "err": None,
+                            })
                         case "ATTYPE_AOPI":
                             sensors_row.append({
                                 "type": 58,
