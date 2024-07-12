@@ -192,7 +192,7 @@ class ServerAH(QThread):
                 return b"\x10"
             case 60:            # ИР-П
                 return b"\x18"
-            case 61:            # ИСМ-5
+            case 61:            # ИСМ5
                 return b"\x04"
             case 65:            # МКЗ
                 return b"\x01"
@@ -263,3 +263,31 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x80"
                     case "E":
                         return b"\x00\x00\x00\x40"
+            case b"\x0D": #ИСМ5
+                match state:
+                    case "N":
+                        return b"\x00\x03\x00\x00"
+                    case "F":
+                        return b"\x00\x03\x00\x80"
+                    case "E":
+                        match err:
+                            case 5:
+                                return b"\x20\x03\x00\x00"
+                            case 4:
+                                return b"\x10\x03\x00\x00"
+                            case 7:
+                                return b"\x80\x03\x00\x00"
+                            case 6:
+                                return b"\x40\x03\x00\x00"
+                            case 15:
+                                return b"\x00\x83\x00\x00"
+                            case 14:
+                                return b"\x00\x43\x00\x00"
+                            case 29:
+                                return b"\x00\x03\x00\x20"
+                            case 12:
+                                return b"\x00\x13\x00\x00"
+                            case 11:
+                                return b"\x00\x0b\x00\x00"
+                            case 27:
+                                return b"\x00\x03\x00\x08"

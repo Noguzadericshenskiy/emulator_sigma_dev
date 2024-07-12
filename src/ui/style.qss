@@ -196,3 +196,7 @@ QPushButton#kz_btn:pressed, #break_btn:pressed, #noise_btn:pressed,
 	border-right: 2px solid rgb(0, 130, 0);
 	border-bottom: 2px solid rgb(0, 130, 0);
 }
+
+QLabel#sensor51_lbl, #sensor60_lbl, #sensor54_lbl, #sensor65_lbl, #sensor53_lbl, #sensor57_lbl{
+	background-color: rgb(0, 170, 0);
+}
