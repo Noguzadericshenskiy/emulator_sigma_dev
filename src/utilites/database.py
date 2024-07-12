@@ -387,8 +387,13 @@ def handler_devices(params_conn: dict, in_list):
                         case "ATTYPE_OSZ9":
                             sensors_row.append({"type": 67, "state": "N", "slave": int(dev_i[1])})
 
-                out_list.append({"port": row_i[0], "net_device": row_i[1],
-                                 "net_dev": "KAU03DConfig", "sensors": sensors_row})
+                # out_list.append({"port": row_i[0], "net_device": row_i[1],
+                #                  "net_dev": "KAU03DConfig", "sensors": sensors_row})
+                # sensors_sort = sorted(sensors_row, key=lambda s: s["slave"])
+                out_list.append({"port": row_i[0],
+                                 "net_device": row_i[1],
+                                 "net_dev": "KAU03DConfig",
+                                 "sensors": sorted(sensors_row, key=lambda s: s["slave"])})
 
             elif "SKAU03Config" == row_i[2][1]:
                 stmt_ad = select(SKAU03Config).where(
@@ -429,6 +434,9 @@ def handler_devices(params_conn: dict, in_list):
                         case  _:
                             logger.info(description_dev[0])
 
-                out_list.append({"port": row_i[0], "net_device": row_i[1],
-                                 "net_dev": "SKAU03Config", "sensors": sensors_row})
+                out_list.append({"port": row_i[0],
+                                 "net_device": row_i[1],
+                                 "net_dev": "SKAU03Config",
+                                 "sensors": sorted(sensors_row, key=lambda s: s["slave"])})
+
     return out_list

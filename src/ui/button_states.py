@@ -24,6 +24,21 @@ class StatesBtn:
         alarm.setText("Тревога")
         return alarm
 
+    def btn_alarm_in1(self, parent):
+        alarm = QPushButton(parent)
+        alarm.setObjectName(u"alarm_in1_btn")
+        alarm.setGeometry(QRect(20, 30, 151, 23))
+        alarm.setText("Сработал in1")
+        return alarm
+
+    def btn_alarm_in2(self, parent):
+        alarm = QPushButton(parent)
+        alarm.setObjectName(u"alarm_in2btn")
+        alarm.setGeometry(QRect(20, 30, 151, 23))
+        alarm.setText("Сработал in2")
+        return alarm
+
+
     def btn_diff_fire(self, parent):
         diff_fire = QPushButton(parent)
         diff_fire.setObjectName(u"diff_fire_btn")
@@ -52,6 +67,34 @@ class StatesBtn:
         break_btn.setText("Обрыв")
         return break_btn
 
+    def btn_break_in1(self, parent):
+        break_btn = QPushButton(parent)
+        break_btn.setObjectName(u"break_in1_btn")
+        break_btn.setGeometry(QRect(20, 30, 151, 23))
+        break_btn.setText("Обрыв in1")
+        return break_btn
+
+    def btn_break_in2(self, parent):
+        break_btn = QPushButton(parent)
+        break_btn.setObjectName(u"break_in2_btn")
+        break_btn.setGeometry(QRect(20, 30, 151, 23))
+        break_btn.setText("Обрыв in2")
+        return break_btn
+
+    def btn_break_out1(self, parent):
+        break_btn = QPushButton(parent)
+        break_btn.setObjectName(u"break_out1_btn")
+        break_btn.setGeometry(QRect(20, 30, 151, 23))
+        break_btn.setText("Обрыв out1")
+        return break_btn
+
+    def btn_break_out2(self, parent):
+        break_btn = QPushButton(parent)
+        break_btn.setObjectName(u"break_out2_btn")
+        break_btn.setGeometry(QRect(20, 30, 151, 23))
+        break_btn.setText("Обрыв out2")
+        return break_btn
+
     def btn_swich(self, parent):
         switch = QPushButton(parent)
         switch.setObjectName(u"switch_btn")
@@ -73,4 +116,32 @@ class StatesBtn:
         kz.setObjectName(u"kz_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
         kz.setText("Сработал МКЗ")
+        return kz
+
+    def btn_kz_in1(self, parent):
+        kz = QPushButton(parent)
+        kz.setObjectName(u"kz_in1_btn")
+        kz.setGeometry(QRect(20, 30, 151, 23))
+        kz.setText("КЗ in1")
+        return kz
+
+    def btn_kz_in2(self, parent):
+        kz = QPushButton(parent)
+        kz.setObjectName(u"kz_in2_btn")
+        kz.setGeometry(QRect(20, 30, 151, 23))
+        kz.setText("КЗ in2")
+        return kz
+
+    def btn_kz_out1(self, parent):
+        kz = QPushButton(parent)
+        kz.setObjectName(u"kz_out1_btn")
+        kz.setGeometry(QRect(20, 30, 151, 23))
+        kz.setText("КЗ out1")
+        return kz
+
+    def btn_kz_out2(self, parent):
+        kz = QPushButton(parent)
+        kz.setObjectName(u"kz_out2_btn")
+        kz.setGeometry(QRect(20, 30, 151, 23))
+        kz.setText("КЗ out2")
         return kz

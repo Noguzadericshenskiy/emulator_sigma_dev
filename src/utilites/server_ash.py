@@ -125,6 +125,7 @@ class ServerAH(QThread):
             while self.f_response:
                 self._send_msg(msg, 11)
 
+    @logger.catch()
     def _set_state(self, sn_emul):
         for sensor in self.sensors:
             self.f_response = True
@@ -140,6 +141,7 @@ class ServerAH(QThread):
             msg = self._indicate_send_b6(msg)
             while self.f_response:
                 self._send_msg(msg, 11)
+
 
     def changing_state(self, params):
         for sensor in self.sensors:

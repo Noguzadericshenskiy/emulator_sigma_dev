@@ -139,6 +139,45 @@ class MainWindow(QMainWindow):
         fire_btn.clicked.connect(self._b_31_state)
         diff_fire_btn.clicked.connect(self._b_30_state)
 
+    def _set_btn_ism5(self):
+        norma = self.btns.btn_norma(self)
+        switch = self.btns.btn_swich(self)
+        kz_in1 = self.btns.btn_kz_in1(self)
+        kz_in2 = self.btns.btn_kz_in2(self)
+        kz_out1 = self.btns.btn_kz_out1(self)
+        kz_out2 = self.btns.btn_kz_out2(self)
+        break_in1 = self.btns.btn_break_in1(self)
+        break_in2 = self.btns.btn_break_in2(self)
+        break_out1 = self.btns.btn_break_out1(self)
+        break_out2 = self.btns.btn_break_out2(self)
+        alarm_in1 = self.btns.btn_alarm_in1(self)
+        alarm_in2 = self.btns.btn_alarm_in2(self)
+        self.hlay_top.addWidget(norma)
+        self.hlay_top.addWidget(alarm_in1)
+        self.hlay_top.addWidget(alarm_in2)
+        self.hlay_bottom.addWidget(kz_in1)
+        self.hlay_bottom.addWidget(kz_in2)
+        self.hlay_bottom.addWidget(break_in1)
+        self.hlay_bottom.addWidget(break_in2)
+        self.hlay_bottom.addWidget(kz_out1)
+        self.hlay_bottom.addWidget(kz_out2)
+        self.hlay_bottom.addWidget(break_out1)
+        self.hlay_bottom.addWidget(break_out2)
+        self.hlay_bottom.addWidget(switch)
+        norma.clicked.connect(self._norma_state)
+        switch.clicked.connect(self._b_31_state)
+        kz_in1.clicked.connect(self._b_15_state)
+        kz_in2.clicked.connect(self._b_12_state)
+        kz_out1.clicked.connect(self._b_5_state)
+        kz_out2.clicked.connect(self._b_7_state)
+        break_in1.clicked.connect(self._b_14_state)
+        break_in2.clicked.connect(self._b_11_state)
+        break_out1.clicked.connect(self._b_4_state)
+        break_out2.clicked.connect(self._b_6_state)
+        alarm_in1.clicked.connect(self._b_29_state)
+        alarm_in2.clicked.connect(self._b_27_state)
+
+
     def change_state(self):
         row = self.ui.output_table.currentRow()
         column = self.ui.output_table.currentColumn()
@@ -157,6 +196,8 @@ class MainWindow(QMainWindow):
                 self.set_btn_amk()
             case "57": #АТИ
                 self.set_btn_ati()
+            case "61": #ИСМ5
+                self._set_btn_ism5()
 
     def _clear_layouts(self):
         num_widget_top = self.hlay_top.count()
@@ -314,7 +355,7 @@ class MainWindow(QMainWindow):
         params["err"] = 30
         self._send_in_thread(port, params)
 
-    def _b_13_state(self):
+    def _b_29_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
@@ -322,7 +363,29 @@ class MainWindow(QMainWindow):
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
-        params["err"] = 13
+        params["err"] = 29
+        self._send_in_thread(port, params)
+
+    def _b_27_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 27
+        self._send_in_thread(port, params)
+
+    def _b_15_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 15
         self._send_in_thread(port, params)
 
     def _b_14_state(self):
@@ -336,7 +399,7 @@ class MainWindow(QMainWindow):
         params["err"] = 14
         self._send_in_thread(port, params)
 
-    def _b_15_state(self):
+    def _b_13_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
@@ -344,7 +407,62 @@ class MainWindow(QMainWindow):
         self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
         self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
-        params["err"] = 15
+        params["err"] = 13
+        self._send_in_thread(port, params)
+
+    def _b_12_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 12
+        self._send_in_thread(port, params)
+
+    def _b_11_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 11
+        self._send_in_thread(port, params)
+
+    def _b_7_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 7
+        self._send_in_thread(port, params)
+
+    def _b_6_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 6
+        self._send_in_thread(port, params)
+
+    def _b_5_state(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        port = self.ui.output_table.item(row, 0).text()
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        params["state"] = "E"
+        params["err"] = 5
         self._send_in_thread(port, params)
 
     def _b_4_state(self):
