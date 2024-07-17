@@ -7,30 +7,38 @@ from loguru import logger
 from src.utilites.crc import crc_ccitt_16_kermit_b, add_crc
 
 
-state_trainr_aopi = ["TRAIN1Type_NZwithoutControl", "TRAIN1Type_NRwithoutControl",
-                     "TRAIN1Type_1izvNRwithControl", "TRAIN1Type_1izvNZwithControl"]
-
-
 class ServerAH(QThread):
     """Эмулятор адресных устройств АШ Сигма
         передается конфигурация 1 ряда согласно порта из списка.
         Эмулятор: код устройство 67 серийник 641
-    :param port: название сетевого контроллера
-    :param sensors: адресные устройства
+    :param port: название потока и порта
+    :param array_controllers: информация о параметрах сетевых устройств с извещателями
+
+    array_controllers= [
+        {
+            'net_device': 'КАУ03Д->5843',
+            'net_dev': 'KAU03DConfig',
+            'sn_net_dev': "5843",
+            'sn_emul': "641",
+            'sensors': [
+                {'type': 51, 'state': 'N', 'state_cod': 0, 'slave': 1, 'serialnumber': '10'},
+                {...},
+            ],
+        },
+        {...}
+    ]
     """
 
-    sig_1 = Signal(tuple)
-    sig_2 = Signal(tuple)
+    # sig_1 = Signal(tuple)
+    # sig_2 = Signal(tuple)
 
-    def __init__(self, sensors, name,):
+    def __init__(self, array_controllers, name):
         super().__init__()
-        self.name = name
-        self.port = name
+        self.name = self.port = name
         self.daemon = True
         self.conn = None
-        self.sensors = sensors
+        self.controllers = array_controllers
         self.f_run = True
-        self.sn_emul = 641
         self.f_response = False
 
     def run(self) -> None:
@@ -39,16 +47,18 @@ class ServerAH(QThread):
             baudrate=19200,
             timeout=0.3,
         )
-
-        self._delete_config(self.sn_emul)
-        logger.info("end del")
-        self._create_sensors(self.sn_emul)
-        logger.info("end create")
-        self._set_state(self.sn_emul)
-        logger.info("run ")
+        for controller in self.controllers:
+            sn_emul = int(controller["sn_emul"])
+            self._delete_config(sn_emul)
+            logger.info("end del")
+            self._create_sensors(sn_emul, controller["sensors"])
+            logger.info("end create")
+            # self._set_state(sn_emul) ????
+        logger.info("run")
         while self.f_run:
-            self._set_state(self.sn_emul)
-
+            for controller in self.controllers:
+                sn_emul = int(controller["sn_emul"])
+                self._set_state(sn_emul, controller["sensors"])
 
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
@@ -109,8 +119,8 @@ class ServerAH(QThread):
     #             b_arr.pop(i + 1)
     #     return True
 
-    def _create_sensors(self, sn):
-        for sensor in self.sensors:
+    def _create_sensors(self, sn, sensors):
+        for sensor in sensors:
             self.f_response = True
             serialnumber = int(sensor["serialnumber"])
             msg = bytearray(b"\xB6\x49\x43")
@@ -126,16 +136,16 @@ class ServerAH(QThread):
                 self._send_msg(msg, 11)
 
     # @logger.catch()
-    def _set_state(self, sn_emul):
-        for sensor in self.sensors:
+    def _set_state(self, sn, sensors):
+        for sensor in sensors:
             self.f_response = True
             msg = bytearray(b"\xB6\x49\x43")
-            msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
+            msg.extend(sn.to_bytes(2, byteorder='little', signed=True))
             msg.extend(b"\x0A")
             msg.extend(b"\xC2")
             msg.extend(int(sensor["serialnumber"]).to_bytes(3, byteorder='little', signed=True))
             msg.extend(self._compare_type(sensor["type"]))
-            msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"], sensor["err"]))
+            msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"], sensor["state_cod"]))
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
@@ -143,11 +153,13 @@ class ServerAH(QThread):
                 self._send_msg(msg, 11)
 
     def changing_state(self, params):
-        for sensor in self.sensors:
-            if sensor["slave"] == params["slave"]:
-                sensor["state"] = params["state"]
-                sensor["err"] = params["err"]
-                break
+        for controllers in self.controllers:
+            if controllers["sn_emul"] == params["sn_emul"]:
+                for sensor in controllers["sensors"]:
+                    if sensor["slave"] == params["slave"]:
+                        sensor["state"] = params["state"]
+                        sensor["state_cod"] = params["state_cod"]
+                        break
 
     def _status_request(self, sn_emul):
         msg = (bytearray(b"\xB6\x49\x43"))
@@ -185,28 +197,22 @@ class ServerAH(QThread):
                 return b"\x0F"
             case 54:            # AR1
                 return b"\x0C"
-            case 55:            # АР5
-                return b"\x20"
-            case 56:            # АРМИНИ
-                return b"\x1A"
             case 57:            # АТИ
                 return b"\x10"
             case 60:            # ИР-П
                 return b"\x18"
-            case 61:            # ИСМ5
-                return b"\x04"
-            case 64:            # ИСМ220-4
-                return b"\x0D"
             case 65:            # МКЗ
                 return b"\x01"
-            case 66:            # ОСЗ
-                return b"\x16"
-            case 67:            # ОСЗ9
-                return b"\x09"
+
+            # case 61:            # ИСМ5
+            #     return b"\x04"
+            # case 64:            # ИСМ220-4
+            #     return b"\x0D"
+
             case _:
                 logger.info(f"non type {type_sens}")
 
-    def _compare_state(self, type_sens, state, err=None):
+    def _compare_state(self, type_sens, state, state_cod=0):
         match type_sens:
             case b'\x19':    #A2ДПИ
                 match state:
@@ -215,7 +221,7 @@ class ServerAH(QThread):
                     case "F":
                         return b"\x00\x00\x00\x80"
                     case "E":
-                        match err:
+                        match state_cod:
                             case 3:
                                 return b"\x08\x00\x00\x00"
                             case 2:
@@ -236,7 +242,7 @@ class ServerAH(QThread):
                     case "F":
                         return b"\x00\x00\x00\x80"
                     case "E":
-                        match err:
+                        match state_cod:
                             case 13:
                                 return b"\x00\x20\x00\x40"
                             case 14:
@@ -275,7 +281,7 @@ class ServerAH(QThread):
                     case "F":
                         return b"\x00\x03\x00\x80"
                     case "E":
-                        match err:
+                        match state_cod:
                             case 5:
                                 return b"\x20\x03\x00\x00"
                             case 4:
@@ -296,34 +302,34 @@ class ServerAH(QThread):
                                 return b"\x00\x0b\x00\x00"
                             case 27:
                                 return b"\x00\x03\x00\x08"
-            case b"\x04": #ИСМ5
-                match state:
-                    case "N":
-                        return b"\x00\x03\x00\x00"
-                    case "F":
-                        return b"\x00\x03\x00\x80"
-                    case "E":
-                        match err:
-                            case 5:
-                                return b"\x20\x03\x00\x00"
-                            case 4:
-                                return b"\x10\x03\x00\x00"
-                            case 7:
-                                return b"\x80\x03\x00\x00"
-                            case 6:
-                                return b"\x40\x03\x00\x00"
-                            case 15:
-                                return b"\x00\x83\x00\x00"
-                            case 14:
-                                return b"\x00\x43\x00\x00"
-                            case 29:
-                                return b"\x00\x03\x00\x20"
-                            case 12:
-                                return b"\x00\x13\x00\x00"
-                            case 11:
-                                return b"\x00\x0b\x00\x00"
-                            case 27:
-                                return b"\x00\x03\x00\x08"
+            # case b"\x04": #ИСМ5
+            #     match state:
+            #         case "N":
+            #             return b"\x00\x03\x00\x00"
+            #         case "F":
+            #             return b"\x00\x03\x00\x80"
+            #         case "E":
+            #             match err:
+            #                 case 5:
+            #                     return b"\x20\x03\x00\x00"
+            #                 case 4:
+            #                     return b"\x10\x03\x00\x00"
+            #                 case 7:
+            #                     return b"\x80\x03\x00\x00"
+            #                 case 6:
+            #                     return b"\x40\x03\x00\x00"
+            #                 case 15:
+            #                     return b"\x00\x83\x00\x00"
+            #                 case 14:
+            #                     return b"\x00\x43\x00\x00"
+            #                 case 29:
+            #                     return b"\x00\x03\x00\x20"
+            #                 case 12:
+            #                     return b"\x00\x13\x00\x00"
+            #                 case 11:
+            #                     return b"\x00\x0b\x00\x00"
+            #                 case 27:
+            #                     return b"\x00\x03\x00\x08"
 
             case _:
                 logger.info(f"non type {type_sens}")

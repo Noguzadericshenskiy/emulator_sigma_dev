@@ -11,8 +11,7 @@ from PySide6.QtWidgets import (
 )
 from loguru import logger
 
-# from src.ui.main_win import Ui_MainWindow
-from src.ui.main_win_new import Ui_MainWindow
+from src.ui.main_win import Ui_MainWindow
 from src.utilites.setup import (
     NumbersIPValidator,
     PortValidator,

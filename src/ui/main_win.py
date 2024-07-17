@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v5.ui'
+## Form generated from reading UI file 'main_win_v8.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1291, 824)
+        MainWindow.resize(1289, 818)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -41,7 +41,80 @@ class Ui_MainWindow(object):
         self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setMinimumSize(QSize(1271, 800))
         self.tabWidget.setStyleSheet(u"")
-        self.tabWidget.setTabShape(QTabWidget.TabShape.Triangular)
+        self.tabWidget.setTabShape(QTabWidget.Rounded)
+        self.ash_device_tab = QWidget()
+        self.ash_device_tab.setObjectName(u"ash_device_tab")
+        self.ash_chenge_state_device_groupBox = QGroupBox(self.ash_device_tab)
+        self.ash_chenge_state_device_groupBox.setObjectName(u"ash_chenge_state_device_groupBox")
+        self.ash_chenge_state_device_groupBox.setGeometry(QRect(0, 10, 489, 131))
+        self.verticalLayoutWidget = QWidget(self.ash_chenge_state_device_groupBox)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.verticalLayoutWidget.setGeometry(QRect(10, 20, 471, 101))
+        self.ash_v_layer_state_dev_layout = QVBoxLayout(self.verticalLayoutWidget)
+        self.ash_v_layer_state_dev_layout.setObjectName(u"ash_v_layer_state_dev_layout")
+        self.ash_v_layer_state_dev_layout.setContentsMargins(0, 0, 0, 0)
+        self.ash_h_top_layer_state_dev_layout = QHBoxLayout()
+        self.ash_h_top_layer_state_dev_layout.setObjectName(u"ash_h_top_layer_state_dev_layout")
+
+        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_top_layer_state_dev_layout)
+
+        self.ash_h_center_layer_state_dev_layout = QHBoxLayout()
+        self.ash_h_center_layer_state_dev_layout.setObjectName(u"ash_h_center_layer_state_dev_layout")
+
+        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_center_layer_state_dev_layout)
+
+        self.ash_h_bottom_layer_state_dev_layout = QHBoxLayout()
+        self.ash_h_bottom_layer_state_dev_layout.setObjectName(u"ash_h_bottom_layer_state_dev_layout")
+
+        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_bottom_layer_state_dev_layout)
+
+        self.ash_choice_net_dev_groupBox = QGroupBox(self.ash_device_tab)
+        self.ash_choice_net_dev_groupBox.setObjectName(u"ash_choice_net_dev_groupBox")
+        self.ash_choice_net_dev_groupBox.setGeometry(QRect(960, 10, 299, 131))
+        self.ash_out_net_dev_listWidget = QListWidget(self.ash_choice_net_dev_groupBox)
+        self.ash_out_net_dev_listWidget.setObjectName(u"ash_out_net_dev_listWidget")
+        self.ash_out_net_dev_listWidget.setGeometry(QRect(10, 20, 281, 101))
+        self.view_devs_ash_btn = QPushButton(self.ash_device_tab)
+        self.view_devs_ash_btn.setObjectName(u"view_devs_ash_btn")
+        self.view_devs_ash_btn.setGeometry(QRect(870, 40, 75, 31))
+        self.ash_devices_tableWidget_2 = QTableWidget(self.ash_device_tab)
+        self.ash_devices_tableWidget_2.setObjectName(u"ash_devices_tableWidget_2")
+        self.ash_devices_tableWidget_2.setGeometry(QRect(0, 140, 1261, 631))
+        self.tabWidget.addTab(self.ash_device_tab, "")
+        self.modbus_device_tab = QWidget()
+        self.modbus_device_tab.setObjectName(u"modbus_device_tab")
+        self.mb_devices_tableWidget = QTableWidget(self.modbus_device_tab)
+        self.mb_devices_tableWidget.setObjectName(u"mb_devices_tableWidget")
+        self.mb_devices_tableWidget.setGeometry(QRect(0, 140, 1261, 631))
+        self.mb_choice_net_dev_groupBox = QGroupBox(self.modbus_device_tab)
+        self.mb_choice_net_dev_groupBox.setObjectName(u"mb_choice_net_dev_groupBox")
+        self.mb_choice_net_dev_groupBox.setGeometry(QRect(950, 10, 299, 121))
+        self.mb_out_net_dev_listWidget = QListWidget(self.mb_choice_net_dev_groupBox)
+        self.mb_out_net_dev_listWidget.setObjectName(u"mb_out_net_dev_listWidget")
+        self.mb_out_net_dev_listWidget.setGeometry(QRect(10, 20, 281, 91))
+        self.mb_view_devs_btn = QPushButton(self.modbus_device_tab)
+        self.mb_view_devs_btn.setObjectName(u"mb_view_devs_btn")
+        self.mb_view_devs_btn.setGeometry(QRect(870, 30, 75, 41))
+        self.mb_chenge_state_device_groupBox = QGroupBox(self.modbus_device_tab)
+        self.mb_chenge_state_device_groupBox.setObjectName(u"mb_chenge_state_device_groupBox")
+        self.mb_chenge_state_device_groupBox.setGeometry(QRect(10, 10, 489, 131))
+        self.verticalLayoutWidget_2 = QWidget(self.mb_chenge_state_device_groupBox)
+        self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
+        self.verticalLayoutWidget_2.setGeometry(QRect(10, 20, 471, 101))
+        self.v_layer_state_dev_layout_2 = QVBoxLayout(self.verticalLayoutWidget_2)
+        self.v_layer_state_dev_layout_2.setObjectName(u"v_layer_state_dev_layout_2")
+        self.v_layer_state_dev_layout_2.setContentsMargins(0, 0, 0, 0)
+        self.mb_h_top_layer_state_dev_layout = QHBoxLayout()
+        self.mb_h_top_layer_state_dev_layout.setObjectName(u"mb_h_top_layer_state_dev_layout")
+
+        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_top_layer_state_dev_layout)
+
+        self.mb_h_bottom_layer_state_dev_layout = QHBoxLayout()
+        self.mb_h_bottom_layer_state_dev_layout.setObjectName(u"mb_h_bottom_layer_state_dev_layout")
+
+        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_bottom_layer_state_dev_layout)
+
+        self.tabWidget.addTab(self.modbus_device_tab, "")
         self.main_tab = QWidget()
         self.main_tab.setObjectName(u"main_tab")
         sizePolicy.setHeightForWidth(self.main_tab.sizePolicy().hasHeightForWidth())
@@ -50,24 +123,23 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.groupBox = QGroupBox(self.main_tab)
-        self.groupBox.setObjectName(u"groupBox")
+        self.states_groupBox = QGroupBox(self.main_tab)
+        self.states_groupBox.setObjectName(u"states_groupBox")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
-        self.groupBox.setSizePolicy(sizePolicy1)
-        self.groupBox.setMinimumSize(QSize(371, 120))
-        self.groupBox.setStyleSheet(u"")
+        sizePolicy1.setHeightForWidth(self.states_groupBox.sizePolicy().hasHeightForWidth())
+        self.states_groupBox.setSizePolicy(sizePolicy1)
+        self.states_groupBox.setMinimumSize(QSize(371, 120))
+        self.states_groupBox.setStyleSheet(u"")
 
-        self.horizontalLayout_2.addWidget(self.groupBox)
+        self.horizontalLayout_2.addWidget(self.states_groupBox)
 
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
         self.sensor52_lbl = QLabel(self.main_tab)
         self.sensor52_lbl.setObjectName(u"sensor52_lbl")
         self.sensor52_lbl.setStyleSheet(u"")
-        self.sensor52_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor52_lbl.setMargin(5)
         self.sensor52_lbl.setIndent(0)
 
@@ -76,7 +148,6 @@ class Ui_MainWindow(object):
         self.sensor4_lbl = QLabel(self.main_tab)
         self.sensor4_lbl.setObjectName(u"sensor4_lbl")
         self.sensor4_lbl.setStyleSheet(u"")
-        self.sensor4_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor4_lbl.setMargin(5)
         self.sensor4_lbl.setIndent(0)
 
@@ -85,7 +156,6 @@ class Ui_MainWindow(object):
         self.sensor3_lbl = QLabel(self.main_tab)
         self.sensor3_lbl.setObjectName(u"sensor3_lbl")
         self.sensor3_lbl.setStyleSheet(u"")
-        self.sensor3_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor3_lbl.setMargin(5)
         self.sensor3_lbl.setIndent(0)
 
@@ -94,7 +164,6 @@ class Ui_MainWindow(object):
         self.sensor55_lbl = QLabel(self.main_tab)
         self.sensor55_lbl.setObjectName(u"sensor55_lbl")
         self.sensor55_lbl.setStyleSheet(u"")
-        self.sensor55_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor55_lbl.setMargin(5)
         self.sensor55_lbl.setIndent(0)
 
@@ -103,7 +172,6 @@ class Ui_MainWindow(object):
         self.sensor65_lbl = QLabel(self.main_tab)
         self.sensor65_lbl.setObjectName(u"sensor65_lbl")
         self.sensor65_lbl.setStyleSheet(u"")
-        self.sensor65_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor65_lbl.setMargin(5)
         self.sensor65_lbl.setIndent(0)
 
@@ -112,9 +180,7 @@ class Ui_MainWindow(object):
         self.sensor53_lbl = QLabel(self.main_tab)
         self.sensor53_lbl.setObjectName(u"sensor53_lbl")
         self.sensor53_lbl.setStyleSheet(u"")
-        self.sensor53_lbl.setFrameShape(QFrame.Shape.NoFrame)
-        self.sensor53_lbl.setFrameShadow(QFrame.Shadow.Plain)
-        self.sensor53_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
+        self.sensor53_lbl.setFrameShape(QFrame.NoFrame)
         self.sensor53_lbl.setMargin(5)
         self.sensor53_lbl.setIndent(0)
 
@@ -123,7 +189,6 @@ class Ui_MainWindow(object):
         self.sensor5_lbl = QLabel(self.main_tab)
         self.sensor5_lbl.setObjectName(u"sensor5_lbl")
         self.sensor5_lbl.setStyleSheet(u"")
-        self.sensor5_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor5_lbl.setMargin(5)
         self.sensor5_lbl.setIndent(0)
 
@@ -132,7 +197,6 @@ class Ui_MainWindow(object):
         self.sensor54_lbl = QLabel(self.main_tab)
         self.sensor54_lbl.setObjectName(u"sensor54_lbl")
         self.sensor54_lbl.setStyleSheet(u"")
-        self.sensor54_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor54_lbl.setMargin(5)
         self.sensor54_lbl.setIndent(0)
 
@@ -141,7 +205,6 @@ class Ui_MainWindow(object):
         self.sensor7_lbl = QLabel(self.main_tab)
         self.sensor7_lbl.setObjectName(u"sensor7_lbl")
         self.sensor7_lbl.setStyleSheet(u"")
-        self.sensor7_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor7_lbl.setMargin(5)
         self.sensor7_lbl.setIndent(0)
 
@@ -150,7 +213,6 @@ class Ui_MainWindow(object):
         self.sensor63_lbl = QLabel(self.main_tab)
         self.sensor63_lbl.setObjectName(u"sensor63_lbl")
         self.sensor63_lbl.setStyleSheet(u"")
-        self.sensor63_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor63_lbl.setMargin(5)
         self.sensor63_lbl.setIndent(0)
 
@@ -159,7 +221,6 @@ class Ui_MainWindow(object):
         self.sensor56_lbl = QLabel(self.main_tab)
         self.sensor56_lbl.setObjectName(u"sensor56_lbl")
         self.sensor56_lbl.setStyleSheet(u"")
-        self.sensor56_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor56_lbl.setMargin(5)
         self.sensor56_lbl.setIndent(0)
 
@@ -168,7 +229,6 @@ class Ui_MainWindow(object):
         self.sensor61_lbl = QLabel(self.main_tab)
         self.sensor61_lbl.setObjectName(u"sensor61_lbl")
         self.sensor61_lbl.setStyleSheet(u"")
-        self.sensor61_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor61_lbl.setMargin(5)
         self.sensor61_lbl.setIndent(0)
 
@@ -177,7 +237,6 @@ class Ui_MainWindow(object):
         self.sensor58_lbl = QLabel(self.main_tab)
         self.sensor58_lbl.setObjectName(u"sensor58_lbl")
         self.sensor58_lbl.setStyleSheet(u"")
-        self.sensor58_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor58_lbl.setMargin(5)
         self.sensor58_lbl.setIndent(0)
 
@@ -186,7 +245,6 @@ class Ui_MainWindow(object):
         self.sensor62_lbl = QLabel(self.main_tab)
         self.sensor62_lbl.setObjectName(u"sensor62_lbl")
         self.sensor62_lbl.setStyleSheet(u"")
-        self.sensor62_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor62_lbl.setMargin(5)
         self.sensor62_lbl.setIndent(0)
 
@@ -195,7 +253,6 @@ class Ui_MainWindow(object):
         self.sensor2_lbl = QLabel(self.main_tab)
         self.sensor2_lbl.setObjectName(u"sensor2_lbl")
         self.sensor2_lbl.setStyleSheet(u"")
-        self.sensor2_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor2_lbl.setMargin(5)
         self.sensor2_lbl.setIndent(0)
 
@@ -204,7 +261,6 @@ class Ui_MainWindow(object):
         self.sensor59_lbl = QLabel(self.main_tab)
         self.sensor59_lbl.setObjectName(u"sensor59_lbl")
         self.sensor59_lbl.setStyleSheet(u"")
-        self.sensor59_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor59_lbl.setMargin(5)
         self.sensor59_lbl.setIndent(0)
 
@@ -213,7 +269,6 @@ class Ui_MainWindow(object):
         self.sensor1_lbl = QLabel(self.main_tab)
         self.sensor1_lbl.setObjectName(u"sensor1_lbl")
         self.sensor1_lbl.setStyleSheet(u"")
-        self.sensor1_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor1_lbl.setMargin(5)
         self.sensor1_lbl.setIndent(0)
 
@@ -222,7 +277,6 @@ class Ui_MainWindow(object):
         self.sensor9_lbl = QLabel(self.main_tab)
         self.sensor9_lbl.setObjectName(u"sensor9_lbl")
         self.sensor9_lbl.setStyleSheet(u"")
-        self.sensor9_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor9_lbl.setMargin(5)
         self.sensor9_lbl.setIndent(0)
 
@@ -231,7 +285,6 @@ class Ui_MainWindow(object):
         self.sensor67_lbl = QLabel(self.main_tab)
         self.sensor67_lbl.setObjectName(u"sensor67_lbl")
         self.sensor67_lbl.setStyleSheet(u"")
-        self.sensor67_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor67_lbl.setMargin(5)
         self.sensor67_lbl.setIndent(0)
 
@@ -240,7 +293,6 @@ class Ui_MainWindow(object):
         self.sensor8_lbl = QLabel(self.main_tab)
         self.sensor8_lbl.setObjectName(u"sensor8_lbl")
         self.sensor8_lbl.setStyleSheet(u"")
-        self.sensor8_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor8_lbl.setMargin(5)
         self.sensor8_lbl.setIndent(0)
 
@@ -249,7 +301,6 @@ class Ui_MainWindow(object):
         self.sensor64_lbl = QLabel(self.main_tab)
         self.sensor64_lbl.setObjectName(u"sensor64_lbl")
         self.sensor64_lbl.setStyleSheet(u"")
-        self.sensor64_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor64_lbl.setMargin(5)
         self.sensor64_lbl.setIndent(0)
 
@@ -258,7 +309,6 @@ class Ui_MainWindow(object):
         self.sensor6_lbl = QLabel(self.main_tab)
         self.sensor6_lbl.setObjectName(u"sensor6_lbl")
         self.sensor6_lbl.setStyleSheet(u"")
-        self.sensor6_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor6_lbl.setMargin(5)
         self.sensor6_lbl.setIndent(0)
 
@@ -267,7 +317,6 @@ class Ui_MainWindow(object):
         self.sensor60_lbl = QLabel(self.main_tab)
         self.sensor60_lbl.setObjectName(u"sensor60_lbl")
         self.sensor60_lbl.setStyleSheet(u"")
-        self.sensor60_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor60_lbl.setMargin(5)
         self.sensor60_lbl.setIndent(0)
 
@@ -276,7 +325,6 @@ class Ui_MainWindow(object):
         self.sensor66_lbl = QLabel(self.main_tab)
         self.sensor66_lbl.setObjectName(u"sensor66_lbl")
         self.sensor66_lbl.setStyleSheet(u"")
-        self.sensor66_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor66_lbl.setMargin(5)
         self.sensor66_lbl.setIndent(0)
 
@@ -285,7 +333,6 @@ class Ui_MainWindow(object):
         self.sensor51_lbl = QLabel(self.main_tab)
         self.sensor51_lbl.setObjectName(u"sensor51_lbl")
         self.sensor51_lbl.setStyleSheet(u"")
-        self.sensor51_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor51_lbl.setMargin(5)
         self.sensor51_lbl.setIndent(0)
 
@@ -294,11 +341,15 @@ class Ui_MainWindow(object):
         self.sensor57_lbl = QLabel(self.main_tab)
         self.sensor57_lbl.setObjectName(u"sensor57_lbl")
         self.sensor57_lbl.setStyleSheet(u"")
-        self.sensor57_lbl.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignTop)
         self.sensor57_lbl.setMargin(5)
         self.sensor57_lbl.setIndent(0)
 
         self.gridLayout.addWidget(self.sensor57_lbl, 1, 6, 1, 1)
+
+        self.sensor10_lbl = QLabel(self.main_tab)
+        self.sensor10_lbl.setObjectName(u"sensor10_lbl")
+
+        self.gridLayout.addWidget(self.sensor10_lbl, 0, 9, 1, 1)
 
 
         self.horizontalLayout_2.addLayout(self.gridLayout)
@@ -427,8 +478,14 @@ class Ui_MainWindow(object):
         self.check_db_btn.setStyleSheet(u"")
         self.join_btn = QPushButton(self.settings_tab)
         self.join_btn.setObjectName(u"join_btn")
-        self.join_btn.setGeometry(QRect(590, 320, 151, 23))
+        self.join_btn.setGeometry(QRect(580, 320, 151, 23))
         self.join_btn.setStyleSheet(u"")
+        self.sn_emulator_lineEdit = QLineEdit(self.settings_tab)
+        self.sn_emulator_lineEdit.setObjectName(u"sn_emulator_lineEdit")
+        self.sn_emulator_lineEdit.setGeometry(QRect(760, 320, 113, 20))
+        self.label = QLabel(self.settings_tab)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(760, 290, 111, 21))
         self.tabWidget.addTab(self.settings_tab, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget)
@@ -445,10 +502,18 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.ash_chenge_state_device_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"C\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
+        self.ash_choice_net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0439 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440", None))
+        self.view_devs_ash_btn.setText(QCoreApplication.translate("MainWindow", u"View", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.ash_device_tab), QCoreApplication.translate("MainWindow", u"\u0410\u0434\u0440\u0435\u0441\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
+        self.mb_choice_net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0439 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440", None))
+        self.mb_view_devs_btn.setText(QCoreApplication.translate("MainWindow", u"View", None))
+        self.mb_chenge_state_device_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.modbus_device_tab), QCoreApplication.translate("MainWindow", u"Modbus \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
 #if QT_CONFIG(whatsthis)
-        self.groupBox.setWhatsThis(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0414\u043b\u044f \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0434\u0430\u0442\u0447\u0438\u043a\u0430 \u043d\u0443\u0436\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c \u0434\u0430\u0442\u0447\u0438\u043a \u0432 \u0442\u0430\u0431\u043b\u0438\u0446\u0435 \u0438 \u043d\u0430\u0436\u0430\u0442\u044c \u043d\u0430 \u0441\u043e\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u044e\u0449\u0443\u044e \u043a\u043d\u043e\u043f\u043a\u0443 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f.</p></body></html>", None))
+        self.states_groupBox.setWhatsThis(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0414\u043b\u044f \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0434\u0430\u0442\u0447\u0438\u043a\u0430 \u043d\u0443\u0436\u043d\u043e \u0432\u044b\u0431\u0440\u0430\u0442\u044c \u0434\u0430\u0442\u0447\u0438\u043a \u0432 \u0442\u0430\u0431\u043b\u0438\u0446\u0435 \u0438 \u043d\u0430\u0436\u0430\u0442\u044c \u043d\u0430 \u0441\u043e\u043e\u0442\u0432\u0435\u0442\u0441\u0442\u0432\u0443\u044e\u0449\u0443\u044e \u043a\u043d\u043e\u043f\u043a\u0443 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f.</p></body></html>", None))
 #endif // QT_CONFIG(whatsthis)
-        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u0433\u043e \u0434\u0430\u0442\u0447\u0438\u043a\u0430.", None))
+        self.states_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u043e\u0433\u043e \u0434\u0430\u0442\u0447\u0438\u043a\u0430.", None))
         self.sensor52_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0412\u0418\n"
 "\n"
 "52", None))
@@ -488,7 +553,7 @@ class Ui_MainWindow(object):
         self.sensor58_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u041e\u041f\u0418\n"
 "\n"
 "58", None))
-        self.sensor62_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0421\u041c-22-1\n"
+        self.sensor62_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u0421\u041c-22\n"
 "\n"
 "62", None))
         self.sensor2_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f\u041f\n"
@@ -500,7 +565,7 @@ class Ui_MainWindow(object):
         self.sensor1_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0418\u041f-535\n"
 "\n"
 "1", None))
-        self.sensor9_lbl.setText(QCoreApplication.translate("MainWindow", u"NLS\n"
+        self.sensor9_lbl.setText(QCoreApplication.translate("MainWindow", u"NLS16\n"
 "\n"
 "9", None))
         self.sensor67_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0421\u04179\n"
@@ -527,6 +592,9 @@ class Ui_MainWindow(object):
         self.sensor57_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0410\u0422\u0418\n"
 "\n"
 "57", None))
+        self.sensor10_lbl.setText(QCoreApplication.translate("MainWindow", u"NLS8\n"
+"\n"
+"10", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.main_tab), QCoreApplication.translate("MainWindow", u"\u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432", None))
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
         self.send_table_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440", None))
@@ -572,6 +640,8 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.check_db_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f", None))
         self.join_btn.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u044a\u0435\u0434\u0438\u043d\u0438\u0442\u044c", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"SN \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
     # retranslateUi
+
 
