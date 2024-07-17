@@ -151,6 +151,17 @@ class Ka2AddressTraintableATI(Base):
 
     __table_args__ = {'schema': 'configurator'}
 
+class Ka2AddressTraintable_ISM4(Base):
+    __tablename__ = "ka2addresstraintableattype_ism4"
+
+    id: Mapped[int] = mapped_column(BIGINT, primary_key=True)
+    bcpid: Mapped[int] = mapped_column(BIGINT)
+    deleted: Mapped[int] = mapped_column(BIGINT, default=0)
+    address: Mapped[str] = mapped_column(VARCHAR, primary_key=True)
+    trainr1: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
+    trainr2: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
+
+    __table_args__ = {'schema': 'configurator'}
 
 class Ka2AddressTraintable_ISM5(Base):
     __tablename__ = "ka2addresstraintableattype_ism5"
@@ -163,8 +174,6 @@ class Ka2AddressTraintable_ISM5(Base):
     trainr2: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
 
     __table_args__ = {'schema': 'configurator'}
-
-
 
 def url_db(params: dict) -> str:
     """ Получаем url для подключения к БД"""
@@ -256,7 +265,7 @@ def handler_devices(params_conn: dict, in_list):
                                  Ka2AddressTraintableMKZ,
                                  Ka2AddressTraintableAMK,
                                  Ka2AddressTraintableATI,
-                                 Ka2AddressTraintableAOPI,
+                                 Ka2AddressTraintable_ISM5,
 
                                  Ka2AddressTraintableAOPI,
                                  )
@@ -282,6 +291,9 @@ def handler_devices(params_conn: dict, in_list):
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableAOPI,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintableAOPI.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintableAOPI.id))
+                stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintable_ISM4,
+                                            (Ka2AddressTraintable.address == Ka2AddressTraintable_ISM4.address and
+                                             Ka2AddressTraintable.id == Ka2AddressTraintable_ISM4.id))
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintable_ISM5,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintable_ISM5.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintable_ISM5.id))
@@ -367,12 +379,20 @@ def handler_devices(params_conn: dict, in_list):
                                 "trainr1": dev_i.trainr1,
                                 "trainr2": dev_i.trainr2
                             })
-                        case "ATTYPE_ISM22_1":
-                            sensors_row.append({"type": 62, "state": "N", "slave": int(dev_i[1])})
+                        # case "ATTYPE_ISM22_1":
+                        #     sensors_row.append({"type": 62, "state": "N", "slave": int(dev_i[1])})
                         case "ATTYPE_ISM22_2":
                             sensors_row.append({"type": 63, "state": "N", "slave": int(dev_i[1])})
                         case "ATTYPE_ISM4":
-                            sensors_row.append({"type": 64, "state": "N", "slave": int(dev_i[1])})
+                            sensors_row.append({
+                                "type": 64,
+                                "state": "N",
+                                "slave": int(dev_i[1]),
+                                "serialnumber": dev_i.serialnumber,
+                                "err": None,
+                                "trainr1": dev_i.trainr1,
+                                "trainr2": dev_i.trainr2
+                            })
                         case "ATTYPE_MKZ":
                             sensors_row.append({
                                 "type": 65,

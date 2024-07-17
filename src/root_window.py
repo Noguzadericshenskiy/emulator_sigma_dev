@@ -11,7 +11,8 @@ from PySide6.QtWidgets import (
 )
 from loguru import logger
 
-from src.ui.main_win import Ui_MainWindow
+# from src.ui.main_win import Ui_MainWindow
+from src.ui.main_win_new import Ui_MainWindow
 from src.utilites.setup import (
     NumbersIPValidator,
     PortValidator,
@@ -36,6 +37,9 @@ from src.utilites.dialogues import (
 )
 
 from src.ui.button_states import StatesBtn
+from src.utilites.tool_tips import create_toll_tip
+
+from src.ui.card_dev import CardDeviceMB
 
 
 class MainWindow(QMainWindow):
@@ -61,11 +65,22 @@ class MainWindow(QMainWindow):
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
         self.ui.output_table.clicked.connect(self.change_state)
-        self.vlay = QVBoxLayout(self.ui.groupBox)
-        self.hlay_top = QHBoxLayout(self.ui.groupBox)
-        self.hlay_bottom = QHBoxLayout(self.ui.groupBox)
+        self.vlay = QVBoxLayout(self.ui.states_groupBox)
+        self.hlay_top = QHBoxLayout(self.ui.states_groupBox)
+        self.hlay_bottom = QHBoxLayout(self.ui.states_groupBox)
         self.vlay.addLayout(self.hlay_top)
         self.vlay.addLayout(self.hlay_bottom)
+
+        # self.ui.modbus_dev_tab.
+
+    def set_btn_modbus(self):
+        norma_btn = self.btns.btn_norma(self)
+        fire_btn = self.btns.btn_fire(self)
+        error = self.btns.btn_error_mb(self)
+        self.hlay_top.addWidget(norma_btn)
+        self.hlay_top.addWidget(fire_btn)
+        self.hlay_bottom.addWidget(error)
+
 
     def set_btn_ir(self):
         norma_btn = self.btns.btn_norma(self)
@@ -114,8 +129,8 @@ class MainWindow(QMainWindow):
         kz_btn = self.btns.btn_kz(self)
         switch_btn = self.btns.btn_swich(self)
         self.hlay_top.addWidget(norma_btn)
+        self.hlay_top.addWidget(switch_btn)
         self.hlay_bottom.addWidget(kz_btn)
-        self.hlay_bottom.addWidget(switch_btn)
         norma_btn.clicked.connect(self._norma_state)
         kz_btn.clicked.connect(self._b_30_state)
         switch_btn.clicked.connect(self._b_31_state)
@@ -155,6 +170,7 @@ class MainWindow(QMainWindow):
         self.hlay_top.addWidget(norma)
         self.hlay_top.addWidget(alarm_in1)
         self.hlay_top.addWidget(alarm_in2)
+        self.hlay_top.addWidget(switch)
         self.hlay_bottom.addWidget(kz_in1)
         self.hlay_bottom.addWidget(kz_in2)
         self.hlay_bottom.addWidget(break_in1)
@@ -163,7 +179,6 @@ class MainWindow(QMainWindow):
         self.hlay_bottom.addWidget(kz_out2)
         self.hlay_bottom.addWidget(break_out1)
         self.hlay_bottom.addWidget(break_out2)
-        self.hlay_bottom.addWidget(switch)
         norma.clicked.connect(self._norma_state)
         switch.clicked.connect(self._b_31_state)
         kz_in1.clicked.connect(self._b_15_state)
@@ -177,27 +192,29 @@ class MainWindow(QMainWindow):
         alarm_in1.clicked.connect(self._b_29_state)
         alarm_in2.clicked.connect(self._b_27_state)
 
-
     def change_state(self):
         row = self.ui.output_table.currentRow()
         column = self.ui.output_table.currentColumn()
         type_sensor = self.ui.output_table.item(row, column).text().split()[0]
         self._clear_layouts()
-        match type_sensor:
-            case "65":  # МКЗ
-                self.set_btn_mkz()
-            case "60":  # ИР
-                self.set_btn_ir()
-            case '51': #A2ДПИ
-                self.set_btn_a2dpi()
-            case "54": #АР1
-                self.set_btn_ar1()
-            case "53": #АМК
-                self.set_btn_amk()
-            case "57": #АТИ
-                self.set_btn_ati()
-            case "61": #ИСМ5
-                self._set_btn_ism5()
+        if 0 < int(type_sensor) < 20:
+            self.set_btn_modbus()
+        else:
+            match int(type_sensor):
+                case 65:  # МКЗ
+                    self.set_btn_mkz()
+                case 60:  # ИР
+                    self.set_btn_ir()
+                case 51: #A2ДПИ
+                    self.set_btn_a2dpi()
+                case 54: #АР1
+                    self.set_btn_ar1()
+                case 53: #АМК
+                    self.set_btn_amk()
+                case 57: #АТИ
+                    self.set_btn_ati()
+                case 61: #ИСМ5
+                    self._set_btn_ism5()
 
     def _clear_layouts(self):
         num_widget_top = self.hlay_top.count()
@@ -218,6 +235,7 @@ class MainWindow(QMainWindow):
         self.ui.user_db_lineEdit.setText(params_conn["user"])
         self.ui.pass_db_lineEdit.setText(params_conn["password"])
         self.ui.name_db_lineEdit.setText(params_conn["name"])
+        self.ui.sn_emulator_lineEdit.setText("641")
 
     def _get_params_conn(self):
         params_conn = dict()
@@ -256,8 +274,9 @@ class MainWindow(QMainWindow):
                     num_row, num_column,
                     QTableWidgetItem(f'{sensor["type"]} {sensor["state"]} {sensor["slave"]}'))
                 self.ui.output_table.item(num_row, num_column).setBackground(QColor(157, 242, 160))
-                # self.ui.output_table.item(num_row, num_column).setToolTip(
-                #     f"< p style = 'color: blue;' >s/n {sensor['serialnumber']}< / p >")
+
+                sensor_tool_tip = create_toll_tip(sensor)
+                self.ui.output_table.item(num_row, num_column).setToolTip(sensor_tool_tip)
                 sensor["row"] = num_row
                 sensor["column"] = num_column
                 sensors.append(sensor)
@@ -322,180 +341,234 @@ class MainWindow(QMainWindow):
                         self.ui.port_and_net_dev_tableWidget.item(row, 1).text()))
         return dev
 
+    def _set_tool_tip(self, params):
+        for server in self.servers:
+            if server.name == self.ui.output_table.item(params["row"], 0).text():
+                for sensor in server.sensors:
+                    if sensor["slave"] == params["slave"]:
+                        sensor["state"] = params["state"]
+                        sensor_tool_tip = create_toll_tip(sensor)
+                        return sensor_tool_tip
+        logger.info(f"Ошибка создания ToolTip  {params}")
+
+    def _norma_state_mb(self):
+        params = self._get_current_params()
+        row = params["row"]
+        column = params["column"]
+        params["state"] = "N"
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} N {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(157, 242, 160))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
+        self._send_in_thread(port, params)
+
     def _norma_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} N {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(157, 242, 160))
         params["state"] = "N"
         params["err"] = None
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} N {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(157, 242, 160))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_31_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(173, 0, 0))
         params["state"] = "F"
         params["err"] = None
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} F {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(173, 0, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_30_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 30
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_29_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 29
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_27_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 27
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_15_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 15
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_14_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 14
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_13_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 13
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_12_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 12
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_11_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 11
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_7_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 7
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_6_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 6
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_5_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 5
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_4_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 4
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_3_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 3
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _b_2_state(self):
         params = self._get_current_params()
         row = params["row"]
         column = params["column"]
-        port = self.ui.output_table.item(row, 0).text()
-        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
-        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
         params["state"] = "E"
         params["err"] = 2
+        port = self.ui.output_table.item(row, 0).text()
+        sensor_tool_tip = self._set_tool_tip(params)
+        self.ui.output_table.setItem(row, column, QTableWidgetItem(f'{params["type"]} E {params["slave"]}'))
+        self.ui.output_table.item(row, column).setBackground(QColor(255, 140, 0))
+        self.ui.output_table.item(row, column).setToolTip(sensor_tool_tip)
         self._send_in_thread(port, params)
 
     def _get_current_params(self) -> dict:

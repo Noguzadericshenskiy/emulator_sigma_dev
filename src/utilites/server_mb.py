@@ -1,10 +1,11 @@
 import asyncio
 
-from threading import Thread
 from pymodbus.datastore import ModbusServerContext
 from pymodbus.framer import ModbusRtuFramer
 from pymodbus.server import StartAsyncSerialServer
-from PySide6.QtCore import Signal, QThread
+from PySide6.QtCore import QThread
+
+from loguru import logger
 
 from devices.registers_devises import (
     states_ipp_helios,
@@ -70,10 +71,8 @@ class ServerMB(QThread):
                 self.slaves[slave] = state_ipa(status, 100, slave)
             case 9:
                 self.slaves[slave] = states_nls(status, 100, slave)
-            case 10:
-                ...
-            case 11:
-                ...
+            case 10, 11:
+                logger.info(f"Нет сенсора {params}")
 
     async def _run_server(self):
         server = await StartAsyncSerialServer(

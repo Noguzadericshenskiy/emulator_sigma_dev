@@ -42,8 +42,165 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
+      <widget class="QWidget" name="ash_device_tab">
+       <attribute name="title">
+        <string>Адресные устройства</string>
+       </attribute>
+       <widget class="QGroupBox" name="chenge_state_device_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>489</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Изменение состояния устройства</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>471</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="v_layer_state_dev_layout">
+          <item>
+           <layout class="QHBoxLayout" name="h_top_layer_state_dev_layout"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="h_center_layer_state_dev_layout"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="h_bottom_layer_state_dev_layout"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="choice_net_dev_groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>960</x>
+          <y>10</y>
+          <width>299</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Сетевой контроллер</string>
+        </property>
+        <widget class="QListWidget" name="out_net_dev_listWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>281</width>
+           <height>101</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="view_devs_ash_btn">
+        <property name="geometry">
+         <rect>
+          <x>870</x>
+          <y>40</y>
+          <width>75</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>View</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="modbus_device_tab">
+       <attribute name="title">
+        <string>Modbus устройства</string>
+       </attribute>
+       <widget class="QTableWidget" name="devices_tableWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>140</y>
+          <width>1261</width>
+          <height>631</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="choice_net_dev_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>10</y>
+          <width>299</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Сетевой контроллер</string>
+        </property>
+        <widget class="QListWidget" name="out_net_dev_listWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>281</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="view_devs_mb_btn">
+        <property name="geometry">
+         <rect>
+          <x>870</x>
+          <y>30</y>
+          <width>75</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>View</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="chenge_state_device_groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>489</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Состояния устройства</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>471</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="v_layer_state_dev_layout_2">
+          <item>
+           <layout class="QHBoxLayout" name="h_top_layer_state_dev_layout_2"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="h_bottom_layer_state_dev_layout_2"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
       <widget class="QWidget" name="main_tab">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">

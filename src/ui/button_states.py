@@ -3,6 +3,14 @@ from PySide6.QtWidgets import QPushButton
 
 
 class StatesBtn:
+
+    def btn_error_mb(self, parent):
+        error = QPushButton(parent)
+        error.setObjectName(u"btn_error_mb")
+        error.setGeometry(QRect(20, 30, 151, 23))
+        error.setText("Ошибка")
+        return error
+
     def btn_norma(self, parent):
         norma = QPushButton(parent)
         norma.setObjectName(u"norma_btn")

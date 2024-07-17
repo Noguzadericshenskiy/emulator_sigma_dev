@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1291</width>
-    <height>824</height>
+    <width>1302</width>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,6 +44,171 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
+      <widget class="QWidget" name="modbus_dev_tab">
+       <attribute name="title">
+        <string>Modbus/Адресные устройства</string>
+       </attribute>
+       <widget class="QGroupBox" name="chenge_state_device_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>489</width>
+          <height>131</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Изменение состояния устройства</string>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>471</width>
+           <height>101</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="v_layer_state_dev_layout">
+          <item>
+           <layout class="QHBoxLayout" name="h_top_layer_state_dev_layout"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="h_center_layer_state_dev_layout"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="h_bottom_layer_state_dev_layout"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="choice_net_dev_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>950</x>
+          <y>10</y>
+          <width>299</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Сетевой контроллер</string>
+        </property>
+        <widget class="QListWidget" name="out_net_dev_listWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>281</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="input_state_dev_groupBox">
+        <property name="geometry">
+         <rect>
+          <x>510</x>
+          <y>9</y>
+          <width>341</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Полученное состояние устройства (hex)</string>
+        </property>
+        <widget class="QLCDNumber" name="b1_state_lcdNumber">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>41</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="executive1_label">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>47</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ИУ 1</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="executive2_label">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>30</y>
+           <width>47</width>
+           <height>14</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>ИУ 2</string>
+         </property>
+        </widget>
+        <widget class="QLCDNumber" name="b2_state_lcdNumber">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>90</y>
+           <width>41</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLCDNumber" name="b3_state_lcdNumber">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>90</y>
+           <width>41</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLCDNumber" name="b4_state_lcdNumber">
+         <property name="geometry">
+          <rect>
+           <x>190</x>
+           <y>90</y>
+           <width>41</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="view_devs_pushButton">
+        <property name="geometry">
+         <rect>
+          <x>870</x>
+          <y>30</y>
+          <width>75</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>View</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>140</y>
+          <width>1251</width>
+          <height>651</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="cards_layout"/>
+       </widget>
+      </widget>
       <widget class="QWidget" name="main_tab">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
