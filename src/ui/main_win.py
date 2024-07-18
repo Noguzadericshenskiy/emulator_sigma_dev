@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v8.ui'
+## Form generated from reading UI file 'main_win_v8.2.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -70,13 +70,13 @@ class Ui_MainWindow(object):
 
         self.ash_choice_net_dev_groupBox = QGroupBox(self.ash_device_tab)
         self.ash_choice_net_dev_groupBox.setObjectName(u"ash_choice_net_dev_groupBox")
-        self.ash_choice_net_dev_groupBox.setGeometry(QRect(960, 10, 299, 131))
+        self.ash_choice_net_dev_groupBox.setGeometry(QRect(1040, 0, 221, 131))
         self.ash_out_net_dev_listWidget = QListWidget(self.ash_choice_net_dev_groupBox)
         self.ash_out_net_dev_listWidget.setObjectName(u"ash_out_net_dev_listWidget")
-        self.ash_out_net_dev_listWidget.setGeometry(QRect(10, 20, 281, 101))
+        self.ash_out_net_dev_listWidget.setGeometry(QRect(10, 20, 201, 101))
         self.view_devs_ash_btn = QPushButton(self.ash_device_tab)
         self.view_devs_ash_btn.setObjectName(u"view_devs_ash_btn")
-        self.view_devs_ash_btn.setGeometry(QRect(870, 40, 75, 31))
+        self.view_devs_ash_btn.setGeometry(QRect(960, 10, 75, 31))
         self.ash_devices_tableWidget_2 = QTableWidget(self.ash_device_tab)
         self.ash_devices_tableWidget_2.setObjectName(u"ash_devices_tableWidget_2")
         self.ash_devices_tableWidget_2.setGeometry(QRect(0, 140, 1261, 631))
@@ -88,16 +88,16 @@ class Ui_MainWindow(object):
         self.mb_devices_tableWidget.setGeometry(QRect(0, 140, 1261, 631))
         self.mb_choice_net_dev_groupBox = QGroupBox(self.modbus_device_tab)
         self.mb_choice_net_dev_groupBox.setObjectName(u"mb_choice_net_dev_groupBox")
-        self.mb_choice_net_dev_groupBox.setGeometry(QRect(950, 10, 299, 121))
+        self.mb_choice_net_dev_groupBox.setGeometry(QRect(1040, 0, 221, 131))
         self.mb_out_net_dev_listWidget = QListWidget(self.mb_choice_net_dev_groupBox)
         self.mb_out_net_dev_listWidget.setObjectName(u"mb_out_net_dev_listWidget")
-        self.mb_out_net_dev_listWidget.setGeometry(QRect(10, 20, 281, 91))
+        self.mb_out_net_dev_listWidget.setGeometry(QRect(10, 20, 201, 101))
         self.mb_view_devs_btn = QPushButton(self.modbus_device_tab)
         self.mb_view_devs_btn.setObjectName(u"mb_view_devs_btn")
-        self.mb_view_devs_btn.setGeometry(QRect(870, 30, 75, 41))
+        self.mb_view_devs_btn.setGeometry(QRect(960, 10, 75, 31))
         self.mb_chenge_state_device_groupBox = QGroupBox(self.modbus_device_tab)
         self.mb_chenge_state_device_groupBox.setObjectName(u"mb_chenge_state_device_groupBox")
-        self.mb_chenge_state_device_groupBox.setGeometry(QRect(10, 10, 489, 131))
+        self.mb_chenge_state_device_groupBox.setGeometry(QRect(0, 10, 489, 121))
         self.verticalLayoutWidget_2 = QWidget(self.mb_chenge_state_device_groupBox)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
         self.verticalLayoutWidget_2.setGeometry(QRect(10, 20, 471, 101))
@@ -368,13 +368,13 @@ class Ui_MainWindow(object):
         self.settings_tab.setObjectName(u"settings_tab")
         self.port_and_ne_dev_groupBox = QGroupBox(self.settings_tab)
         self.port_and_ne_dev_groupBox.setObjectName(u"port_and_ne_dev_groupBox")
-        self.port_and_ne_dev_groupBox.setGeometry(QRect(20, 370, 301, 401))
+        self.port_and_ne_dev_groupBox.setGeometry(QRect(20, 370, 361, 401))
         sizePolicy1.setHeightForWidth(self.port_and_ne_dev_groupBox.sizePolicy().hasHeightForWidth())
         self.port_and_ne_dev_groupBox.setSizePolicy(sizePolicy1)
         self.port_and_ne_dev_groupBox.setStyleSheet(u"")
         self.port_and_net_dev_tableWidget = QTableWidget(self.port_and_ne_dev_groupBox)
         self.port_and_net_dev_tableWidget.setObjectName(u"port_and_net_dev_tableWidget")
-        self.port_and_net_dev_tableWidget.setGeometry(QRect(20, 70, 261, 321))
+        self.port_and_net_dev_tableWidget.setGeometry(QRect(20, 70, 331, 321))
         self.port_and_net_dev_tableWidget.setStyleSheet(u"QHeaderView::section:horizontal {\n"
 "    color: #fff;\n"
 "    background-color: rgb(0, 85, 127);\n"
@@ -395,27 +395,27 @@ class Ui_MainWindow(object):
         self.delete_line_btn.setStyleSheet(u"")
         self.ports_groupBox = QGroupBox(self.settings_tab)
         self.ports_groupBox.setObjectName(u"ports_groupBox")
-        self.ports_groupBox.setGeometry(QRect(340, 370, 311, 401))
+        self.ports_groupBox.setGeometry(QRect(390, 370, 251, 401))
         sizePolicy1.setHeightForWidth(self.ports_groupBox.sizePolicy().hasHeightForWidth())
         self.ports_groupBox.setSizePolicy(sizePolicy1)
         self.ports_groupBox.setStyleSheet(u"")
         self.ports_listWidget = QListWidget(self.ports_groupBox)
         self.ports_listWidget.setObjectName(u"ports_listWidget")
-        self.ports_listWidget.setGeometry(QRect(10, 60, 281, 331))
+        self.ports_listWidget.setGeometry(QRect(10, 60, 231, 331))
         self.ports_listWidget.setStyleSheet(u"")
         self.get_ports_btn = QPushButton(self.ports_groupBox)
         self.get_ports_btn.setObjectName(u"get_ports_btn")
-        self.get_ports_btn.setGeometry(QRect(10, 20, 211, 23))
+        self.get_ports_btn.setGeometry(QRect(10, 20, 141, 23))
         self.get_ports_btn.setStyleSheet(u"")
         self.net_dev_groupBox = QGroupBox(self.settings_tab)
         self.net_dev_groupBox.setObjectName(u"net_dev_groupBox")
-        self.net_dev_groupBox.setGeometry(QRect(670, 370, 251, 401))
+        self.net_dev_groupBox.setGeometry(QRect(650, 370, 241, 401))
         sizePolicy1.setHeightForWidth(self.net_dev_groupBox.sizePolicy().hasHeightForWidth())
         self.net_dev_groupBox.setSizePolicy(sizePolicy1)
         self.net_dev_groupBox.setStyleSheet(u"")
         self.net_dev_listWidget = QListWidget(self.net_dev_groupBox)
         self.net_dev_listWidget.setObjectName(u"net_dev_listWidget")
-        self.net_dev_listWidget.setGeometry(QRect(10, 60, 231, 331))
+        self.net_dev_listWidget.setGeometry(QRect(10, 60, 221, 331))
         self.net_dev_listWidget.setStyleSheet(u"")
         self.get_net_dev_btn = QPushButton(self.net_dev_groupBox)
         self.get_net_dev_btn.setObjectName(u"get_net_dev_btn")
@@ -478,14 +478,14 @@ class Ui_MainWindow(object):
         self.check_db_btn.setStyleSheet(u"")
         self.join_btn = QPushButton(self.settings_tab)
         self.join_btn.setObjectName(u"join_btn")
-        self.join_btn.setGeometry(QRect(580, 320, 151, 23))
+        self.join_btn.setGeometry(QRect(400, 320, 151, 23))
         self.join_btn.setStyleSheet(u"")
         self.sn_emulator_lineEdit = QLineEdit(self.settings_tab)
         self.sn_emulator_lineEdit.setObjectName(u"sn_emulator_lineEdit")
-        self.sn_emulator_lineEdit.setGeometry(QRect(760, 320, 113, 20))
+        self.sn_emulator_lineEdit.setGeometry(QRect(770, 320, 113, 20))
         self.label = QLabel(self.settings_tab)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(760, 290, 111, 21))
+        self.label.setGeometry(QRect(660, 320, 81, 21))
         self.tabWidget.addTab(self.settings_tab, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget)
@@ -494,7 +494,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -643,5 +643,4 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"SN \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
     # retranslateUi
-
 

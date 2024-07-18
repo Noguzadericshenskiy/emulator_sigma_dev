@@ -12,6 +12,8 @@ from PySide6.QtWidgets import (
 from loguru import logger
 
 from src.ui.main_win import Ui_MainWindow
+from src.ui.card import Ui_CardSensor
+from src.ui.card_dev import CardDeviceMB
 from src.utilites.setup import (
     NumbersIPValidator,
     PortValidator,
@@ -55,7 +57,7 @@ class MainWindow(QMainWindow):
         check_file()
         self._set_parameters()
         self.ui.check_db_btn.clicked.connect(self._check_connect)
-        self.ui.send_table_btn.clicked.connect(self._fill_table)
+        self.ui.send_table_btn.clicked.connect(self._start_servers)
         self.ui.get_ports_btn.clicked.connect(self._output_ports)
         self.ui.get_net_dev_btn.clicked.connect(self._output_net_devices)
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
@@ -69,6 +71,7 @@ class MainWindow(QMainWindow):
         self.hlay_bottom = QHBoxLayout(self.ui.states_groupBox)
         self.vlay.addLayout(self.hlay_top)
         self.vlay.addLayout(self.hlay_bottom)
+        self.ui.ash_out_net_dev_listWidget.clicked.connect(self._fill_table_ash)
 
         # self.ui.modbus_dev_tab.
 
@@ -251,43 +254,84 @@ class MainWindow(QMainWindow):
         else:
             err_connect(self)
 
-    def _fill_table(self):
-        output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
-        num_rows = len(output_data_sensors)
-        self.ui.output_table.setRowCount(num_rows)
-        self.ui.output_table.setColumnCount(130)
-        # self.ui.output_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.ui.output_table.setHorizontalHeaderLabels(["PORT", "Net-Dev"] + [str(i) for i in range(1, 130)])
-        for num_row in range(num_rows):
-            sensors = []
-            row = output_data_sensors[num_row]
-            #{'port': 'COM6', 'net_device': 'КАУ03Д->5843', 'net_dev': 'KAU03DConfig',
-            # 'sensors': [{'type': 51, 'state': 'N', 'slave': 1, 'threshold': '15', 'serialnumber': '10'},...
-            self.ui.output_table.setItem(num_row, 0, QTableWidgetItem(row["port"]))
-            self.ui.output_table.item(num_row, 0,).setForeground(QColor(255, 255, 255))
-            self.ui.output_table.setItem(num_row, 1, QTableWidgetItem(row["net_device"]))
-            for num_sensor in range(len(row["sensors"])):
-                num_column = num_sensor + 2
-                sensor = row["sensors"][num_sensor]
-                self.ui.output_table.setItem(
-                    num_row, num_column,
-                    QTableWidgetItem(f'{sensor["type"]} {sensor["state"]} {sensor["slave"]}'))
-                self.ui.output_table.item(num_row, num_column).setBackground(QColor(157, 242, 160))
-
-                sensor_tool_tip = create_toll_tip(sensor)
-                self.ui.output_table.item(num_row, num_column).setToolTip(sensor_tool_tip)
-                sensor["row"] = num_row
-                sensor["column"] = num_column
-                sensors.append(sensor)
-            if row["net_dev"] == "KAU03DConfig":
-                thread: ServerAH = ServerAH(sensors, row["port"])
+    def _start_servers(self):
+        self.output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
+        self.ui.ash_out_net_dev_listWidget.clear()
+        self.ui.mb_out_net_dev_listWidget.clear()
+        for net_dev in self.ports_net_devs:
+            if net_dev[1][1] == "KAU03DConfig":
+                self.ui.ash_out_net_dev_listWidget.addItem(QListWidgetItem(net_dev[1][2]))
             else:
-                thread: ServerMB = ServerMB(sensors, row["port"])
-            thread.start()
-            self.servers.append(thread)
-        self.ui.tabWidget.setCurrentWidget(self.ui.main_tab)
-        self.ui.output_table.sortItems(0, order=Qt.SortOrder.AscendingOrder)
-        self.ui.output_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+                self.ui.mb_out_net_dev_listWidget.addItem(QListWidgetItem(net_dev[1][2]))
+        self.ui.tabWidget.setCurrentWidget(self.ui.ash_device_tab)
+
+
+    def _fill_table_ash(self):
+        selected_ash_net_dev = self.ui.ash_out_net_dev_listWidget.currentItem().text()
+        sensors = []
+        logger.info(selected_ash_net_dev)
+        self.ui.ash_devices_tableWidget_2.clear()
+        for port_info in self.output_data_sensors:
+            for controller in port_info["controllers"]:
+                if controller["net_device"] == selected_ash_net_dev:
+                    logger.info(f"ok {controller['sensors']}")
+                    sensors = controller["sensors"]
+        self.ui.ash_devices_tableWidget_2.setRowCount(6)
+        self.ui.ash_devices_tableWidget_2.setColumnCount(16)
+        for index, sensor in enumerate(sensors):
+
+            card = CardDeviceMB()
+            # card.card_info_type_lbl.setText(sensor["type"])
+            # card.card_type_lbl.setText()
+            # card.card_slave_lbl.setText(sensor["slave"])
+            # card.card_sn_lbl.setText(sensor["serialnumber"])
+            # card.card_state_lbl.setText(sensor["state"])
+
+
+            self.ui.ash_devices_tableWidget_2.setCellWidget(0, index, card)
+            # self.ui.ash_devices_tableWidget_2.setItem(0, index, QTableWidgetItem(sensor["type"]))
+            logger.info(f"sensor-{sensor}")
+
+
+        self.ui.ash_devices_tableWidget_2.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+
+        # output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
+        # num_rows = len(output_data_sensors)
+        # self.ui.output_table.setRowCount(num_rows)
+        # self.ui.output_table.setColumnCount(130)
+        # # self.ui.output_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # self.ui.output_table.setHorizontalHeaderLabels(["PORT", "Net-Dev"] + [str(i) for i in range(1, 130)])
+        # for num_row in range(num_rows):
+        #     sensors = []
+        #     row = output_data_sensors[num_row]
+        #     #{'port': 'COM6', 'net_device': 'КАУ03Д->5843', 'net_dev': 'KAU03DConfig',
+        #     # 'sensors': [{'type': 51, 'state': 'N', 'slave': 1, 'threshold': '15', 'serialnumber': '10'},...
+        #     self.ui.output_table.setItem(num_row, 0, QTableWidgetItem(row["port"]))
+        #     self.ui.output_table.item(num_row, 0,).setForeground(QColor(255, 255, 255))
+        #     self.ui.output_table.setItem(num_row, 1, QTableWidgetItem(row["net_device"]))
+        #     for num_sensor in range(len(row["sensors"])):
+        #         num_column = num_sensor + 2
+        #         sensor = row["sensors"][num_sensor]
+        #         self.ui.output_table.setItem(
+        #             num_row, num_column,
+        #             QTableWidgetItem(f'{sensor["type"]} {sensor["state"]} {sensor["slave"]}'))
+        #         self.ui.output_table.item(num_row, num_column).setBackground(QColor(157, 242, 160))
+        #
+        #         sensor_tool_tip = create_toll_tip(sensor)
+        #         self.ui.output_table.item(num_row, num_column).setToolTip(sensor_tool_tip)
+        #         sensor["row"] = num_row
+        #         sensor["column"] = num_column
+        #         sensors.append(sensor)
+        #     if row["net_dev"] == "KAU03DConfig":
+        #         thread: ServerAH = ServerAH(sensors, row["port"])
+        #     else:
+        #         thread: ServerMB = ServerMB(sensors, row["port"])
+        #     thread.start()
+        #     self.servers.append(thread)
+        # self.ui.tabWidget.setCurrentWidget(self.ui.main_tab)
+        # self.ui.output_table.sortItems(0, order=Qt.SortOrder.AscendingOrder)
+        # self.ui.output_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
     def _save_params_conn(self):
         parameters = self._get_params_conn()
@@ -307,25 +351,31 @@ class MainWindow(QMainWindow):
                 self.ui.net_dev_listWidget.addItem(QListWidgetItem(net_dev[2]))
 
     def _join_port_and_net_device(self):
+        sn_emul = None
         try:
             row_port = self.ui.ports_listWidget.currentRow()
             row_net_device = self.ui.net_dev_listWidget.currentRow()
             if row_port < 0 or row_net_device < 0:
                 raise IndexError
             port = self.ports[row_port][0]
+            # logger.info(f"{row_port}|{row_net_device}|{port}{self.net_devices}")
             for dev_i in self.net_devices:
                 if dev_i[2] == self.net_devices[row_net_device][2]:
-                    net_device = dev_i[2]
-                    if check_join_table_output(port, net_device, self.ports_net_devs):
+                    if check_join_table_output(port, dev_i, self.ports_net_devs):
                         cur_row = self.ui.port_and_net_dev_tableWidget.rowCount() + 1
                         self.ui.port_and_net_dev_tableWidget.setRowCount(cur_row)
-                        self.ui.port_and_net_dev_tableWidget.setColumnCount(2)
-                        self.ui.port_and_net_dev_tableWidget.setHorizontalHeaderLabels(["port", "net device"])
+                        self.ui.port_and_net_dev_tableWidget.setColumnCount(3)
+                        self.ui.port_and_net_dev_tableWidget.setHorizontalHeaderLabels(
+                            ["port", "net device", "emulator"])
                         self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 0, QTableWidgetItem(port))
-                        self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 1, QTableWidgetItem(net_device))
-                        self.ports_net_devs.append((port, net_device, dev_i))
-                        self.ui.ports_listWidget.currentItem().setBackground(QColor("red"))
-                        self.ui.net_dev_listWidget.currentItem().setBackground(QColor("red"))
+                        self.ui.port_and_net_dev_tableWidget.setItem(cur_row-1, 1, QTableWidgetItem(dev_i[2]))
+                        if dev_i[1] == "KAU03DConfig":
+                            sn_emul = self.ui.sn_emulator_lineEdit.text()
+                            self.ui.port_and_net_dev_tableWidget.setItem(cur_row - 1, 2, QTableWidgetItem(sn_emul))
+                            # logger.info(f"{dev_i} | {sn_emul}") #(23, 'SKAU03Config', 'CКАУ03Д->6030', 6030) | None
+
+                        self.ports_net_devs.append((port, dev_i, sn_emul))
+                    self.ui.port_and_net_dev_tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
                     break
         except IndexError:
             err_selection(self)

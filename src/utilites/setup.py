@@ -1,5 +1,4 @@
 import os
-import re
 import json
 
 from PySide6.QtGui import QValidator
@@ -59,12 +58,15 @@ def get_net_devices() -> list[Any]:
 
 
 def check_join_table_output(port: str, net_dev: str, ports_net_devs: list[tuple]) -> bool:
-    """Проверка объединенной таблицы на задвоенные параметры (ранее используемые)
+    """Проверка таблицы сетевое устройство-порт на повторы при объединении у СКАУ.
     """
-    for record in ports_net_devs:
-        if record[0] == port or record[1] == net_dev:
-            return False
-    return True
+    if net_dev[1] == "SKAU03Config":
+        for record in ports_net_devs:
+            if record[0] == port or record[1] == net_dev:
+                return False
+        return True
+    else:
+        return True
 
 
 def check_file():
