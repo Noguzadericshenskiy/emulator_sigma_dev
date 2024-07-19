@@ -1,5 +1,5 @@
 from PySide6.QtGui import QColor, Qt
-from PySide6.QtCore import QRect
+from PySide6.QtCore import QRect, QSize
 from PySide6.QtWidgets import (
     QMainWindow,
     QListWidgetItem,
@@ -13,7 +13,7 @@ from loguru import logger
 
 from src.ui.main_win import Ui_MainWindow
 from src.ui.card import Ui_CardSensor
-from src.ui.card_dev import CardDeviceMB
+from src.ui.card_dev import CardDeviceASH
 from src.utilites.setup import (
     NumbersIPValidator,
     PortValidator,
@@ -40,7 +40,7 @@ from src.utilites.dialogues import (
 from src.ui.button_states import StatesBtn
 from src.utilites.tool_tips import create_toll_tip
 
-from src.ui.card_dev import CardDeviceMB
+from src.ui.card_dev import CardDeviceASH
 
 
 class MainWindow(QMainWindow):
@@ -63,9 +63,12 @@ class MainWindow(QMainWindow):
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
         self.ui.save_db_btn.clicked.connect(self._save_params_conn)
         self.ui.delete_line_btn.clicked.connect(self._delete_line)
+
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
         self.ui.output_table.clicked.connect(self.change_state)
+        self.ui.ash_devices_tableWidget.clicked.connect(self.change_state)
+
         self.vlay = QVBoxLayout(self.ui.states_groupBox)
         self.hlay_top = QHBoxLayout(self.ui.states_groupBox)
         self.hlay_bottom = QHBoxLayout(self.ui.states_groupBox)
@@ -74,6 +77,14 @@ class MainWindow(QMainWindow):
         self.ui.ash_out_net_dev_listWidget.clicked.connect(self._fill_table_ash)
 
         # self.ui.modbus_dev_tab.
+    def _set_parameters(self):
+        params_conn = get_conn_from_file()
+        self.ui.host_db_lineEdit.setText(params_conn["host"])
+        self.ui.port_db_lineEdit.setText(params_conn["port"])
+        self.ui.user_db_lineEdit.setText(params_conn["user"])
+        self.ui.pass_db_lineEdit.setText(params_conn["password"])
+        self.ui.name_db_lineEdit.setText(params_conn["name"])
+        self.ui.sn_emulator_lineEdit.setText("641")
 
     def set_btn_modbus(self):
         norma_btn = self.btns.btn_norma(self)
@@ -83,27 +94,26 @@ class MainWindow(QMainWindow):
         self.hlay_top.addWidget(fire_btn)
         self.hlay_bottom.addWidget(error)
 
-
     def set_btn_ir(self):
         norma_btn = self.btns.btn_norma(self)
         kz_btn = self.btns.btn_kz(self)
         fire_btn = self.btns.btn_fire(self)
-        self.hlay_top.addWidget(norma_btn)
-        self.hlay_bottom.addWidget(kz_btn)
-        self.hlay_top.addWidget(fire_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(fire_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_btn)
         norma_btn.clicked.connect(self._norma_state)
         kz_btn.clicked.connect(self._b_30_state)
         fire_btn.clicked.connect(self._b_31_state)
 
-    def set_btn_a2dpi(self):
+    def _set_btn_a2dpi(self):
         norma_btn = self.btns.btn_norma(self)
         fire_btn = self.btns.btn_fire(self)
         sensitivity_btn = self.btns.btn_sensitivity(self)
         dirt_btn = self.btns.btn_dirt(self)
-        self.hlay_top.addWidget(norma_btn)
-        self.hlay_top.addWidget(fire_btn)
-        self.hlay_bottom.addWidget(sensitivity_btn)
-        self.hlay_bottom.addWidget(dirt_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(fire_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(sensitivity_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(dirt_btn)
         norma_btn.clicked.connect(self._norma_state)
         fire_btn.clicked.connect(self._b_31_state)
         sensitivity_btn.clicked.connect(self._b_3_state)
@@ -115,11 +125,11 @@ class MainWindow(QMainWindow):
         noise_btn = self.btns.btn_noise(self)
         break_btn = self.btns.btn_break(self)
         kz_btn = self.btns.btn_kz(self)
-        self.hlay_top.addWidget(norma_btn)
-        self.hlay_top.addWidget(fire_btn)
-        self.hlay_bottom.addWidget(noise_btn)
-        self.hlay_bottom.addWidget(break_btn)
-        self.hlay_bottom.addWidget(kz_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(fire_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(noise_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_btn)
         norma_btn.clicked.connect(self._norma_state)
         fire_btn.clicked.connect(self._b_31_state)
         noise_btn.clicked.connect(self._b_13_state)
@@ -130,9 +140,9 @@ class MainWindow(QMainWindow):
         norma_btn = self.btns.btn_norma(self)
         kz_btn = self.btns.btn_kz(self)
         switch_btn = self.btns.btn_swich(self)
-        self.hlay_top.addWidget(norma_btn)
-        self.hlay_top.addWidget(switch_btn)
-        self.hlay_bottom.addWidget(kz_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(switch_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_btn)
         norma_btn.clicked.connect(self._norma_state)
         kz_btn.clicked.connect(self._b_30_state)
         switch_btn.clicked.connect(self._b_31_state)
@@ -140,8 +150,8 @@ class MainWindow(QMainWindow):
     def set_btn_amk(self):
         norma_btn = self.btns.btn_norma(self)
         alarm_btn = self.btns.btn_alarm(self)
-        self.hlay_top.addWidget(norma_btn)
-        self.hlay_bottom.addWidget(alarm_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_btn)
         norma_btn.clicked.connect(self._norma_state)
         alarm_btn.clicked.connect(self._b_31_state)
 
@@ -149,9 +159,9 @@ class MainWindow(QMainWindow):
         norma_btn = self.btns.btn_norma(self)
         fire_btn = self.btns.btn_fire(self)
         diff_fire_btn = self.btns.btn_diff_fire(self)
-        self.hlay_top.addWidget(norma_btn)
-        self.hlay_top.addWidget(fire_btn)
-        self.hlay_bottom.addWidget(diff_fire_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(fire_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(diff_fire_btn)
         norma_btn.clicked.connect(self._norma_state)
         fire_btn.clicked.connect(self._b_31_state)
         diff_fire_btn.clicked.connect(self._b_30_state)
@@ -169,18 +179,18 @@ class MainWindow(QMainWindow):
         break_out2 = self.btns.btn_break_out2(self)
         alarm_in1 = self.btns.btn_alarm_in1(self)
         alarm_in2 = self.btns.btn_alarm_in2(self)
-        self.hlay_top.addWidget(norma)
-        self.hlay_top.addWidget(alarm_in1)
-        self.hlay_top.addWidget(alarm_in2)
-        self.hlay_top.addWidget(switch)
-        self.hlay_bottom.addWidget(kz_in1)
-        self.hlay_bottom.addWidget(kz_in2)
-        self.hlay_bottom.addWidget(break_in1)
-        self.hlay_bottom.addWidget(break_in2)
-        self.hlay_bottom.addWidget(kz_out1)
-        self.hlay_bottom.addWidget(kz_out2)
-        self.hlay_bottom.addWidget(break_out1)
-        self.hlay_bottom.addWidget(break_out2)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in1)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in2)
+        self.ui.ash_h_top_state_dev_layout.addWidget(switch)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_in1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_in1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_out1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_out1)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_in2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_in2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_out2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_out2)
         norma.clicked.connect(self._norma_state)
         switch.clicked.connect(self._b_31_state)
         kz_in1.clicked.connect(self._b_15_state)
@@ -195,49 +205,67 @@ class MainWindow(QMainWindow):
         alarm_in2.clicked.connect(self._b_27_state)
 
     def change_state(self):
-        row = self.ui.output_table.currentRow()
-        column = self.ui.output_table.currentColumn()
-        type_sensor = self.ui.output_table.item(row, column).text().split()[0]
-        self._clear_layouts()
-        if 0 < int(type_sensor) < 20:
-            self.set_btn_modbus()
-        else:
-            match int(type_sensor):
-                case 65:  # МКЗ
+        row = self.ui.ash_devices_tableWidget.currentRow()
+        column = self.ui.ash_devices_tableWidget.currentColumn()
+        logger.info(f"{row}--{column}")
+        sens = self.ui.ash_devices_tableWidget.cellWidget(row, column)
+        params = sens.get_params()
+        logger.info(params)
+        self._clear_layouts_ash()
+        match params["type"]:
+                case "МКЗ":
                     self.set_btn_mkz()
-                case 60:  # ИР
+                case "ИР-П":
                     self.set_btn_ir()
-                case 51: #A2ДПИ
-                    self.set_btn_a2dpi()
-                case 54: #АР1
+                case "А2ДПИ":
+                    self._set_btn_a2dpi()
+                case "АР1":
                     self.set_btn_ar1()
-                case 53: #АМК
+                case "АМК": #АМК
                     self.set_btn_amk()
-                case 57: #АТИ
+                case "АТИ":
                     self.set_btn_ati()
-                case 61: #ИСМ5
-                    self._set_btn_ism5()
+                case "АОПИ":
+                    ...
 
-    def _clear_layouts(self):
-        num_widget_top = self.hlay_top.count()
-        num_widget_bottom = self.hlay_bottom.count()
-        if num_widget_top > 0:
-            for i in reversed(range(num_widget_top)):
-                ch = self.hlay_top.takeAt(i)
+        # type_sensor = self.ui.output_table.item(row, column).text().split()[0]
+        # self._clear_layouts()
+        # if 0 < int(type_sensor) < 20:
+        #     self.set_btn_modbus()
+        # else:
+        #     match int(type_sensor):
+        #         case 65:  # МКЗ
+        #             self.set_btn_mkz()
+        #         case 60:  # ИР
+        #             self.set_btn_ir()
+        #         case 51: #A2ДПИ
+        #             self.set_btn_a2dpi()
+        #         case 54: #АР1
+        #             self.set_btn_ar1()
+        #         case 53: #АМК
+        #             self.set_btn_amk()
+        #         case 57: #АТИ
+        #             self.set_btn_ati()
+        #         case 61: #ИСМ5
+        #             self._set_btn_ism5()
+
+    def _clear_layouts_ash(self):
+        num_top = self.ui.ash_h_top_state_dev_layout.count()
+        num_center = self.ui.ash_h_center_state_dev_layout.count()
+        num_bottom = self.ui.ash_h_bottom_state_dev_layout.count()
+        if num_top > 0:
+            for i in reversed(range(num_top)):
+                ch = self.ui.ash_h_top_state_dev_layout.takeAt(i)
                 ch.widget().deleteLater()
-        if num_widget_bottom > 0:
-            for i in reversed(range(num_widget_bottom)):
-                ch = self.hlay_bottom.takeAt(i)
+        if num_center > 0:
+            for i in reversed(range(num_center)):
+                ch = self.ui.ash_h_center_state_dev_layout.takeAt(i)
                 ch.widget().deleteLater()
 
-    def _set_parameters(self):
-        params_conn = get_conn_from_file()
-        self.ui.host_db_lineEdit.setText(params_conn["host"])
-        self.ui.port_db_lineEdit.setText(params_conn["port"])
-        self.ui.user_db_lineEdit.setText(params_conn["user"])
-        self.ui.pass_db_lineEdit.setText(params_conn["password"])
-        self.ui.name_db_lineEdit.setText(params_conn["name"])
-        self.ui.sn_emulator_lineEdit.setText("641")
+        if num_bottom > 0:
+            for i in reversed(range(num_bottom)):
+                ch = self.ui.ash_h_bottom_state_dev_layout.takeAt(i)
+                ch.widget().deleteLater()
 
     def _get_params_conn(self):
         params_conn = dict()
@@ -269,31 +297,42 @@ class MainWindow(QMainWindow):
     def _fill_table_ash(self):
         selected_ash_net_dev = self.ui.ash_out_net_dev_listWidget.currentItem().text()
         sensors = []
-        logger.info(selected_ash_net_dev)
-        self.ui.ash_devices_tableWidget_2.clear()
+        # logger.info(selected_ash_net_dev)
+        self.ui.ash_devices_tableWidget.clear()
         for port_info in self.output_data_sensors:
             for controller in port_info["controllers"]:
                 if controller["net_device"] == selected_ash_net_dev:
                     logger.info(f"ok {controller['sensors']}")
                     sensors = controller["sensors"]
-        self.ui.ash_devices_tableWidget_2.setRowCount(6)
-        self.ui.ash_devices_tableWidget_2.setColumnCount(16)
+        self.ui.ash_devices_tableWidget.setRowCount(6)
+        self.ui.ash_devices_tableWidget.setColumnCount(16)
+
         for index, sensor in enumerate(sensors):
+            row = 0
+            column = 0
+            if index < 6:
+                column = index
+            elif 5 <= index < 11:
+                row = 1
+                column = index - 6
+            elif 11 <= index < 21:
+                row = 2
+                column = index - 11
+            elif 12 <= index < 31:
+                row = 2
+                column = index - 16
 
-            card = CardDeviceMB()
-            # card.card_info_type_lbl.setText(sensor["type"])
-            # card.card_type_lbl.setText()
-            # card.card_slave_lbl.setText(sensor["slave"])
-            # card.card_sn_lbl.setText(sensor["serialnumber"])
-            # card.card_state_lbl.setText(sensor["state"])
+            self.ui.ash_devices_tableWidget.setColumnWidth(column, 150)
+            self.ui.ash_devices_tableWidget.setRowHeight(row, 90)
+            card = CardDeviceASH()
+            card.set_text_lbl(sensor)
+            self.ui.ash_devices_tableWidget.setCellWidget(row, column, card)
+            # self.ui.ash_devices_tableWidget_2.cellWidget(0, index).setStyleSheet()
+
+            # logger.info(f"sensor-{sensor}")
 
 
-            self.ui.ash_devices_tableWidget_2.setCellWidget(0, index, card)
-            # self.ui.ash_devices_tableWidget_2.setItem(0, index, QTableWidgetItem(sensor["type"]))
-            logger.info(f"sensor-{sensor}")
-
-
-        self.ui.ash_devices_tableWidget_2.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # self.ui.ash_devices_tableWidget_2.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
 
         # output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v8.2.ui'
+## Form generated from reading UI file 'main_win_v8.3.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -41,32 +41,36 @@ class Ui_MainWindow(object):
         self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setMinimumSize(QSize(1271, 800))
         self.tabWidget.setStyleSheet(u"")
-        self.tabWidget.setTabShape(QTabWidget.Rounded)
+        self.tabWidget.setTabShape(QTabWidget.TabShape.Rounded)
         self.ash_device_tab = QWidget()
         self.ash_device_tab.setObjectName(u"ash_device_tab")
         self.ash_chenge_state_device_groupBox = QGroupBox(self.ash_device_tab)
         self.ash_chenge_state_device_groupBox.setObjectName(u"ash_chenge_state_device_groupBox")
-        self.ash_chenge_state_device_groupBox.setGeometry(QRect(0, 10, 489, 131))
+        self.ash_chenge_state_device_groupBox.setGeometry(QRect(0, 10, 489, 121))
         self.verticalLayoutWidget = QWidget(self.ash_chenge_state_device_groupBox)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 20, 471, 101))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 20, 471, 91))
         self.ash_v_layer_state_dev_layout = QVBoxLayout(self.verticalLayoutWidget)
+        self.ash_v_layer_state_dev_layout.setSpacing(0)
         self.ash_v_layer_state_dev_layout.setObjectName(u"ash_v_layer_state_dev_layout")
         self.ash_v_layer_state_dev_layout.setContentsMargins(0, 0, 0, 0)
-        self.ash_h_top_layer_state_dev_layout = QHBoxLayout()
-        self.ash_h_top_layer_state_dev_layout.setObjectName(u"ash_h_top_layer_state_dev_layout")
+        self.ash_h_top_state_dev_layout = QHBoxLayout()
+        self.ash_h_top_state_dev_layout.setSpacing(0)
+        self.ash_h_top_state_dev_layout.setObjectName(u"ash_h_top_state_dev_layout")
 
-        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_top_layer_state_dev_layout)
+        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_top_state_dev_layout)
 
-        self.ash_h_center_layer_state_dev_layout = QHBoxLayout()
-        self.ash_h_center_layer_state_dev_layout.setObjectName(u"ash_h_center_layer_state_dev_layout")
+        self.ash_h_center_state_dev_layout = QHBoxLayout()
+        self.ash_h_center_state_dev_layout.setSpacing(0)
+        self.ash_h_center_state_dev_layout.setObjectName(u"ash_h_center_state_dev_layout")
 
-        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_center_layer_state_dev_layout)
+        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_center_state_dev_layout)
 
-        self.ash_h_bottom_layer_state_dev_layout = QHBoxLayout()
-        self.ash_h_bottom_layer_state_dev_layout.setObjectName(u"ash_h_bottom_layer_state_dev_layout")
+        self.ash_h_bottom_state_dev_layout = QHBoxLayout()
+        self.ash_h_bottom_state_dev_layout.setSpacing(0)
+        self.ash_h_bottom_state_dev_layout.setObjectName(u"ash_h_bottom_state_dev_layout")
 
-        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_bottom_layer_state_dev_layout)
+        self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_bottom_state_dev_layout)
 
         self.ash_choice_net_dev_groupBox = QGroupBox(self.ash_device_tab)
         self.ash_choice_net_dev_groupBox.setObjectName(u"ash_choice_net_dev_groupBox")
@@ -77,9 +81,9 @@ class Ui_MainWindow(object):
         self.view_devs_ash_btn = QPushButton(self.ash_device_tab)
         self.view_devs_ash_btn.setObjectName(u"view_devs_ash_btn")
         self.view_devs_ash_btn.setGeometry(QRect(960, 10, 75, 31))
-        self.ash_devices_tableWidget_2 = QTableWidget(self.ash_device_tab)
-        self.ash_devices_tableWidget_2.setObjectName(u"ash_devices_tableWidget_2")
-        self.ash_devices_tableWidget_2.setGeometry(QRect(0, 140, 1261, 631))
+        self.ash_devices_tableWidget = QTableWidget(self.ash_device_tab)
+        self.ash_devices_tableWidget.setObjectName(u"ash_devices_tableWidget")
+        self.ash_devices_tableWidget.setGeometry(QRect(0, 140, 1261, 631))
         self.tabWidget.addTab(self.ash_device_tab, "")
         self.modbus_device_tab = QWidget()
         self.modbus_device_tab.setObjectName(u"modbus_device_tab")
@@ -180,7 +184,7 @@ class Ui_MainWindow(object):
         self.sensor53_lbl = QLabel(self.main_tab)
         self.sensor53_lbl.setObjectName(u"sensor53_lbl")
         self.sensor53_lbl.setStyleSheet(u"")
-        self.sensor53_lbl.setFrameShape(QFrame.NoFrame)
+        self.sensor53_lbl.setFrameShape(QFrame.Shape.NoFrame)
         self.sensor53_lbl.setMargin(5)
         self.sensor53_lbl.setIndent(0)
 
@@ -494,7 +498,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
