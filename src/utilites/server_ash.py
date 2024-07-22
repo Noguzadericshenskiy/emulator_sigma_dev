@@ -48,7 +48,7 @@ class ServerAH(QThread):
             timeout=0.3,
         )
         for controller in self.controllers:
-            sn_emul = int(controller["sn_emul"])
+            sn_emul = controller["sn_emul"]
             self._delete_config(sn_emul)
             logger.info("end del")
             self._create_sensors(sn_emul, controller["sensors"])
@@ -57,7 +57,7 @@ class ServerAH(QThread):
         logger.info("run")
         while self.f_run:
             for controller in self.controllers:
-                sn_emul = int(controller["sn_emul"])
+                sn_emul = controller["sn_emul"]
                 self._set_state(sn_emul, controller["sensors"])
 
     def _delete_config(self, sn):
@@ -74,20 +74,6 @@ class ServerAH(QThread):
         start = time.time()
         while time.time() - start < 2:
             ...
-
-    # def _send_msg(self, msg):
-    #     self.conn.reset_input_buffer()
-    #     self.conn.write(msg)
-    #     self.conn.flush()
-    #     f_ans = True
-    #     while f_ans:
-    #         if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
-    #             b_arr = self.conn.read_all()
-    #             if self._clear_response(b_arr):
-    #                 f_ans = False
-    #                 self.f_response = False
-    #             else:
-    #                 f_ans = False
 
     def _send_msg(self, msg, num_ans):
         self.conn.reset_input_buffer()
@@ -107,28 +93,16 @@ class ServerAH(QThread):
                     f_ans = False
                     self.f_response = False
 
-    # def _clear_response(self, b_arr):
-    #     # ans = bytearray(b"\xB9\x46")
-    #     ld = []
-    #     for i in range(len(b_arr)):
-    #         p = b_arr[i]
-    #         if b_arr[i] == 182 or b_arr[i] == 185:
-    #             ld.append(i)
-    #     if ld:
-    #         for i in ld:
-    #             b_arr.pop(i + 1)
-    #     return True
-
     def _create_sensors(self, sn, sensors):
         for sensor in sensors:
             self.f_response = True
-            serialnumber = int(sensor["serialnumber"])
+            serialnumber = sensor["serialnumber"]
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn.to_bytes(2, byteorder='little', signed=True))
             msg.extend(b"\x06\xC3")
             msg.extend(serialnumber.to_bytes(3, byteorder='little'))
             msg.extend(self._compare_type(sensor["type"]))
-            msg.append(int(sensor["slave"]))
+            msg.append(sensor["slave"])
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
             logger.info(f"{sensor}")
@@ -139,13 +113,15 @@ class ServerAH(QThread):
     def _set_state(self, sn, sensors):
         for sensor in sensors:
             self.f_response = True
+            type_sens = self._compare_type(sensor["type"])
+            state = self._compare_state(type_sens, sensor["state_cod"])
             msg = bytearray(b"\xB6\x49\x43")
             msg.extend(sn.to_bytes(2, byteorder='little', signed=True))
             msg.extend(b"\x0A")
             msg.extend(b"\xC2")
-            msg.extend(int(sensor["serialnumber"]).to_bytes(3, byteorder='little', signed=True))
-            msg.extend(self._compare_type(sensor["type"]))
-            msg.extend(self._compare_state(self._compare_type(sensor["type"]), sensor["state"], sensor["state_cod"]))
+            msg.extend(sensor["serialnumber"].to_bytes(3, byteorder='little', signed=True))
+            msg.extend(type_sens)
+            msg.extend(state)
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
@@ -157,7 +133,6 @@ class ServerAH(QThread):
             if controllers["sn_emul"] == params["sn_emul"]:
                 for sensor in controllers["sensors"]:
                     if sensor["slave"] == params["slave"]:
-                        sensor["state"] = params["state"]
                         sensor["state_cod"] = params["state_cod"]
                         break
 
@@ -189,119 +164,105 @@ class ServerAH(QThread):
                 new_msg.append(i_byte)
         return new_msg
 
-    def _compare_type(self, type_sens: int) -> bytes:
+    def _compare_type(self, type_sens: str) -> bytes:
         match type_sens:
-            case 51:            # A2DPI
+            case "А2ДПИ":
                 return b"\x19"
-            case 53:            # АМК
+            case "АМК":
                 return b"\x0F"
-            case 54:            # AR1
+            case "АР1":
                 return b"\x0C"
-            case 57:            # АТИ
+            case "АТИ":
                 return b"\x10"
-            case 60:            # ИР-П
+            case "ИР-П":
                 return b"\x18"
-            case 65:            # МКЗ
+            case "МКЗ":
                 return b"\x01"
-
-            # case 61:            # ИСМ5
-            #     return b"\x04"
-            # case 64:            # ИСМ220-4
-            #     return b"\x0D"
 
             case _:
                 logger.info(f"non type {type_sens}")
 
-    def _compare_state(self, type_sens, state, state_cod=0):
+    def _compare_state(self, type_sens, state_cod="N"):
         match type_sens:
             case b'\x19':    #A2ДПИ
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
-                    case "F":
+                    case 31:
                         return b"\x00\x00\x00\x80"
-                    case "E":
-                        match state_cod:
-                            case 3:
-                                return b"\x08\x00\x00\x00"
-                            case 2:
-                                return b"\x04\x00\x00\x00"
+                    case 3:
+                        return b"\x08\x00\x00\x00"
+                    case 2:
+                        return b"\x04\x00\x00\x00"
             case b'\x18':   #ИР
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
-                    case "F":
+                    case 31:
                         return b"\x00\x00\x00\x80"
-                    case "E":
+                    case 30:
                         return b"\x00\x00\x00\x40"
             case b'\x0C':   #АР1
                 # 13 бит-шум, 14 бит-обрыв, 15 бит кз
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
-                    case "F":
+                    case 31:
                         return b"\x00\x00\x00\x80"
-                    case "E":
-                        match state_cod:
-                            case 13:
-                                return b"\x00\x20\x00\x40"
-                            case 14:
-                                return b"\x00\x40\x00\x00"
-                            case 15:
-                                return b"\x00\x80\x00\x00"
+                    case 13:
+                        return b"\x00\x20\x00\x40"
+                    case 14:
+                        return b"\x00\x40\x00\x00"
+                    case 15:
+                        return b"\x00\x80\x00\x00"
             case b'\x01':   #МКЗ
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
-                    case "F":
-                        return b"\x00\x00\x00\x00"
-                    case "E":
+                    case 31:
+                        return b"\x00\x00\x00\x80"
+                    case 30:
                         return b"\x00\x00\x00\x40"
             case b'\x0F':   #АМК
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
-                    case "F":
+                    case 31:
                         return b"\x00\x00\x00\x80"
-                    # case "E":
-                    #     return b"\x00\x00\x00\x40"
-
             case b'\x10':   #АТИ
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
-                    case "F":
+                    case 31:
                         return b"\x00\x00\x00\x80"
-                    case "E":
+                    case 30:
                         return b"\x00\x00\x00\x40"
             case b"\x0D":  # ИСМ220-4
-                match state:
+                match state_cod:
                     case "N":
                         return b"\x00\x03\x00\x00"
-                    case "F":
+                    case 31:
                         return b"\x00\x03\x00\x80"
-                    case "E":
-                        match state_cod:
-                            case 5:
-                                return b"\x20\x03\x00\x00"
-                            case 4:
-                                return b"\x10\x03\x00\x00"
-                            case 7:
-                                return b"\x80\x03\x00\x00"
-                            case 6:
-                                return b"\x40\x03\x00\x00"
-                            case 15:
-                                return b"\x00\x83\x00\x00"
-                            case 14:
-                                return b"\x00\x43\x00\x00"
-                            case 29:
-                                return b"\x00\x03\x00\x20"
-                            case 12:
-                                return b"\x00\x13\x00\x00"
-                            case 11:
-                                return b"\x00\x0b\x00\x00"
-                            case 27:
-                                return b"\x00\x03\x00\x08"
+                    case 5:
+                        return b"\x20\x03\x00\x00"
+                    case 4:
+                        return b"\x10\x03\x00\x00"
+                    case 7:
+                        return b"\x80\x03\x00\x00"
+                    case 6:
+                        return b"\x40\x03\x00\x00"
+                    case 15:
+                        return b"\x00\x83\x00\x00"
+                    case 14:
+                        return b"\x00\x43\x00\x00"
+                    case 29:
+                        return b"\x00\x03\x00\x20"
+                    case 12:
+                        return b"\x00\x13\x00\x00"
+                    case 11:
+                        return b"\x00\x0b\x00\x00"
+                    case 27:
+                        return b"\x00\x03\x00\x08"
             # case b"\x04": #ИСМ5
             #     match state:
             #         case "N":

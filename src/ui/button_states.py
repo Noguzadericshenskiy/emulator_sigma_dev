@@ -22,7 +22,7 @@ class StatesBtn:
         fire = QPushButton(parent)
         fire.setObjectName(u"fire_btn")
         fire.setGeometry(QRect(20, 30, 151, 23))
-        fire.setText("Пожар")
+        fire.setText("Сработал")
         return fire
 
     def btn_alarm(self, parent):

@@ -112,8 +112,11 @@ QLineEdit {
 }
 
 QTableWidget {
-    color: "black"
+    color: "black";
 }
+QTableWidget#ash_devices_tableWidget::item:selected {
+	border: 5px outset aqua;
+	}
 
 QLabel#sensor1_lbl, #sensor2_lbl, #sensor3_lbl, #sensor4_lbl, #sensor5_lbl,
 #sensor6_lbl, #sensor7_lbl, #sensor8_lbl, #sensor9_lbl, #sensor51_lbl,
@@ -124,16 +127,15 @@ QLabel#sensor1_lbl, #sensor2_lbl, #sensor3_lbl, #sensor4_lbl, #sensor5_lbl,
     border: 1px solid rgb(0, 160, 0);
 }
 
-QPushButton#norma_btn {
+#norma_btn {
     background-color: rgb(157, 242, 160);
 	border: none;
-
  	font: 75 10pt "Georgia";
  	color: rgb(0, 0, 0);
  	border-radius: 6px;
 }
 
-QPushButton#norma_btn:hover {
+#norma_btn:hover {
  	background-color: rgb(152, 234, 154);
  	border-left: 2px solid rgb(0, 160, 0);
  	border-top: 2px solid rgb(0, 160, 0);
@@ -141,23 +143,22 @@ QPushButton#norma_btn:hover {
  	border-bottom: 2px solid rgb(0, 160, 0);
 }
 
-QPushButton#norma_btn:pressed {
- 	background-color: rgb(157, 242, 160);
- 	background-color: rgb(143, 220, 146);
+#norma_btn:pressed {
+	background-color: rgb(143, 220, 146);
  	border-left: 2px solid rgb(0, 130, 0);
  	border-top: 2px solid rgb(0, 130, 0);
  	border-right: 2px solid rgb(0, 130, 0);
  	border-bottom: 2px solid rgb(0, 130, 0);
 }
 
-QPushButton#fire_btn {
+#fire_btn, #diff_fire_btn {
 	background-color: rgb(173, 0, 0);
 	font: 75 10pt "Georgia";
 	color: rgb(0, 0, 0);
 	border-radius: 6px;
 }
 
-QPushButton#fire_btn:hover {
+#fire_btn:hover, #diff_fire_btn:hover {
 	background-color: rgb(173, 0, 0);;
 	border-left: 2px solid rgb(0, 160, 0);
 	border-top: 2px solid rgb(0, 160, 0);
@@ -165,7 +166,7 @@ QPushButton#fire_btn:hover {
 	border-bottom: 2px solid rgb(0, 160, 0);
 }
 
-QPushButton#fire_btn:pressed {
+#fire_btn:pressed, #diff_fire_btn:pressed {
 	background-color: rgb(173, 0, 0);
 	border-left: 2px solid rgb(0, 130, 0);
 	border-top: 2px solid rgb(0, 130, 0);
@@ -174,7 +175,7 @@ QPushButton#fire_btn:pressed {
 }
 
 QPushButton#kz_btn, #break_btn, #noise_btn,
- #dirt_btn, #sensitivity_btn, #diff_fire_btn, #switch_btn,
+ #dirt_btn, #sensitivity_btn, #switch_btn,
  #alarm_btn, #btn_error_mb {
 	background-color: rgb(255, 140, 0);
 	font: 75 10pt "Georgia";
@@ -183,7 +184,7 @@ QPushButton#kz_btn, #break_btn, #noise_btn,
 }
 
 QPushButton#kz_btn:hover, #break_btn:hover, #noise_btn:hover,
- #dirt_btn:hover, #sensitivity_btn:hover, #diff_fire_btn:hover, #switch_btn:hover,
+ #dirt_btn:hover, #sensitivity_btn:hover, #switch_btn:hover,
  #alarm_btn:hover, #btn_error_mb:hover {
 	background-color: rgb(255, 140, 0);
 	border-left: 2px solid rgb(0, 160, 0);
@@ -193,7 +194,7 @@ QPushButton#kz_btn:hover, #break_btn:hover, #noise_btn:hover,
 }
 
 QPushButton#kz_btn:pressed, #break_btn:pressed, #noise_btn:pressed,
- #dirt_btn:pressed, #sensitivity_btn:pressed, #diff_fire_btn:pressed, #switch_btn:pressed,
+ #dirt_btn:pressed, #sensitivity_btn:pressed, #switch_btn:pressed,
  #alarm_btn:pressed, #btn_error_mb:pressed{
 	background-color: rgb(255, 140, 0);
 	border-left: 2px solid rgb(0, 130, 0);
