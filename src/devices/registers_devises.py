@@ -1,8 +1,8 @@
 from pymodbus.datastore import ModbusSlaveContext, ModbusSequentialDataBlock, ModbusSparseDataBlock
+from typing import Any
 
 
-
-def states_ipp_helios(status: str, num: int, slave: int = 1) -> ModbusSlaveContext:
+def states_ipp_helios(status: Any, num: int, slave: int = 1) -> ModbusSlaveContext:
     """Регистры состояний ИПП 07еа-RS "Гелиос " (Эридан)"""
     num_l = num
     num_h = 0
@@ -11,12 +11,12 @@ def states_ipp_helios(status: str, num: int, slave: int = 1) -> ModbusSlaveConte
             hr=ModbusSparseDataBlock(
                 {0: [slave, 6, 1, 1, 2, 2, 1, 3, num_l, num_h, 0, 3, 0], 51: [795, 100, 0, 0, 50]},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext( #12288
             hr=ModbusSparseDataBlock(
                 {0: [slave, 6, 1, 1, 2, 2, 1, 3, num_l, num_h, 0, 5, 0], 51: [795, 100, 0, 0, 50]},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext( #1024
             hr=ModbusSparseDataBlock(
                 {0: [slave, 6, 1, 1, 2, 2, 1, 3, num_l, num_h, 0, 6, 1024], 51: [795, 100, 0, 0, 50]},
@@ -31,12 +31,12 @@ def states_ip_535_07ea_rs(status, num, slave=1):
             hr=ModbusSparseDataBlock(
                 {0: [slave, 4, 1, 1, 3, 3, 2, 5, 2, num, 0, 3, 0, 0], 36: [27, 215, 0], 50: [0, 13]},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [slave, 4, 1, 1, 3, 3, 2, 5, 2, num, 0, 5, 256, 8, 0], 36: [27, 215, 0], 50: [0, 13]},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [slave, 4, 1, 1, 3, 3, 2, 5, 2, num, 0, 6, 0, 0], 36: [27, 215, 0], 50: [0, 13]},
@@ -50,12 +50,12 @@ def states_ip_101(status, num, slave=1):
             hr=ModbusSparseDataBlock(
                 {0: [slave, 4, 1, 1, 1, 1, 3, 6, 6, num, 0, 3, 0],  51: [1, 1, 70, 90, 22, 217, 0]},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [slave, 4, 1, 1, 1, 1, 3, 6, 6, num, 0, 5, 0],  51: [1, 1, 70, 90, 80, 807, 50]},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [3, 4, 1, 1, 1, 1, 3, 6, 6, 1896, 0, 6, 0],  51: [1, 1, 70, 90, 22, 217, 0]},
@@ -70,13 +70,13 @@ def states_mip(status, num, slave=1):
                 {0: [num, slave, 4, 3, 3, 3, 3, 3, 65535, 65535, 65535, 1792, 1, 1, 1, 0, 0, 0, 0, 0, 0, 255,
                      100, 100, 100, 255, 0, ]},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [num, slave, 4, 5, 5, 5, 3, 3, 100, 200, 300, 1792, 1, 1, 1, 255, 255, 255, 0, 0, 0, 255,
                      100, 100, 100, 255, 0, ]},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [num, slave, 4, 1, 2, 1, 6, 6, 65535, 65535, 65535, 1792, 1, 1, 1, 0, 0, 0, 0, 0, 0, 255,
@@ -105,7 +105,7 @@ def states_nls(status, num, slave=1):
                  522: [1]
                  },
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             ir=ModbusSparseDataBlock({0: [16767, 20707] * 16,
                                       20: [16767, 20707] * 16}),
@@ -118,7 +118,7 @@ def states_nls(status, num, slave=1):
                  522: [1]
                  },
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             ir=ModbusSparseDataBlock({0: [16252, 54290] * 16,
                                       20: [16252, 54290] * 16}),
@@ -141,12 +141,12 @@ def states_ip_330_zik_krechet(status, num, slave=1):
             hr=ModbusSparseDataBlock({0: [slave, 63119]}, mutable=True),
             ir=ModbusSparseDataBlock({1: [num, 40, 40, 0, 0], 11: [27], 257: [10]*10})
         )
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock({0: [slave, 63119]}, mutable=True),
             ir=ModbusSparseDataBlock({1: [num, 200, 200, 0, 0], 11: [27], 257: [10]*10})
         )
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock({0: [slave, 63119]}, mutable=True),
             ir=ModbusSparseDataBlock({1: [num, 0, 0, 0, 0], 11: [27], 257: [10]*10})
@@ -170,12 +170,12 @@ def state_ipes_ik_uf(status, num, slave=1):
             hr=ModbusSparseDataBlock(
                 {1: [slave_speed, 768]},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {1: [slave_speed, 769]},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {1: [slave_speed, 770]},
@@ -189,12 +189,12 @@ def state_ip_329_330_phoenix(status, num, slave=1):
             hr=ModbusSparseDataBlock(
                 {1: [slave, 2, num, 1, 1, 1, 64512, 2]},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {1: [slave, 2, num, 1, 1, 1, 28723, 3]},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {1: [slave, 2, num, 1, 1, 1, 28676, 16384]},
@@ -209,12 +209,12 @@ def state_ipa(status, num, slave=1):
             hr=ModbusSparseDataBlock(
                 {0: [0, 401, 2, 1, 0, 15, 23000, 100, 100, 240], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
                 mutable=True))
-    elif status == "F":
+    elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [0, 51201, 4, 100, 9000, 6000, 40000, 100, 100, 240], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
                 mutable=True))
-    elif status == "E":
+    elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
                 {0: [0, 51200, 1, 1, 0, 15, 23000, 100, 100, 240, ], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},

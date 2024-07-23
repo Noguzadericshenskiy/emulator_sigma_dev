@@ -8,19 +8,21 @@
 1. Могут быть пустые сетевые устройства, резервные (без шлейфов -> без датчиков) как то нужно решить это при выборе!
 
 
-type_list 
 
-    1: "ИП-535",             # SKAU03ADDRESSTYPE_MD_EIPR
-    2: "ИПП-Гелиос",        # SKAU03ADDRESSTYPE_MD_GELIOS3IK
-    3: "ИП-101",            # SKAU03ADDRESSTYPE_MD_EIPT
-    4: "ИП-330-Кречет",     # SKAU03ADDRESSTYPE_MD_KRECHET
-    5: "ИП-329-Феникс",     # SKAU03ADDRESSTYPE_MD_PHOENIX
-    6: "ИПЭС",              # SKAU03ADDRESSTYPE_MD_IPESIKUF
-    7: "МИП",               # SKAU03ADDRESSTYPE_MD_MIP
-    8: "ИПА",               # SKAU03ADDRESSTYPE_MD_IPA
-    9: "NLS",               # SKAU03ADDRESSTYPE_MD_AI
-    10: "ExИП-535",          # SKAU03ADDRESSTYPE_MD_EXIP535
-    11: "ИП-329/330 Вега",  # SKAU03ADDRESSTYPE_MD_VEGA
+
+    1: "ИП-535 (Эридан)"         # SKAU03ADDRESSTYPE_MD_EIPR
+    2: "ИП-101 (Эридан)"         # SKAU03ADDRESSTYPE_MD_EIPT     
+     3: "ИП-535 (Эталон)"         # SKAU03ADDRESSTYPE_MD_EXIP535
+    4: "ИП Гелиос 3ИК (Эридан)"  # SKAU03ADDRESSTYPE_MD_GELIOS3IK
+    5: "ИПА V5"                  # SKAU03ADDRESSTYPE_MD_IPA
+    6: "ИПЭС ИК-УФ"              # SKAU03ADDRESSTYPE_MD_IPESIKUF
+    7: "ИП Кречет"               # SKAU03ADDRESSTYPE_MD_KRECHET
+    8: "ИП Феникс"               # SKAU03ADDRESSTYPE_MD_PHOENIX  
+     9: "ИП Вега"                 # SKAU03ADDRESSTYPE_MD_VEGA
+    10: "МИП 3И"                 # SKAU03ADDRESSTYPE_MD_MIP
+     11: "NLS-16"                 # SKAU03ADDRESSTYPE_MD_AI
+     12: "NLS-8"                  
+
 
     51: "А2ДПИ",        # ATTYPE_A2DPI
     52: "АВИ",          # ATTYPE_AVI
@@ -39,4 +41,7 @@ type_list
     65: "МКЗ",          # ATTYPE_MKZ
     66: "ОСЗ",          # ATTYPE_OSZ
     67: "ОСЗ9",         # ATTYPE_OSZ9
+
+## ModBus устройства
+![img_1.png](img_1.png)
 

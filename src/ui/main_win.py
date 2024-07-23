@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v9.1.ui'
+## Form generated from reading UI file 'main_win_v10.2.1.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1289, 818)
+        MainWindow.resize(1387, 876)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -93,14 +93,14 @@ class Ui_MainWindow(object):
         self.groupBox.setMinimumSize(QSize(270, 131))
         self.ash_port_lbl = QLabel(self.groupBox)
         self.ash_port_lbl.setObjectName(u"ash_port_lbl")
-        self.ash_port_lbl.setGeometry(QRect(0, 10, 50, 20))
+        self.ash_port_lbl.setGeometry(QRect(0, 20, 50, 20))
         sizePolicy1.setHeightForWidth(self.ash_port_lbl.sizePolicy().hasHeightForWidth())
         self.ash_port_lbl.setSizePolicy(sizePolicy1)
         self.ash_port_lbl.setMinimumSize(QSize(50, 20))
         self.ash_port_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ash_port_info_lbl = QLabel(self.groupBox)
         self.ash_port_info_lbl.setObjectName(u"ash_port_info_lbl")
-        self.ash_port_info_lbl.setGeometry(QRect(50, 10, 150, 20))
+        self.ash_port_info_lbl.setGeometry(QRect(60, 20, 111, 20))
         sizePolicy1.setHeightForWidth(self.ash_port_info_lbl.sizePolicy().hasHeightForWidth())
         self.ash_port_info_lbl.setSizePolicy(sizePolicy1)
         self.ash_port_info_lbl.setMinimumSize(QSize(50, 20))
@@ -154,32 +154,60 @@ class Ui_MainWindow(object):
         self.modbus_device_tab.setObjectName(u"modbus_device_tab")
         self.mb_devices_tableWidget = QTableWidget(self.modbus_device_tab)
         self.mb_devices_tableWidget.setObjectName(u"mb_devices_tableWidget")
-        self.mb_devices_tableWidget.setGeometry(QRect(0, 140, 1261, 631))
+        self.mb_devices_tableWidget.setGeometry(QRect(0, 150, 1351, 671))
         self.mb_choice_net_dev_groupBox = QGroupBox(self.modbus_device_tab)
         self.mb_choice_net_dev_groupBox.setObjectName(u"mb_choice_net_dev_groupBox")
-        self.mb_choice_net_dev_groupBox.setGeometry(QRect(1040, 0, 221, 131))
+        self.mb_choice_net_dev_groupBox.setGeometry(QRect(770, 10, 221, 131))
         self.mb_out_net_dev_listWidget = QListWidget(self.mb_choice_net_dev_groupBox)
         self.mb_out_net_dev_listWidget.setObjectName(u"mb_out_net_dev_listWidget")
         self.mb_out_net_dev_listWidget.setGeometry(QRect(10, 20, 201, 101))
         self.mb_chenge_state_device_groupBox = QGroupBox(self.modbus_device_tab)
         self.mb_chenge_state_device_groupBox.setObjectName(u"mb_chenge_state_device_groupBox")
-        self.mb_chenge_state_device_groupBox.setGeometry(QRect(0, 10, 489, 121))
+        self.mb_chenge_state_device_groupBox.setGeometry(QRect(10, 10, 489, 131))
         self.verticalLayoutWidget_2 = QWidget(self.mb_chenge_state_device_groupBox)
         self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
         self.verticalLayoutWidget_2.setGeometry(QRect(10, 20, 471, 101))
         self.v_layer_state_dev_layout_2 = QVBoxLayout(self.verticalLayoutWidget_2)
+        self.v_layer_state_dev_layout_2.setSpacing(0)
         self.v_layer_state_dev_layout_2.setObjectName(u"v_layer_state_dev_layout_2")
         self.v_layer_state_dev_layout_2.setContentsMargins(0, 0, 0, 0)
-        self.mb_h_top_layer_state_dev_layout = QHBoxLayout()
-        self.mb_h_top_layer_state_dev_layout.setObjectName(u"mb_h_top_layer_state_dev_layout")
+        self.mb_h_top_state_dev_layout = QHBoxLayout()
+        self.mb_h_top_state_dev_layout.setObjectName(u"mb_h_top_state_dev_layout")
 
-        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_top_layer_state_dev_layout)
+        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_top_state_dev_layout)
 
-        self.mb_h_bottom_layer_state_dev_layout = QHBoxLayout()
-        self.mb_h_bottom_layer_state_dev_layout.setObjectName(u"mb_h_bottom_layer_state_dev_layout")
+        self.mb_h_center_state_dev_layout = QHBoxLayout()
+        self.mb_h_center_state_dev_layout.setObjectName(u"mb_h_center_state_dev_layout")
 
-        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_bottom_layer_state_dev_layout)
+        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_center_state_dev_layout)
 
+        self.mb_h_bottom_state_dev_layout = QHBoxLayout()
+        self.mb_h_bottom_state_dev_layout.setObjectName(u"mb_h_bottom_state_dev_layout")
+
+        self.v_layer_state_dev_layout_2.addLayout(self.mb_h_bottom_state_dev_layout)
+
+        self.layoutWidget = QWidget(self.modbus_device_tab)
+        self.layoutWidget.setObjectName(u"layoutWidget")
+        self.layoutWidget.setGeometry(QRect(630, 110, 2, 2))
+        self.ash_h_bottom_state_dev_layout_3 = QHBoxLayout(self.layoutWidget)
+        self.ash_h_bottom_state_dev_layout_3.setSpacing(0)
+        self.ash_h_bottom_state_dev_layout_3.setObjectName(u"ash_h_bottom_state_dev_layout_3")
+        self.ash_h_bottom_state_dev_layout_3.setContentsMargins(0, 0, 0, 0)
+        self.mb_info_groupBox = QGroupBox(self.modbus_device_tab)
+        self.mb_info_groupBox.setObjectName(u"mb_info_groupBox")
+        self.mb_info_groupBox.setGeometry(QRect(510, 10, 251, 131))
+        self.mb_port_lbl = QLabel(self.mb_info_groupBox)
+        self.mb_port_lbl.setObjectName(u"mb_port_lbl")
+        self.mb_port_lbl.setGeometry(QRect(10, 20, 49, 16))
+        self.mb_port_info_lbl = QLabel(self.mb_info_groupBox)
+        self.mb_port_info_lbl.setObjectName(u"mb_port_info_lbl")
+        self.mb_port_info_lbl.setGeometry(QRect(70, 20, 71, 16))
+        self.mb_net_dev_lbl = QLabel(self.mb_info_groupBox)
+        self.mb_net_dev_lbl.setObjectName(u"mb_net_dev_lbl")
+        self.mb_net_dev_lbl.setGeometry(QRect(10, 40, 91, 16))
+        self.mb_net_dev_info_lbl = QLabel(self.mb_info_groupBox)
+        self.mb_net_dev_info_lbl.setObjectName(u"mb_net_dev_info_lbl")
+        self.mb_net_dev_info_lbl.setGeometry(QRect(110, 40, 131, 16))
         self.tabWidget.addTab(self.modbus_device_tab, "")
         self.settings_tab = QWidget()
         self.settings_tab.setObjectName(u"settings_tab")
@@ -311,7 +339,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -320,15 +348,20 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.ash_chenge_state_device_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"C\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
-        self.groupBox.setTitle("")
+        self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u043d\u0444\u043e.", None))
         self.ash_port_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0440\u0442", None))
-        self.ash_port_info_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0440\u0442 \u0438\u043d\u0444\u043e", None))
+        self.ash_port_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.ash_net_dev_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0435 \u0443c-\u0432\u043e", None))
-        self.ash_net_dev_info_lbl.setText(QCoreApplication.translate("MainWindow", u"NET INFO", None))
+        self.ash_net_dev_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.ash_choice_net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0439 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.ash_device_tab), QCoreApplication.translate("MainWindow", u"\u0410\u0434\u0440\u0435\u0441\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
         self.mb_choice_net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0439 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440", None))
         self.mb_chenge_state_device_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
+        self.mb_info_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u043d\u0444\u043e.", None))
+        self.mb_port_lbl.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0440\u0442", None))
+        self.mb_port_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
+        self.mb_net_dev_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0435 \u0443\u0441-\u0432\u043e", None))
+        self.mb_net_dev_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.modbus_device_tab), QCoreApplication.translate("MainWindow", u"Modbus \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
         self.start_emulator_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440", None))
