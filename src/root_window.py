@@ -5,9 +5,6 @@ from PySide6.QtWidgets import (
     QListWidgetItem,
     QTableWidgetItem,
     QAbstractItemView,
-    QPushButton,
-    QVBoxLayout,
-    QHBoxLayout
 )
 from loguru import logger
 
@@ -34,6 +31,7 @@ from src.utilites.dialogues import (
     ok_connect,
     err_connect,
     err_selection_port_net_dev,
+    open_file
 )
 
 from src.ui.button_states import StatesBtn
@@ -59,6 +57,8 @@ class MainWindow(QMainWindow):
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
         self.ui.save_db_btn.clicked.connect(self._save_params_conn)
         self.ui.delete_line_btn.clicked.connect(self._delete_line)
+        self.ui.update_firmware_btn.clicked.connect(self._update_firmware)
+        self.ui.file_selection_btn.clicked.connect(self._file_selection)
 
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
@@ -77,6 +77,7 @@ class MainWindow(QMainWindow):
         self.ui.pass_db_lineEdit.setText(params_conn["password"])
         self.ui.name_db_lineEdit.setText(params_conn["name"])
         self.ui.sn_emulator_lineEdit.setText("641")
+        self.ui.loading_progressBar.setValue(0)
 
     def set_btn_md(self):
         norma_btn = self.btns.btn_norma(self)
@@ -680,3 +681,15 @@ class MainWindow(QMainWindow):
                 if row_item[1] == self.ui.net_dev_listWidget.item(num_row_net_dev).text():
                     self.ui.net_dev_listWidget.item(num_row_net_dev).setBackground(QColor(0, 85, 127))
             self.ports_net_devs.pop(row_num)
+
+    def _file_selection(self):
+        self.file_path = open_file(self)
+        if not self.file_path:
+            self.ui.file_selection_btn.setStyleSheet("background-color: rgb(173, 0, 0);")
+        else:
+            self.ui.file_selection_btn.setStyleSheet("background-color: rgb(0, 74, 109);")
+
+    def _update_firmware(self):
+        path = self.file_path
+        # sn = self.ui.sn_skau_lineEdit.text()
+        logger.info("start _update_firmware")

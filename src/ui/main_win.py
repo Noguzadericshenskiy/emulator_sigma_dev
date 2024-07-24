@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v10.2.1.ui'
+## Form generated from reading UI file 'main_win_v10.2.2.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -17,15 +17,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
     QHeaderView, QLabel, QLayout, QLineEdit,
-    QListWidget, QListWidgetItem, QMainWindow, QPushButton,
-    QSizePolicy, QSpacerItem, QTabWidget, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+    QListWidget, QListWidgetItem, QMainWindow, QProgressBar,
+    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1387, 876)
+        MainWindow.resize(1376, 863)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -331,6 +331,25 @@ class Ui_MainWindow(object):
         self.label = QLabel(self.settings_tab)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(660, 320, 81, 21))
+        self.groupBox_3 = QGroupBox(self.settings_tab)
+        self.groupBox_3.setObjectName(u"groupBox_3")
+        self.groupBox_3.setGeometry(QRect(590, 10, 261, 181))
+        self.file_selection_btn = QPushButton(self.groupBox_3)
+        self.file_selection_btn.setObjectName(u"file_selection_btn")
+        self.file_selection_btn.setGeometry(QRect(10, 20, 231, 24))
+        self.update_firmware_btn = QPushButton(self.groupBox_3)
+        self.update_firmware_btn.setObjectName(u"update_firmware_btn")
+        self.update_firmware_btn.setGeometry(QRect(10, 100, 231, 24))
+        self.loading_progressBar = QProgressBar(self.groupBox_3)
+        self.loading_progressBar.setObjectName(u"loading_progressBar")
+        self.loading_progressBar.setGeometry(QRect(20, 140, 221, 23))
+        self.loading_progressBar.setValue(24)
+        self.lineEdit = QLineEdit(self.groupBox_3)
+        self.lineEdit.setObjectName(u"lineEdit")
+        self.lineEdit.setGeometry(QRect(130, 60, 101, 21))
+        self.label_2 = QLabel(self.groupBox_3)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QRect(20, 60, 101, 16))
         self.tabWidget.addTab(self.settings_tab, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget)
@@ -339,7 +358,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -408,6 +427,10 @@ class Ui_MainWindow(object):
         self.check_db_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f", None))
         self.join_btn.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u044a\u0435\u0434\u0438\u043d\u0438\u0442\u044c", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"SN \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430", None))
+        self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u0421\u041a\u0410\u0423-03\u0414", None))
+        self.file_selection_btn.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0444\u0430\u0439\u043b \u0441 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u043e\u0439", None))
+        self.update_firmware_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0440\u0438\u0439\u043d\u044b\u0439 \u043d\u043e\u043c\u0435\u0440", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
     # retranslateUi
 
