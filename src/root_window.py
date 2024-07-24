@@ -684,10 +684,9 @@ class MainWindow(QMainWindow):
 
     def _file_selection(self):
         self.file_path = open_file(self)
-        if not self.file_path:
-            self.ui.file_selection_btn.setStyleSheet("background-color: rgb(173, 0, 0);")
-        else:
-            self.ui.file_selection_btn.setStyleSheet("background-color: rgb(0, 74, 109);")
+        if self.file_path:
+            ...
+
 
     def _update_firmware(self):
         path = self.file_path
