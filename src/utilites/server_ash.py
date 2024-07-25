@@ -154,10 +154,10 @@ class ServerAH(QThread):
                     if crc_ccitt_16_kermit_b(ans) == 0:
                         f_ans = False
                         self.f_response = False
-                        state_in = ans[13:17].hex(sep=" ")
-                        # logger.info(f'ans {ans.hex(sep=" ")}')
-                        # logger.info(f'type {(ans[12:13]).hex()}  state {(ans[13:17].hex())}')
-                        # logger.info(sensor)
+                        state_in = ans[13:17][::-1].hex(sep=" ")
+                        rev_stete = state_in
+                        # logger.info(f'ans {ans.hex(sep=" ")}  {type(state_in)}  {state_in[::-1].hex(sep=" ")}')
+
                         if sensor["state_in"] != state_in:
                             sensor["state_in"] = state_in
                             # logger.info(f'state_in out->  {(ans[13:17].hex())}')
