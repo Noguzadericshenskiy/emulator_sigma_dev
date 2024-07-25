@@ -307,7 +307,7 @@ def handler_devices(params_conn: dict, in_list):
                         "slave": int(dev_i[1]),
                         "serialnumber": int(dev_i.serialnumber),
                         "state_cod": "N",
-                        "state_in": None,
+                        "state_in": "None",
                     }
 
                     match dev_i[4]:

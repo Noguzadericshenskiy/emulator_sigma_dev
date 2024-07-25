@@ -30,7 +30,6 @@ class ServerAH(QThread):
     """
 
     sig_state_in = Signal(tuple)
-    # sig_2 = Signal(tuple)
 
     def __init__(self, array_controllers, name):
         super().__init__()
@@ -58,7 +57,7 @@ class ServerAH(QThread):
             for controller in self.controllers:
                 sn_emul = controller["sn_emul"]
                 self._set_state(sn_emul, controller["sensors"])
-                self._get_state_dev(sn_emul, controller["sensors"])
+                self._get_state_dev(sn_emul, controller["sensors"], controller["net_device"])
 
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
@@ -105,7 +104,7 @@ class ServerAH(QThread):
             msg.append(sensor["slave"])
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
-            logger.info(f"{sensor}")
+            # logger.info(f"{sensor}")
             while self.f_response:
                 self._send_msg(msg, 11)
 
@@ -124,11 +123,10 @@ class ServerAH(QThread):
             msg.extend(b"\x80")
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
-            logger.info(f"send_set {msg.hex(sep=' ')}")
             while self.f_response:
                 self._send_msg(msg, 11)
 
-    def _get_state_dev(self, sn_emul, sensors):
+    def _get_state_dev(self, sn_emul, sensors, net_device):
         for sensor in sensors:
             f_ans = True
             msg = (bytearray(b"\xB6\x49\x43"))  # Начало пакета, тип устройства
@@ -138,7 +136,7 @@ class ServerAH(QThread):
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
 
-            logger.info(f"send_get {msg.hex(sep=' ')}")
+            # logger.info(f"send_get {msg.hex(sep=' ')}")
             self.conn.reset_input_buffer()
             self.conn.write(msg)
             self.conn.flush()
@@ -146,8 +144,8 @@ class ServerAH(QThread):
             while f_ans:
                 if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
                     ans = bytearray(b"\xB9\x46")
-                    # for _ in range(20 - 2):
-                    for _ in range(23 - 2): # +1c
+                    for _ in range(20 - 2):
+                    # for _ in range(23 - 2): # +1c
                         b = self.conn.read()
                         if b == b"\xB9" or b == b"\xB6":
                             self.conn.read()
@@ -157,38 +155,13 @@ class ServerAH(QThread):
                         f_ans = False
                         self.f_response = False
                         state_in = ans[13:17].hex(sep=" ")
-                        logger.info(f'ans {ans.hex(sep=" ")}')
-                        logger.info(f'type {(ans[12:13]).hex()}  state {(ans[13:17].hex())}')
-                        logger.info(sensor)
+                        # logger.info(f'ans {ans.hex(sep=" ")}')
+                        # logger.info(f'type {(ans[12:13]).hex()}  state {(ans[13:17].hex())}')
+                        # logger.info(sensor)
                         if sensor["state_in"] != state_in:
                             sensor["state_in"] = state_in
-
-
-    # def changing_state(self, params):
-    #     for controllers in self.controllers:
-    #         if controllers["sn_emul"] == params["sn_emul"]:
-    #             for sensor in controllers["sensors"]:
-    #                 if sensor["slave"] == params["slave"]:
-    #                     sensor["state_cod"] = params["state_cod"]
-    #                     break
-
-    # def _status_request(self, sn_emul):
-    #     msg = (bytearray(b"\xB6\x49\x43"))
-    #     msg.extend(sn_emul.to_bytes(2, byteorder='little', signed=True))
-    #     msg.extend(b"\x01\xC1")
-    #     msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
-    #     msg = self._indicate_send_b6(msg)
-    #     logger.info(f"send {msg.hex()}")
-    #     self.conn.write(msg)
-    #     if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
-    #         ans = bytearray(b"\xB9\x46")
-    #         type_s = self.conn.read().hex()
-    #         sn_l = self.conn.read().hex()
-    #         sn_h = self.conn.read().hex()
-    #         l = self.conn.read().hex()
-    #         cmd = self.conn.read().hex()
-    #         logger.info(f"read [{ans}] [{type_s} {sn_l} {sn_h}] [{l}] [{cmd}]")
-    #         self.conn.read_all()
+                            # logger.info(f'state_in out->  {(ans[13:17].hex())}')
+                            self.sig_state_in.emit((self.name, sn_emul, sensor, net_device))
 
     def _indicate_send_b6(self, array_bytes: bytearray):
         new_msg = bytearray(b"\xB6\x49")
@@ -330,3 +303,13 @@ class ServerAH(QThread):
 
             case _:
                 logger.info(f"non type {type_sens}")
+
+
+
+    # def changing_state(self, params):
+    #     for controllers in self.controllers:
+    #         if controllers["sn_emul"] == params["sn_emul"]:
+    #             for sensor in controllers["sensors"]:
+    #                 if sensor["slave"] == params["slave"]:
+    #                     sensor["state_cod"] = params["state_cod"]
+    #                     break
