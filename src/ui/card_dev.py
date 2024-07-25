@@ -61,15 +61,23 @@ class CardDeviceASH(QWidget):
         self.card_info_slave_lbl.setText(str(params["slave"]))
         self.card_info_sn_lbl.setText(str(params["serialnumber"]))
         self.card_info_state_lbl.setText(params["state"])
-        self.card_info_state_in_lbl.setText("None")
+        self.card_info_state_in_lbl.setText(params["state_in"])
         self.change_color()
+
+    def set_state_in(self, state_in):
+        self.card_info_state_in_lbl.setText(state_in)
 
     def get_params(self):
         type_sens = self.card_info_type_lbl.text()
         slave = self.card_info_slave_lbl.text()
         sn = self.card_info_sn_lbl.text()
         state = self.card_info_state_lbl.text()
-        params = {"type": type_sens,  "slave": int(slave), "serialnumber": int(sn), "state": state}
+        state_in = self.card_info_state_in_lbl.text()
+        params = {"type": type_sens,
+                  "slave": int(slave),
+                  "serialnumber": int(sn),
+                  "state": state,
+                  "state_in": state_in}
         return params
 
     def change_color(self):
@@ -134,7 +142,7 @@ class CardDeviceMB(QWidget):
         type_sens = self.card_info_type_lbl.text()
         slave = self.card_info_slave_lbl.text()
         state = self.card_info_state_lbl.text()
-        params = {"type": type_sens,  "slave": int(slave), "state": state}
+        params = {"type": type_sens,  "slave": int(slave), "state": state, }
         return params
 
     def change_color(self):

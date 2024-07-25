@@ -1,11 +1,11 @@
-from PySide6.QtGui import QColor, Qt
-from PySide6.QtCore import QRect, QSize
+from PySide6.QtGui import QColor
+from PySide6.QtCore import Slot
 from PySide6.QtWidgets import (
     QMainWindow,
     QListWidgetItem,
     QTableWidgetItem,
     QAbstractItemView,
-)
+    )
 from loguru import logger
 
 from src.ui.main_win import Ui_MainWindow
@@ -228,6 +228,31 @@ class MainWindow(QMainWindow):
         if params:
             self.set_btn_md()
 
+    @Slot(tuple)
+    def _change_state_in(self, params_sensor):
+        num_row = self.ui.ash_devices_tableWidget.rowCount()
+        num_column = self.ui.ash_devices_tableWidget.columnCount()
+
+        for port_info in self.output_data_sensors:
+            if port_info["port"] == params_sensor[0]:
+                for controller in port_info["controllers"]:
+                    if controller["sn_emul"] == params_sensor[1]:
+                        for sens in controller["sensors"]:
+                            if sens["slave"] == params_sensor[2]["slave"]:
+                                sens["state_in"] = params_sensor[2]["state_in"]
+                                break
+
+        if self.ui.ash_port_info_lbl.text() == params_sensor[0] and self.ui.ash_net_dev_info_lbl.text() == params_sensor[3]:
+            for row in range(num_row):
+                for column in range(num_column):
+                    sensor_card = self.ui.ash_devices_tableWidget.cellWidget(row, column)
+                    if sensor_card:
+                        info_sens = sensor_card.get_params()
+                        if info_sens["slave"] == params_sensor[2]["slave"]:
+                            sensor_card.set_state_in(params_sensor[2]["state_in"])
+                            break
+
+
     def _clear_layouts_ash(self):
         num_top = self.ui.ash_h_top_state_dev_layout.count()
         num_center = self.ui.ash_h_center_state_dev_layout.count()
@@ -290,6 +315,7 @@ class MainWindow(QMainWindow):
             controller = server["controllers"][0]
             if controller["net_dev"] == "KAU03DConfig":
                 thread: ServerAH = ServerAH(server["controllers"], server["port"])
+                thread.sig_state_in.connect(self._change_state_in)
                 thread.start()
                 self.servers.append(thread)
             elif controller["net_dev"] == "SKAU03Config":
@@ -301,9 +327,10 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget.setCurrentWidget(self.ui.ash_device_tab)
 
     def _fill_table_ash(self):
-        max_column_index = 4
+        max_column_index = 15
         row = 0
         column = 0
+        max_row = 0
 
         selected_ash_net_dev = self.ui.ash_out_net_dev_listWidget.currentItem().text()
         sensors = []
@@ -313,10 +340,16 @@ class MainWindow(QMainWindow):
             for controller in port_info["controllers"]:
                 if controller["net_device"] == selected_ash_net_dev:
                     sensors = controller["sensors"]
+                    num_sens =len(sensors)
+                    if num_sens % 16 == 0:
+                        max_row = num_sens // max_column_index
+                    else:
+                        max_row = num_sens // max_column_index + 1
+
                     self.ui.ash_port_info_lbl.setText(port_info["port"])
                     self.ui.ash_net_dev_info_lbl.setText(controller["net_device"])
-        self.ui.ash_devices_tableWidget.setRowCount(6)
-        self.ui.ash_devices_tableWidget.setColumnCount(16)
+        self.ui.ash_devices_tableWidget.setRowCount(max_row)
+        self.ui.ash_devices_tableWidget.setColumnCount(max_column_index + 1)
 
         for index, sensor in enumerate(sensors):
             self.ui.ash_devices_tableWidget.setColumnWidth(column, 150)
@@ -427,38 +460,34 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor_mb()
         params["state"] = "Норма"
         params["state_cod"] = "N"
-        logger.info(params)
         sensor = self.ui.mb_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
-        self._send_in_thread(params["port"], params)
+        # self._send_in_thread(params["port"], params)
 
     def _activation_state_mb(self):
         params = self._get_current_sensor_mb()
         params["state"] = "Сработал"
         params["state_cod"] = 10
-        logger.info(params)
         sensor = self.ui.mb_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
         logger.info(f"params {params}")
-        self._send_in_thread(params["port"], params)
+        # self._send_in_thread(params["port"], params)
 
     def _malfunction_state_mb(self):
         params = self._get_current_sensor_mb()
         params["state"] = "Неисправность"
         params["state_cod"] = 1
-        logger.info(params)
         sensor = self.ui.mb_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
-        self._send_in_thread(params["port"], params)
+        # self._send_in_thread(params["port"], params)
 
     def _norma_state(self):
         params = self._get_current_sensor()
         params["state"] = "Норма"
         params["state_cod"] = "N"
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -468,7 +497,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Сработал"
         params["state_cod"] = 31
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -481,7 +509,6 @@ class MainWindow(QMainWindow):
         else:
             params["state"] = "Неисправность"
         params["state_cod"] = 30
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -491,7 +518,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 29
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -501,7 +527,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 27
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -511,7 +536,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 15
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -521,7 +545,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 14
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -531,7 +554,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 13
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -541,7 +563,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 12
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -551,7 +572,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 11
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -561,7 +581,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 7
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -571,7 +590,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 6
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -581,7 +599,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 5
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -591,7 +608,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 4
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -601,7 +617,6 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 3
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -611,14 +626,13 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 2
-        logger.info(params)
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
         # self._send_in_thread(params)
 
     def _get_current_sensor(self) -> dict:
-        """Получить значение выделенной ячейки
+        """Получить параметры сенсора из выделенной ячейки
             :param
             :return: {'type': 'А2ДПИ', 'slave': '1', 'serialnumber': '1', 'state': 'Норма',
             "row": 1, "column": 1, "port": "COM1", "net_dev": 'КАУ03Д->5843'}
@@ -639,7 +653,7 @@ class MainWindow(QMainWindow):
             ...
 
     def _get_current_sensor_mb(self) -> dict:
-        """Получить значение выделенной ячейки ModBus
+        """Получить параметры сенсора из выделенной ячейки ModBus
 
             :return:
         """

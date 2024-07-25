@@ -302,63 +302,92 @@ def handler_devices(params_conn: dict, in_list):
                 # stmt_ad = stmt_ad.order_by(Ka2AddressTraintable.address)
                 devs = conn.execute(stmt_ad).all()
                 for dev_i in devs:
+                    sensor = {
+                        "state": "Норма",
+                        "slave": int(dev_i[1]),
+                        "serialnumber": int(dev_i.serialnumber),
+                        "state_cod": "N",
+                        "state_in": "None",
+                    }
+
                     match dev_i[4]:
                         case "ATTYPE_A2DPI":
-                            sensors_row.append({
-                                "type": "А2ДПИ",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "А2ДПИ"
+                            sensors_row.append(sensor)
+
+                            # sensors_row.append({
+                            #     "type": "А2ДПИ",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            #     "state_in": None,
+                            # })
                         case "ATTYPE_AMK":
-                            sensors_row.append({
-                                "type": "АМК",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "АМК"
+                            sensors_row.append(sensor)
+                            # sensors_row.append({
+                            #     "type": "АМК",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            # })
                         case "ATTYPE_AR1":
-                            sensors_row.append({
-                                "type": "АР1",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "АР1"
+                            sensors_row.append(sensor)
+
+                            # sensors_row.append({
+                            #     "type": "АР1",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            # })
                         case "ATTYPE_ATI":
-                            sensors_row.append({
-                                "type": "АТИ",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "АТИ"
+                            sensors_row.append(sensor)
+
+                            # sensors_row.append({
+                            #     "type": "АТИ",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            # })
                         case "ATTYPE_A2RPI":
-                            sensors_row.append({
-                                "type": "ИР-П",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "ИР-П"
+                            sensors_row.append(sensor)
+
+                            # sensors_row.append({
+                            #     "type": "ИР-П",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            # })
                         case "ATTYPE_MKZ":
-                            sensors_row.append({
-                                "type": "МКЗ",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "МКЗ"
+                            sensors_row.append(sensor)
+
+                            # sensors_row.append({
+                            #     "type": "МКЗ",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            # })
                         case "ATTYPE_AOPI":
-                            sensors_row.append({
-                                "type": "АОПИ",
-                                "state": "Норма",
-                                "slave": int(dev_i[1]),
-                                "serialnumber": int(dev_i.serialnumber),
-                                "state_cod": "N",
-                            })
+                            sensor["type"] = "АОПИ"
+                            sensors_row.append(sensor)
+
+                            # sensors_row.append({
+                            #     "type": "АОПИ",
+                            #     "state": "Норма",
+                            #     "slave": int(dev_i[1]),
+                            #     "serialnumber": int(dev_i.serialnumber),
+                            #     "state_cod": "N",
+                            # })
 
                         case _:
                             ...
