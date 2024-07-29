@@ -12,10 +12,10 @@ text_err_select_sensor = """
 def open_file(parent):
     title = "Open file"
     directory = r'C:\User\Home\Downloads'
+    filter_files = "*flash"
     # filter_files = "*csv; *bom"
     # file_path.getOpenFileNames(parent, title, directory, filter_files)[0]
-    file_path = QFileDialog(parent).getOpenFileName(parent, title, directory,)
-    loguru.logger.info(file_path)
+    file_path = QFileDialog(parent).getOpenFileName(parent, title, directory, filter_files)
     if file_path:
         return file_path[0]
 

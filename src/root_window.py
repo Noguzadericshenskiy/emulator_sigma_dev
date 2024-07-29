@@ -13,6 +13,7 @@ from src.ui.card_dev import CardDeviceASH, CardDeviceMB
 from src.utilites.setup import (
     NumbersIPValidator,
     PortValidator,
+    SNEmulatorValidator,
     get_ports_info,
     check_join_table_output,
     save_conn_to_file,
@@ -62,6 +63,8 @@ class MainWindow(QMainWindow):
 
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
+        self.ui.sn_emulator_lineEdit.setValidator(SNEmulatorValidator())
+        self.ui.sn_skau_lineEdit.setValidator(SNEmulatorValidator())
 
         self.ui.ash_devices_tableWidget.clicked.connect(self.change_state)
         self.ui.mb_devices_tableWidget.clicked.connect(self.change_state_mb)
@@ -202,8 +205,8 @@ class MainWindow(QMainWindow):
 
     def change_state(self):
         params = self._get_current_sensor()
-        logger.info(f"params- {params}")
         self._clear_layouts_ash()
+        #params- {'type': 'А2ДПИ', 'slave': 2, 'serialnumber': 2, 'state': 'Норма', 'state_in': '00 00 00 00', 'row': 0, 'column': 1, 'port': 'COM17', 'net_device': 'КАУ03Д->100771'}
         if params:
             match params["type"]:
                 case "МКЗ":
@@ -699,10 +702,26 @@ class MainWindow(QMainWindow):
     def _file_selection(self):
         self.file_path = open_file(self)
         if self.file_path:
-            ...
+            self.ui.path_info_lbl.setText(self.file_path)
 
 
     def _update_firmware(self):
         path = self.file_path
+        sn = self.ui.sn_skau_lineEdit.text()
+        port = self.ui.port_loading_listWidget.currentItem()
         # sn = self.ui.sn_skau_lineEdit.text()
-        logger.info("start _update_firmware")
+        logger.info(f"start _update_firmware {sn} \/ {path} \/ {port}")
+        with open(path, "br") as f:
+            data = f.read()
+            f_eof = True
+            index = 0
+            count = 128
+            data_len = len(data)
+            num_chank = 0
+            if data_len % 128 != 0:
+                num_chank = data_len // 128 + 1
+            else:
+                num_chank = data_len // 128
+
+            for ch in range(num_chank, 128):
+                logger.info(data[ch:ch+128])

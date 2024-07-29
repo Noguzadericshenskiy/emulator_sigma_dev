@@ -17,6 +17,7 @@ DEFAULT_CONNECT = {
 }
 PATH = "setup.json"
 
+
 class NumbersIPValidator(QValidator):
     """Проверка введенного IP
     значение должно соответствовать 255.255.255.255
@@ -41,6 +42,14 @@ class PortValidator(QValidator):
             return QValidator.State.Acceptable, string, index
         else:
             return QValidator.State.Invalid, string, index
+
+
+class SNEmulatorValidator(QValidator):
+    def validate(self, sn: str, index: int) -> object:
+        if sn.isdigit():
+            return QValidator.State.Acceptable, sn, index
+        else:
+            return QValidator.State.Invalid, sn, index
 
 
 def get_ports_info() -> list[Any]:
