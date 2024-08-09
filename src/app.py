@@ -1,6 +1,5 @@
 import sys
 
-from PySide6.QtWidgets import QApplication
 from src.root_window import MainWindow
 
 from PySide6.QtGui import QColor
