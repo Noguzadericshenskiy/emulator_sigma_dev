@@ -25,6 +25,10 @@ from src.utilites.database import (
     handler_devices,
     check_conn,
 )
+from src.utilites.boot_firmware import (
+    get_data_from_file,
+    boot_firmware,
+    get_version,)
 from src.utilites.server_mb import ServerMB
 from src.utilites.server_ash import ServerAH
 from src.utilites.dialogues import (
@@ -60,6 +64,7 @@ class MainWindow(QMainWindow):
         self.ui.delete_line_btn.clicked.connect(self._delete_line)
         self.ui.update_firmware_btn.clicked.connect(self._update_firmware)
         self.ui.file_selection_btn.clicked.connect(self._file_selection)
+        self.ui.port_emul_btn.clicked.connect(self._view_port_ufw)
 
         self.ui.host_db_lineEdit.setValidator(NumbersIPValidator())
         self.ui.port_db_lineEdit.setValidator(PortValidator())
@@ -704,24 +709,42 @@ class MainWindow(QMainWindow):
         if self.file_path:
             self.ui.path_info_lbl.setText(self.file_path)
 
+    def _view_port_ufw(self):
+        """
+        [('COM6', 'ICPDAS I-7561U USB Serial Converter (COM6)').....]
+        :return:
+        """
+        self.ui.port_loading_listWidget.clear()
+        self.ports = get_ports_info()
+        for port in self.ports:
+            self.ui.port_loading_listWidget.addItem(port[1])
+
 
     def _update_firmware(self):
-        path = self.file_path
-        sn = self.ui.sn_skau_lineEdit.text()
-        port = self.ui.port_loading_listWidget.currentItem()
-        # sn = self.ui.sn_skau_lineEdit.text()
-        logger.info(f"start _update_firmware {sn} \/ {path} \/ {port}")
-        with open(path, "br") as f:
-            data = f.read()
-            f_eof = True
-            index = 0
-            count = 128
-            data_len = len(data)
-            num_chank = 0
-            if data_len % 128 != 0:
-                num_chank = data_len // 128 + 1
-            else:
-                num_chank = data_len // 128
+        """
+        Команда A2 обновление прошивки
+        :return:
+        """
+        port = None
+        sn = None
+        path = None
 
-            for ch in range(num_chank, 128):
-                logger.info(data[ch:ch+128])
+        try:
+            path = self.file_path
+            sn = self.ui.sn_skau_lineEdit.text()
+
+            if not sn.isdigit():
+                raise AttributeError("No selecton SN")
+            for port_i in self.ports:
+                if port_i[1] == self.ui.port_loading_listWidget.currentItem().text():
+                    port = port_i[0]
+            if not port:
+                raise AttributeError("No selection port")
+
+            data = get_data_from_file(path)
+            boot_firmware(port, int(sn), data)
+        except AttributeError as err:
+            logger.info(f"Error connect >> {err}")
+        finally:
+            logger.info(f"end _update_firmware {sn} \/ {path} \/ {port}")
+
