@@ -742,7 +742,8 @@ class MainWindow(QMainWindow):
                 raise AttributeError("No selection port")
 
             data = get_data_from_file(path)
-            boot_firmware(port, int(sn), data)
+            boot_firmware(port, int(sn), data, self)
+
         except AttributeError as err:
             logger.info(f"Error connect >> {err}")
         finally:
