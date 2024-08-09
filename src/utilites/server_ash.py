@@ -43,7 +43,7 @@ class ServerAH(QThread):
     def run(self) -> None:
         self.conn = Serial(
             port=self.port,
-            baudrate=19200,
+            baudrate=115200,
             timeout=0.3,
         )
         for controller in self.controllers:
