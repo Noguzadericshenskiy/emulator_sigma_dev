@@ -8,7 +8,7 @@ class StatesBtn:
         error = QPushButton(parent)
         error.setObjectName(u"btn_error_mb")
         error.setGeometry(QRect(20, 30, 151, 23))
-        error.setText("Ошибка")
+        error.setText("Неисправность")
         return error
 
     def btn_norma(self, parent):
@@ -18,7 +18,7 @@ class StatesBtn:
         norma.setText("Норма")
         return norma
 
-    def btn_fire(self, parent):
+    def activation_fire(self, parent):
         fire = QPushButton(parent)
         fire.setObjectName(u"fire_btn")
         fire.setGeometry(QRect(20, 30, 151, 23))

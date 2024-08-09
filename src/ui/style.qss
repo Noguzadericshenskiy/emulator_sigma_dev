@@ -114,7 +114,7 @@ QLineEdit {
 QTableWidget {
     color: "black";
 }
-QTableWidget#ash_devices_tableWidget::item:selected {
+QTableWidget#ash_devices_tableWidget::item:selected, #mb_devices_tableWidget::item:selected {
 	border: 5px outset aqua;
 	}
 

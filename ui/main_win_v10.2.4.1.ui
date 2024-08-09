@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1289</width>
-    <height>818</height>
+    <width>1376</width>
+    <height>863</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
+     <widget class="QTabWidget" name="update_firmware_tabWidget">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -42,7 +42,7 @@
        <enum>QTabWidget::TabShape::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="ash_device_tab">
        <attribute name="title">
@@ -127,13 +127,13 @@
              </size>
             </property>
             <property name="title">
-             <string/>
+             <string>Инфо.</string>
             </property>
             <widget class="QLabel" name="ash_port_lbl">
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>10</y>
+               <y>20</y>
                <width>50</width>
                <height>20</height>
               </rect>
@@ -160,9 +160,9 @@
             <widget class="QLabel" name="ash_port_info_lbl">
              <property name="geometry">
               <rect>
-               <x>50</x>
-               <y>10</y>
-               <width>150</width>
+               <x>60</x>
+               <y>20</y>
+               <width>111</width>
                <height>20</height>
               </rect>
              </property>
@@ -306,16 +306,16 @@
          <rect>
           <x>0</x>
           <y>150</y>
-          <width>1261</width>
-          <height>621</height>
+          <width>1351</width>
+          <height>671</height>
          </rect>
         </property>
        </widget>
        <widget class="QGroupBox" name="mb_choice_net_dev_groupBox">
         <property name="geometry">
          <rect>
-          <x>1040</x>
-          <y>0</y>
+          <x>770</x>
+          <y>10</y>
           <width>221</width>
           <height>131</height>
          </rect>
@@ -360,13 +360,13 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QHBoxLayout" name="mb_h_top_layer_state_dev_layout"/>
+           <layout class="QHBoxLayout" name="mb_h_top_state_dev_layout"/>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="mb_h_center_layer_state_dev_layout"/>
+           <layout class="QHBoxLayout" name="mb_h_center_state_dev_layout"/>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="mb_h_bottom_layer_state_dev_layout"/>
+           <layout class="QHBoxLayout" name="mb_h_bottom_state_dev_layout"/>
           </item>
          </layout>
         </widget>
@@ -386,57 +386,70 @@
          </property>
         </layout>
        </widget>
-       <widget class="QLabel" name="mb_port_lbl">
+       <widget class="QGroupBox" name="mb_info_groupBox">
         <property name="geometry">
          <rect>
           <x>510</x>
-          <y>20</y>
-          <width>49</width>
-          <height>16</height>
+          <y>10</y>
+          <width>251</width>
+          <height>131</height>
          </rect>
         </property>
-        <property name="text">
-         <string>Порт</string>
+        <property name="title">
+         <string>Инфо.</string>
         </property>
-       </widget>
-       <widget class="QLabel" name="mb_port_info_lbl">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>20</y>
-          <width>49</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>None</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="mb_net_dev_lbl">
-        <property name="geometry">
-         <rect>
-          <x>510</x>
-          <y>50</y>
-          <width>49</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Сетевое ус-во</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="mb_net_dev_info_lbl">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>50</y>
-          <width>49</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>None</string>
-        </property>
+        <widget class="QLabel" name="mb_port_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>49</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Порт</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="mb_port_info_lbl">
+         <property name="geometry">
+          <rect>
+           <x>70</x>
+           <y>20</y>
+           <width>71</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="mb_net_dev_lbl">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Сетевое ус-во</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="mb_net_dev_info_lbl">
+         <property name="geometry">
+          <rect>
+           <x>110</x>
+           <y>40</y>
+           <width>131</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="settings_tab">
@@ -906,6 +919,122 @@ QTableWidget {
         <property name="text">
          <string>SN эмулятора</string>
         </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Обновление прошивки</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>711</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Обновление прошивки эмулятора</string>
+        </property>
+        <widget class="QPushButton" name="update_firmware_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>240</y>
+           <width>301</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Загрузить</string>
+         </property>
+        </widget>
+        <widget class="QProgressBar" name="loading_progressBar">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>290</y>
+           <width>301</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="sn_skau_lineEdit">
+         <property name="geometry">
+          <rect>
+           <x>140</x>
+           <y>60</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_2">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>111</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Серийный номер</string>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="port_loading_listWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>130</y>
+           <width>381</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="file_selection_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>101</width>
+           <height>24</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Выбраьть файл</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="port_emul_btn">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>181</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Обновить список портов</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="path_info_lbl">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>20</y>
+           <width>561</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </widget>
        </widget>
       </widget>
      </widget>

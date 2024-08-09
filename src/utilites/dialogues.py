@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QMessageBox
+import loguru
+from PySide6.QtWidgets import QMessageBox, QFileDialog
 
 
 title_err_select_sensor = "Error select"
@@ -6,6 +7,17 @@ text_err_select_sensor = """
 < p style = 'color: white;' > Выбрана пустая ячейка!\n
 Необходимо выбрать датчик.< / p >
 """
+
+
+def open_file(parent):
+    title = "Open file"
+    directory = r'C:\User\Home\Downloads'
+    filter_files = "*flash"
+    # filter_files = "*csv; *bom"
+    # file_path.getOpenFileNames(parent, title, directory, filter_files)[0]
+    file_path = QFileDialog(parent).getOpenFileName(parent, title, directory, filter_files)
+    if file_path:
+        return file_path[0]
 
 
 def ok_connect(parent):
