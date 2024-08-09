@@ -63,12 +63,12 @@ def send_firmware(conn, data, sn, win):
     :return:
     """
     count_progress = 1
-    step = 1
     index = 0
     len_chunk = 128
     eof = 0
     len_data = len(data)
-
+    step = 1
+    win.ui.loading_progressBar.setMaximum(len_data / len_chunk + 1)
     while eof == 0:
         count_progress += step
         if 0 <= index + len_chunk + 1 < len_data:
@@ -131,26 +131,28 @@ def boot_firmware(port, sn, data, win):
     sn_b = sn.to_bytes((sn.bit_length() + 7) // 8, byteorder='little')
 
     with Serial(port=port, baudrate=19200, timeout=0.3) as conn:
-        win.ui.loading_progressBar.setValue(20)
-
+        win.ui.loading_progressBar.setValue(10)
         reboot_emulator(conn, sn_b, "A1")
-        logger.info("reboot end")
+        win.ui.loading_progressBar.setValue(20)
+        # logger.info("reboot end")
         version = get_version(conn, sn_b)
-        logger.info("get version end")
+        # logger.info("get version end")
         if send_firmware(conn, data, sn_b, win):
-            logger.info("send ok")
+            logger.info("uploading ok")
         else:
             logger.info("no uploading")
-        win.ui.loading_progressBar.setValue(80)
+        win.ui.loading_progressBar.setMaximum(100)
+        win.ui.loading_progressBar.setValue(90)
         reboot_emulator(conn, sn_b, "A0")
         logger.info("reboot end")
         win.ui.loading_progressBar.setValue(100)
 
+
 def check_state_uploading(msg):
     eof = msg[12]
     state = msg[7]
-    # logger.info(f"eof {eof.to_bytes().hex()} state {state.to_bytes().hex()}")
-    if state == b"\x80" and eof == b"\x80":
+    # logger.info(f"eof {eof} state {state}")
+    if state == 128 and eof == 128:
         return True
     else:
         return False
