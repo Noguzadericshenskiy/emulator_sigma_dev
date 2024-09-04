@@ -449,7 +449,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430", None))
 #if QT_CONFIG(tooltip)
-        self.update_firmware_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0417\u0430\u043f\u0443\u0441\u043a \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438.</p><p>\u0412\u043d\u0438\u043c\u0430\u043d\u0438\u0435!</p><p>\u041f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438 \u043d\u043e\u0432\u043e\u0439 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c \u0440\u0430\u0431\u043e\u0442\u044b \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430 \u043c\u043e\u0436\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u0441\u044f!</p></body></html>", None))
+        self.update_firmware_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0417\u0430\u043f\u0443\u0441\u043a \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.update_firmware_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c", None))
 #if QT_CONFIG(tooltip)
@@ -467,7 +467,7 @@ class Ui_MainWindow(object):
         self.path_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.speed_484_lbl_fw.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043a\u043e\u0440\u043e\u0441\u0442\u044c RS485", None))
 #if QT_CONFIG(tooltip)
-        self.speed_485_comboBox.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0412\u044b\u0431\u043e\u0440 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u0438 RS-485 \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430.</p><p>\u041f\u043e\u0441\u043b\u0435 \u043f\u0435\u0440\u0435\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c \u043c\u043e\u0436\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u0441\u044f!</p></body></html>", None))
+        self.speed_485_comboBox.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0412\u044b\u0431\u043e\u0440 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u0438 RS-485 \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.update_firmware_tabWidget), QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438", None))
     # retranslateUi

@@ -947,7 +947,7 @@ QTableWidget {
           </rect>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Запуск процесса загрузки прошивки.&lt;/p&gt;&lt;p&gt;Внимание!&lt;/p&gt;&lt;p&gt;После установки новой прошивки скорость работы эмулятора может изменится!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Запуск процесса загрузки прошивки.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Загрузить</string>
@@ -1070,7 +1070,7 @@ QTableWidget {
           </rect>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Выбор скорости RS-485 эмулятора.&lt;/p&gt;&lt;p&gt;После перепрошивки скорость может изменится!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Выбор скорости RS-485 эмулятора.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </widget>
