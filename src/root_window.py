@@ -28,7 +28,7 @@ from src.utilites.database import (
 from src.utilites.boot_firmware import (
     get_data_from_file,
     boot_firmware,
-    get_version,)
+    )
 from src.utilites.server_mb import ServerMB
 from src.utilites.server_ash import ServerAH
 from src.utilites.dialogues import (
@@ -36,10 +36,13 @@ from src.utilites.dialogues import (
     ok_connect,
     err_connect,
     err_selection_port_net_dev,
-    open_file
+    open_file,
+    error_update
 )
-
 from src.ui.button_states import StatesBtn
+
+
+logger.add("file_root_w.log", rotation="1 week")
 
 
 class MainWindow(QMainWindow):
@@ -76,6 +79,7 @@ class MainWindow(QMainWindow):
 
         self.ui.ash_out_net_dev_listWidget.clicked.connect(self._fill_table_ash)
         self.ui.mb_out_net_dev_listWidget.clicked.connect(self._fill_table_mb)
+        self.ui.tabWidget.setCurrentWidget(self.ui.settings_tab)
 
     def _set_parameters(self):
         params_conn = get_conn_from_file()
@@ -86,6 +90,9 @@ class MainWindow(QMainWindow):
         self.ui.name_db_lineEdit.setText(params_conn["name"])
         self.ui.sn_emulator_lineEdit.setText("641")
         self.ui.loading_progressBar.setValue(0)
+        for speed in ["9600", "19200", "115200"]:
+            self.ui.speed_485_comboBox.addItem(speed)
+        self.ui.speed_485_comboBox.setCurrentText("19200")
 
     def set_btn_md(self):
         norma_btn = self.btns.btn_norma(self)
@@ -310,6 +317,7 @@ class MainWindow(QMainWindow):
         else:
             err_connect(self)
 
+    @logger.catch
     def _start_servers(self):
         self.output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
 
@@ -327,12 +335,12 @@ class MainWindow(QMainWindow):
                 thread.start()
                 self.servers.append(thread)
             elif controller["net_dev"] == "SKAU03Config":
-                logger.info(f"{server['controllers']}")
+                # logger.info(f"{server['controllers']}")
                 thread: ServerMB = ServerMB(server["controllers"][0]["sensors"], server["port"])
                 thread.start()
                 self.servers.append(thread)
 
-        self.ui.tabWidget.setCurrentWidget(self.ui.ash_device_tab)
+
 
     def _fill_table_ash(self):
         max_column_index = 15
@@ -711,7 +719,7 @@ class MainWindow(QMainWindow):
 
     def _view_port_ufw(self):
         """
-        [('COM6', 'ICPDAS I-7561U USB Serial Converter (COM6)').....]
+        [('COM6', 'ICPDAS Serial Converter (COM6)').....]
         :return:
         """
         self.ui.port_loading_listWidget.clear()
@@ -719,12 +727,11 @@ class MainWindow(QMainWindow):
         for port in self.ports:
             self.ui.port_loading_listWidget.addItem(port[1])
 
-
     def _update_firmware(self):
         """
         Команда A2 обновление прошивки
-        :return:
         """
+
         port = None
         sn = None
         path = None
@@ -732,7 +739,7 @@ class MainWindow(QMainWindow):
         try:
             path = self.file_path
             sn = self.ui.sn_skau_lineEdit.text()
-
+            speed = self.ui.speed_485_comboBox.currentText()
             if not sn.isdigit():
                 raise AttributeError("No selecton SN")
             for port_i in self.ports:
@@ -742,10 +749,8 @@ class MainWindow(QMainWindow):
                 raise AttributeError("No selection port")
 
             data = get_data_from_file(path)
-            boot_firmware(port, int(sn), data, self)
+            boot_firmware(port, int(sn), data, speed, self)
 
         except AttributeError as err:
-            logger.info(f"Error connect >> {err}")
-        finally:
-            logger.info(f"end _update_firmware {sn} \/ {path} \/ {port}")
-
+            error_update(self, err)
+            logger.info(f"Error update>> {err}")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v10.2.4.1.ui'
+## Form generated from reading UI file 'main_win_v10.2.4.2.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -15,11 +15,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
-    QHeaderView, QLabel, QLayout, QLineEdit,
-    QListWidget, QListWidgetItem, QMainWindow, QProgressBar,
-    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QGroupBox,
+    QHBoxLayout, QHeaderView, QLabel, QLayout,
+    QLineEdit, QListWidget, QListWidgetItem, QMainWindow,
+    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
+    QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -31,17 +32,17 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.update_firmware_tabWidget = QTabWidget(self.centralwidget)
-        self.update_firmware_tabWidget.setObjectName(u"update_firmware_tabWidget")
-        self.update_firmware_tabWidget.setEnabled(True)
+        self.tabWidget = QTabWidget(self.centralwidget)
+        self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setEnabled(True)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.update_firmware_tabWidget.sizePolicy().hasHeightForWidth())
-        self.update_firmware_tabWidget.setSizePolicy(sizePolicy)
-        self.update_firmware_tabWidget.setMinimumSize(QSize(1271, 800))
-        self.update_firmware_tabWidget.setStyleSheet(u"")
-        self.update_firmware_tabWidget.setTabShape(QTabWidget.TabShape.Rounded)
+        sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
+        self.tabWidget.setSizePolicy(sizePolicy)
+        self.tabWidget.setMinimumSize(QSize(1271, 800))
+        self.tabWidget.setStyleSheet(u"")
+        self.tabWidget.setTabShape(QTabWidget.TabShape.Rounded)
         self.ash_device_tab = QWidget()
         self.ash_device_tab.setObjectName(u"ash_device_tab")
         self.verticalLayout_3 = QVBoxLayout(self.ash_device_tab)
@@ -149,7 +150,7 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.ash_devices_tableWidget)
 
-        self.update_firmware_tabWidget.addTab(self.ash_device_tab, "")
+        self.tabWidget.addTab(self.ash_device_tab, "")
         self.modbus_device_tab = QWidget()
         self.modbus_device_tab.setObjectName(u"modbus_device_tab")
         self.mb_devices_tableWidget = QTableWidget(self.modbus_device_tab)
@@ -208,7 +209,7 @@ class Ui_MainWindow(object):
         self.mb_net_dev_info_lbl = QLabel(self.mb_info_groupBox)
         self.mb_net_dev_info_lbl.setObjectName(u"mb_net_dev_info_lbl")
         self.mb_net_dev_info_lbl.setGeometry(QRect(110, 40, 131, 16))
-        self.update_firmware_tabWidget.addTab(self.modbus_device_tab, "")
+        self.tabWidget.addTab(self.modbus_device_tab, "")
         self.settings_tab = QWidget()
         self.settings_tab.setObjectName(u"settings_tab")
         self.port_and_ne_dev_groupBox = QGroupBox(self.settings_tab)
@@ -331,10 +332,10 @@ class Ui_MainWindow(object):
         self.label = QLabel(self.settings_tab)
         self.label.setObjectName(u"label")
         self.label.setGeometry(QRect(660, 320, 81, 21))
-        self.update_firmware_tabWidget.addTab(self.settings_tab, "")
-        self.tab = QWidget()
-        self.tab.setObjectName(u"tab")
-        self.groupBox_3 = QGroupBox(self.tab)
+        self.tabWidget.addTab(self.settings_tab, "")
+        self.update_firmware_tabWidget = QWidget()
+        self.update_firmware_tabWidget.setObjectName(u"update_firmware_tabWidget")
+        self.groupBox_3 = QGroupBox(self.update_firmware_tabWidget)
         self.groupBox_3.setObjectName(u"groupBox_3")
         self.groupBox_3.setGeometry(QRect(10, 10, 711, 361))
         self.update_firmware_btn = QPushButton(self.groupBox_3)
@@ -347,9 +348,9 @@ class Ui_MainWindow(object):
         self.sn_skau_lineEdit = QLineEdit(self.groupBox_3)
         self.sn_skau_lineEdit.setObjectName(u"sn_skau_lineEdit")
         self.sn_skau_lineEdit.setGeometry(QRect(140, 60, 91, 21))
-        self.label_2 = QLabel(self.groupBox_3)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(20, 60, 111, 16))
+        self.sn_emul_lbl_fw = QLabel(self.groupBox_3)
+        self.sn_emul_lbl_fw.setObjectName(u"sn_emul_lbl_fw")
+        self.sn_emul_lbl_fw.setGeometry(QRect(20, 60, 111, 16))
         self.port_loading_listWidget = QListWidget(self.groupBox_3)
         self.port_loading_listWidget.setObjectName(u"port_loading_listWidget")
         self.port_loading_listWidget.setGeometry(QRect(10, 130, 381, 91))
@@ -362,15 +363,21 @@ class Ui_MainWindow(object):
         self.path_info_lbl = QLabel(self.groupBox_3)
         self.path_info_lbl.setObjectName(u"path_info_lbl")
         self.path_info_lbl.setGeometry(QRect(130, 20, 561, 20))
-        self.update_firmware_tabWidget.addTab(self.tab, "")
+        self.speed_484_lbl_fw = QLabel(self.groupBox_3)
+        self.speed_484_lbl_fw.setObjectName(u"speed_484_lbl_fw")
+        self.speed_484_lbl_fw.setGeometry(QRect(260, 60, 101, 16))
+        self.speed_485_comboBox = QComboBox(self.groupBox_3)
+        self.speed_485_comboBox.setObjectName(u"speed_485_comboBox")
+        self.speed_485_comboBox.setGeometry(QRect(370, 50, 131, 31))
+        self.tabWidget.addTab(self.update_firmware_tabWidget, "")
 
-        self.verticalLayout_2.addWidget(self.update_firmware_tabWidget)
+        self.verticalLayout_2.addWidget(self.tabWidget)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
-        self.update_firmware_tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -385,7 +392,7 @@ class Ui_MainWindow(object):
         self.ash_net_dev_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0435 \u0443c-\u0432\u043e", None))
         self.ash_net_dev_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.ash_choice_net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0439 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440", None))
-        self.update_firmware_tabWidget.setTabText(self.update_firmware_tabWidget.indexOf(self.ash_device_tab), QCoreApplication.translate("MainWindow", u"\u0410\u0434\u0440\u0435\u0441\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.ash_device_tab), QCoreApplication.translate("MainWindow", u"\u0410\u0434\u0440\u0435\u0441\u043d\u044b\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
         self.mb_choice_net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0439 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440", None))
         self.mb_chenge_state_device_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
         self.mb_info_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0418\u043d\u0444\u043e.", None))
@@ -393,7 +400,7 @@ class Ui_MainWindow(object):
         self.mb_port_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
         self.mb_net_dev_lbl.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0435 \u0443\u0441-\u0432\u043e", None))
         self.mb_net_dev_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
-        self.update_firmware_tabWidget.setTabText(self.update_firmware_tabWidget.indexOf(self.modbus_device_tab), QCoreApplication.translate("MainWindow", u"Modbus \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.modbus_device_tab), QCoreApplication.translate("MainWindow", u"Modbus \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u0430", None))
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
         self.start_emulator_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440", None))
         self.delete_line_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043f\u0438\u0441\u044c", None))
@@ -439,13 +446,29 @@ class Ui_MainWindow(object):
         self.check_db_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u0440\u043e\u0432\u0435\u0440\u0438\u0442\u044c \u043d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0435\u043d\u0438\u044f", None))
         self.join_btn.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u044a\u0435\u0434\u0438\u043d\u0438\u0442\u044c", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"SN \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430", None))
-        self.update_firmware_tabWidget.setTabText(self.update_firmware_tabWidget.indexOf(self.settings_tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430", None))
+#if QT_CONFIG(tooltip)
+        self.update_firmware_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0417\u0430\u043f\u0443\u0441\u043a \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438.</p><p>\u0412\u043d\u0438\u043c\u0430\u043d\u0438\u0435!</p><p>\u041f\u043e\u0441\u043b\u0435 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0438 \u043d\u043e\u0432\u043e\u0439 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c \u0440\u0430\u0431\u043e\u0442\u044b \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430 \u043c\u043e\u0436\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u0441\u044f!</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.update_firmware_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0440\u0438\u0439\u043d\u044b\u0439 \u043d\u043e\u043c\u0435\u0440", None))
+#if QT_CONFIG(tooltip)
+        self.sn_skau_lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0421\u0435\u0440\u0438\u0439\u043d\u044b\u0439 \u043d\u043e\u043c\u0435\u0440 \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430.</p><p>\u041d\u0435 \u0438\u0437\u043c\u0435\u043d\u044f\u0435\u0442\u0441\u044f \u043f\u0440\u0438 \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0438 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.sn_emul_lbl_fw.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0440\u0438\u0439\u043d\u044b\u0439 \u043d\u043e\u043c\u0435\u0440", None))
+#if QT_CONFIG(tooltip)
+        self.file_selection_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430 \u0441 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u043e\u0439.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.file_selection_btn.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u044c\u0442\u044c \u0444\u0430\u0439\u043b", None))
+#if QT_CONFIG(tooltip)
+        self.port_emul_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0412\u044b\u0432\u0435\u0441\u0442\u0438 \u0441\u043f\u0438\u0441\u043e\u043a COM \u043f\u043e\u0440\u0442\u043e\u0432.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
         self.port_emul_btn.setText(QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0440\u0442\u043e\u0432", None))
         self.path_info_lbl.setText(QCoreApplication.translate("MainWindow", u"None", None))
-        self.update_firmware_tabWidget.setTabText(self.update_firmware_tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438", None))
+        self.speed_484_lbl_fw.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043a\u043e\u0440\u043e\u0441\u0442\u044c RS485", None))
+#if QT_CONFIG(tooltip)
+        self.speed_485_comboBox.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0412\u044b\u0431\u043e\u0440 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u0438 RS-485 \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440\u0430.</p><p>\u041f\u043e\u0441\u043b\u0435 \u043f\u0435\u0440\u0435\u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438 \u0441\u043a\u043e\u0440\u043e\u0441\u0442\u044c \u043c\u043e\u0436\u0435\u0442 \u0438\u0437\u043c\u0435\u043d\u0438\u0442\u0441\u044f!</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.update_firmware_tabWidget), QCoreApplication.translate("MainWindow", u"\u041e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u0435 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u0438", None))
     # retranslateUi
 

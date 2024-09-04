@@ -40,6 +40,7 @@ class ServerAH(QThread):
         self.f_run = True
         self.f_response = False
 
+    @logger.catch()
     def run(self) -> None:
         self.conn = Serial(
             port=self.port,
@@ -104,7 +105,6 @@ class ServerAH(QThread):
             msg.append(sensor["slave"])
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
-            # logger.info(f"{sensor}")
             while self.f_response:
                 self._send_msg(msg, 11)
 
@@ -136,7 +136,6 @@ class ServerAH(QThread):
             msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
             msg = self._indicate_send_b6(msg)
 
-            # logger.info(f"send_get {msg.hex(sep=' ')}")
             self.conn.reset_input_buffer()
             self.conn.write(msg)
             self.conn.flush()
@@ -145,7 +144,7 @@ class ServerAH(QThread):
                 if self.conn.read() == b"\xB9" and self.conn.read() == b"\x46":
                     ans = bytearray(b"\xB9\x46")
                     for _ in range(20 - 2):
-                    # for _ in range(23 - 2): # +1c
+                    # for _ in range(23 - 2): # + 1 c
                         b = self.conn.read()
                         if b == b"\xB9" or b == b"\xB6":
                             self.conn.read()
@@ -156,11 +155,9 @@ class ServerAH(QThread):
                         self.f_response = False
                         state_in = ans[13:17][::-1].hex(sep=" ")
                         rev_stete = state_in
-                        # logger.info(f'ans {ans.hex(sep=" ")}  {type(state_in)}  {state_in[::-1].hex(sep=" ")}')
 
                         if sensor["state_in"] != state_in:
                             sensor["state_in"] = state_in
-                            # logger.info(f'state_in out->  {(ans[13:17].hex())}')
                             self.sig_state_in.emit((self.name, sn_emul, sensor, net_device))
 
     def _indicate_send_b6(self, array_bytes: bytearray):
@@ -302,7 +299,7 @@ class ServerAH(QThread):
             #                     return b"\x00\x03\x00\x08"
 
             case _:
-                logger.info(f"non type {type_sens}")
+                logger.error(f"non type {type_sens}")
 
 
 

@@ -122,7 +122,7 @@ def response_msg(conn, len_msg):
                 return None
 
 
-def boot_firmware(port, sn, data, win):
+def boot_firmware(port, sn, data, speed, win):
     """    Запрос в эмулятор
         < hid[3] > < len[1] > < cmd[1] > < index[24] > < count[7 // N - 1] > < eof[1] > < data[1 - 128] > < crc >
         Ответ от эмулятора
@@ -130,7 +130,7 @@ def boot_firmware(port, sn, data, win):
     """
     sn_b = sn.to_bytes((sn.bit_length() + 7) // 8, byteorder='little')
 
-    with Serial(port=port, baudrate=19200, timeout=0.3) as conn:
+    with Serial(port=port, baudrate=int(speed), timeout=0.3) as conn:
         win.ui.loading_progressBar.setValue(10)
         reboot_emulator(conn, sn_b, "A1")
         win.ui.loading_progressBar.setValue(20)
