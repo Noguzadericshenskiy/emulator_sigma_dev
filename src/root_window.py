@@ -49,13 +49,13 @@ class MainWindow(QMainWindow):
     def __init__(self):
         self.servers = []
         super().__init__()
-        self.setWindowTitle("Эмулятор датчиков Modbus")
         self.ports = []
         self.net_devices = []
         self.ports_net_devs = []
         self.ui = Ui_MainWindow()
         self.btns = StatesBtn()
         self.ui.setupUi(self)
+        self.setWindowTitle('Эмулятор адресных устройств и устройств Modbus работающих с ПО "Индигирка"')
         check_file()
         self._set_parameters()
         self.ui.check_db_btn.clicked.connect(self._check_connect)
