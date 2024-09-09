@@ -2,8 +2,8 @@ import time
 from serial import Serial
 from loguru import logger
 
-from src.utilites.crc import add_crc, crc_ccitt_16_kermit_b
-from src.utilites.ash_util import indicate_send_b6
+from utilites.crc import add_crc, crc_ccitt_16_kermit_b
+from utilites.ash_util import indicate_send_b6
 
 
 def get_data_from_file(path):

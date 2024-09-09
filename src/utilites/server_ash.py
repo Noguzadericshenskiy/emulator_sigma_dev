@@ -4,7 +4,7 @@ from serial import Serial
 from PySide6.QtCore import Signal, QThread
 from loguru import logger
 
-from src.utilites.crc import crc_ccitt_16_kermit_b, add_crc
+from utilites.crc import crc_ccitt_16_kermit_b, add_crc
 
 
 class ServerAH(QThread):

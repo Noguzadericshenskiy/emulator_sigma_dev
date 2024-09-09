@@ -8,9 +8,9 @@ from PySide6.QtWidgets import (
     )
 from loguru import logger
 
-from src.ui.main_win import Ui_MainWindow
-from src.ui.card_dev import CardDeviceASH, CardDeviceMB
-from src.utilites.setup import (
+from ui.main_win import Ui_MainWindow
+from ui.card_dev import CardDeviceASH, CardDeviceMB
+from utilites.setup import (
     NumbersIPValidator,
     PortValidator,
     SNEmulatorValidator,
@@ -20,18 +20,18 @@ from src.utilites.setup import (
     check_file,
     get_conn_from_file
 )
-from src.utilites.database import (
+from utilites.database import (
     get_net_devices_from_db,
     handler_devices,
     check_conn,
 )
-from src.utilites.boot_firmware import (
+from utilites.boot_firmware import (
     get_data_from_file,
     boot_firmware,
     )
-from src.utilites.server_mb import ServerMB
-from src.utilites.server_ash import ServerAH
-from src.utilites.dialogues import (
+from utilites.server_mb import ServerMB
+from utilites.server_ash import ServerAH
+from utilites.dialogues import (
     err_selection,
     ok_connect,
     err_connect,
@@ -39,7 +39,7 @@ from src.utilites.dialogues import (
     open_file,
     error_update
 )
-from src.ui.button_states import StatesBtn
+from ui.button_states import StatesBtn
 
 
 logger.add("file_root_w.log", rotation="1 week")
@@ -267,7 +267,6 @@ class MainWindow(QMainWindow):
                             sensor_card.set_state_in(params_sensor[2]["state_in"])
                             break
 
-
     def _clear_layouts_ash(self):
         num_top = self.ui.ash_h_top_state_dev_layout.count()
         num_center = self.ui.ash_h_center_state_dev_layout.count()
@@ -339,8 +338,6 @@ class MainWindow(QMainWindow):
                 thread: ServerMB = ServerMB(server["controllers"][0]["sensors"], server["port"])
                 thread.start()
                 self.servers.append(thread)
-
-
 
     def _fill_table_ash(self):
         max_column_index = 15
