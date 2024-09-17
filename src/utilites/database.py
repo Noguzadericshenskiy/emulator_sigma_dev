@@ -267,7 +267,8 @@ def handler_devices(params_conn: dict, in_list):
                                  Ka2AddressTraintableAMK,
                                  Ka2AddressTraintableATI,
                                  Ka2AddressTraintableAOPI,
-                                 # Ka2AddressTraintable_ISM5,
+                                 Ka2AddressTraintable_ISM5,
+                                 Ka2AddressTraintable_ISM4,
                                  )
                 stmt_ad = stmt_ad.where(Ka2AddressTraintable.id == row_i[1][0], Ka2AddressTraintable.deleted == 0)
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableA2DPI,
@@ -291,15 +292,14 @@ def handler_devices(params_conn: dict, in_list):
                 stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintableAOPI,
                                             (Ka2AddressTraintable.address == Ka2AddressTraintableAOPI.address and
                                              Ka2AddressTraintable.id == Ka2AddressTraintableAOPI.id))
-                # stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintable_ISM4,
-                #                             (Ka2AddressTraintable.address == Ka2AddressTraintable_ISM4.address and
-                #                              Ka2AddressTraintable.id == Ka2AddressTraintable_ISM4.id))
-                # stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintable_ISM5,
-                #                             (Ka2AddressTraintable.address == Ka2AddressTraintable_ISM5.address and
-                #                              Ka2AddressTraintable.id == Ka2AddressTraintable_ISM5.id))
+                stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintable_ISM4,
+                                            (Ka2AddressTraintable.address == Ka2AddressTraintable_ISM4.address and
+                                             Ka2AddressTraintable.id == Ka2AddressTraintable_ISM4.id))
+                stmt_ad = stmt_ad.outerjoin(Ka2AddressTraintable_ISM5,
+                                            (Ka2AddressTraintable.address == Ka2AddressTraintable_ISM5.address and
+                                             Ka2AddressTraintable.id == Ka2AddressTraintable_ISM5.id))
 
                 stmt_ad = stmt_ad.distinct(Ka2AddressTraintable.address)
-                # stmt_ad = stmt_ad.order_by(Ka2AddressTraintable.address)
                 devs = conn.execute(stmt_ad).all()
                 for dev_i in devs:
                     sensor = {
@@ -314,81 +314,30 @@ def handler_devices(params_conn: dict, in_list):
                         case "ATTYPE_A2DPI":
                             sensor["type"] = "А2ДПИ"
                             sensors_row.append(sensor)
-
-                            # sensors_row.append({
-                            #     "type": "А2ДПИ",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            #     "state_in": None,
-                            # })
                         case "ATTYPE_AMK":
                             sensor["type"] = "АМК"
                             sensors_row.append(sensor)
-                            # sensors_row.append({
-                            #     "type": "АМК",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            # })
                         case "ATTYPE_AR1":
                             sensor["type"] = "АР1"
                             sensors_row.append(sensor)
-
-                            # sensors_row.append({
-                            #     "type": "АР1",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            # })
                         case "ATTYPE_ATI":
                             sensor["type"] = "АТИ"
                             sensors_row.append(sensor)
-
-                            # sensors_row.append({
-                            #     "type": "АТИ",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            # })
                         case "ATTYPE_A2RPI":
                             sensor["type"] = "ИР-П"
                             sensors_row.append(sensor)
-
-                            # sensors_row.append({
-                            #     "type": "ИР-П",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            # })
                         case "ATTYPE_MKZ":
                             sensor["type"] = "МКЗ"
                             sensors_row.append(sensor)
-
-                            # sensors_row.append({
-                            #     "type": "МКЗ",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            # })
                         case "ATTYPE_AOPI":
                             sensor["type"] = "АОПИ"
                             sensors_row.append(sensor)
-
-                            # sensors_row.append({
-                            #     "type": "АОПИ",
-                            #     "state": "Норма",
-                            #     "slave": int(dev_i[1]),
-                            #     "serialnumber": int(dev_i.serialnumber),
-                            #     "state_cod": "N",
-                            # })
-
+                        case "ATTYPE_ISM5":
+                            sensor["type"] = "ИСМ-5"
+                            sensors_row.append(sensor)
+                        case "ATTYPE_ISM4":
+                            sensor["type"] = "ИСМ-220.4"
+                            sensors_row.append(sensor)
                         case _:
                             ...
 

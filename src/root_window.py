@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
             self.ui.speed_485_comboBox.addItem(speed)
         self.ui.speed_485_comboBox.setCurrentText("19200")
 
-    def set_btn_md(self):
+    def _set_btn_md(self):
         norma_btn = self.btns.btn_norma(self)
         activation_btn = self.btns.activation_fire(self)
         malfunction = self.btns.btn_error_mb(self)
@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
         activation_btn.clicked.connect(self._activation_state_mb)
         malfunction.clicked.connect(self._malfunction_state_mb)
 
-    def set_btn_ir(self):
+    def _set_btn_ir(self):
         norma_btn = self.btns.btn_norma(self)
         kz_btn = self.btns.btn_kz(self)
         fire_btn = self.btns.activation_fire(self)
@@ -130,7 +130,7 @@ class MainWindow(QMainWindow):
         sensitivity_btn.clicked.connect(self._b_3_state)
         dirt_btn.clicked.connect(self._b_2_state)
 
-    def set_btn_ar1(self):
+    def _set_btn_ar1(self):
         norma_btn = self.btns.btn_norma(self)
         fire_btn = self.btns.activation_fire(self)
         noise_btn = self.btns.btn_noise(self)
@@ -147,7 +147,7 @@ class MainWindow(QMainWindow):
         break_btn.clicked.connect(self._b_14_state)
         kz_btn.clicked.connect(self._b_15_state)
 
-    def set_btn_mkz(self):
+    def _set_btn_mkz(self):
         norma_btn = self.btns.btn_norma(self)
         kz_btn = self.btns.btn_kz(self)
         switch_btn = self.btns.btn_swich(self)
@@ -158,7 +158,7 @@ class MainWindow(QMainWindow):
         kz_btn.clicked.connect(self._b_30_state)
         switch_btn.clicked.connect(self._b_31_state)
 
-    def set_btn_amk(self):
+    def _set_btn_amk(self):
         norma_btn = self.btns.btn_norma(self)
         alarm_btn = self.btns.btn_alarm(self)
         self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
@@ -166,7 +166,7 @@ class MainWindow(QMainWindow):
         norma_btn.clicked.connect(self._norma_state)
         alarm_btn.clicked.connect(self._b_31_state)
 
-    def set_btn_ati(self):
+    def _set_btn_ati(self):
         norma_btn = self.btns.btn_norma(self)
         fire_btn = self.btns.activation_fire(self)
         diff_fire_btn = self.btns.btn_diff_fire(self)
@@ -176,6 +176,9 @@ class MainWindow(QMainWindow):
         norma_btn.clicked.connect(self._norma_state)
         fire_btn.clicked.connect(self._b_31_state)
         diff_fire_btn.clicked.connect(self._b_30_state)
+
+    def _set_btn_aopi(self):
+        ...
 
     def _set_btn_ism5(self):
         norma = self.btns.btn_norma(self)
@@ -215,6 +218,9 @@ class MainWindow(QMainWindow):
         alarm_in1.clicked.connect(self._b_29_state)
         alarm_in2.clicked.connect(self._b_27_state)
 
+    def _set_btn_ism4(self):
+        ...
+
     def change_state(self):
         params = self._get_current_sensor()
         self._clear_layouts_ash()
@@ -222,26 +228,33 @@ class MainWindow(QMainWindow):
         if params:
             match params["type"]:
                 case "МКЗ":
-                    self.set_btn_mkz()
+                    self._set_btn_mkz()
                 case "ИР-П":
-                    self.set_btn_ir()
+                    self._set_btn_ir()
                 case "А2ДПИ":
                     self._set_btn_a2dpi()
                 case "АР1":
-                    self.set_btn_ar1()
+                    self._set_btn_ar1()
                 case "АМК":
-                    self.set_btn_amk()
+                    self._set_btn_amk()
                 case "АТИ":
-                    self.set_btn_ati()
+                    self._set_btn_ati()
                 case "АОПИ":
                     ...
+                case "ИСМ-5":
+                    self._set_btn_ism5()
+                case "ИСМ-220.4":
+                    self._set_btn_ism5()
+
+                case _:
+                    logger.info(f"No device {params['type']}")
 
     def change_state_mb(self):
         params = self._get_current_sensor_mb()
         logger.info(f"params- {params}")
         self._clear_layouts_mb()
         if params:
-            self.set_btn_md()
+            self._set_btn_md()
 
     @Slot(tuple)
     def _change_state_in(self, params_sensor):
@@ -264,7 +277,8 @@ class MainWindow(QMainWindow):
                     if sensor_card:
                         info_sens = sensor_card.get_params()
                         if info_sens["slave"] == params_sensor[2]["slave"]:
-                            sensor_card.set_state_in(params_sensor[2]["state_in"])
+                            # sensor_card.set_state_in(params_sensor[2]["state_in"])
+                            sensor_card.set_state_in(params_sensor[2])
                             break
 
     def _clear_layouts_ash(self):
@@ -334,10 +348,10 @@ class MainWindow(QMainWindow):
                 thread.start()
                 self.servers.append(thread)
             elif controller["net_dev"] == "SKAU03Config":
-                # logger.info(f"{server['controllers']}")
                 thread: ServerMB = ServerMB(server["controllers"][0]["sensors"], server["port"])
                 thread.start()
                 self.servers.append(thread)
+        self.ui.tabWidget.setCurrentWidget(self.ui.ash_device_tab)
 
     def _fill_table_ash(self):
         max_column_index = 15
@@ -367,7 +381,7 @@ class MainWindow(QMainWindow):
         for index, sensor in enumerate(sensors):
             self.ui.ash_devices_tableWidget.setColumnWidth(column, 150)
             self.ui.ash_devices_tableWidget.setRowHeight(row, 90)
-            card = CardDeviceASH()
+            card = CardDeviceASH(sensor)
             card.set_text_lbl(sensor)
             self.ui.ash_devices_tableWidget.setCellWidget(row, column, card)
 

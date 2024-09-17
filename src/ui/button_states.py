@@ -79,28 +79,28 @@ class StatesBtn:
         break_btn = QPushButton(parent)
         break_btn.setObjectName(u"break_in1_btn")
         break_btn.setGeometry(QRect(20, 30, 151, 23))
-        break_btn.setText("Обрыв in1")
+        break_btn.setText("Обрыв ШС (in1)")
         return break_btn
 
     def btn_break_in2(self, parent):
         break_btn = QPushButton(parent)
         break_btn.setObjectName(u"break_in2_btn")
         break_btn.setGeometry(QRect(20, 30, 151, 23))
-        break_btn.setText("Обрыв in2")
+        break_btn.setText("Обрыв ШС (in2)")
         return break_btn
 
     def btn_break_out1(self, parent):
         break_btn = QPushButton(parent)
         break_btn.setObjectName(u"break_out1_btn")
         break_btn.setGeometry(QRect(20, 30, 151, 23))
-        break_btn.setText("Обрыв out1")
+        break_btn.setText("Обрыв NO out1")
         return break_btn
 
     def btn_break_out2(self, parent):
         break_btn = QPushButton(parent)
         break_btn.setObjectName(u"break_out2_btn")
         break_btn.setGeometry(QRect(20, 30, 151, 23))
-        break_btn.setText("Обрыв out2")
+        break_btn.setText("Обрыв NO out2")
         return break_btn
 
     def btn_swich(self, parent):
@@ -130,26 +130,26 @@ class StatesBtn:
         kz = QPushButton(parent)
         kz.setObjectName(u"kz_in1_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
-        kz.setText("КЗ in1")
+        kz.setText("КЗ ШС (in1)")
         return kz
 
     def btn_kz_in2(self, parent):
         kz = QPushButton(parent)
         kz.setObjectName(u"kz_in2_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
-        kz.setText("КЗ in2")
+        kz.setText("КЗ ШС (in2)")
         return kz
 
     def btn_kz_out1(self, parent):
         kz = QPushButton(parent)
         kz.setObjectName(u"kz_out1_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
-        kz.setText("КЗ out1")
+        kz.setText("Обрыв NC out1")
         return kz
 
     def btn_kz_out2(self, parent):
         kz = QPushButton(parent)
         kz.setObjectName(u"kz_out2_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
-        kz.setText("КЗ out2")
+        kz.setText("Обрыв NC out2")
         return kz

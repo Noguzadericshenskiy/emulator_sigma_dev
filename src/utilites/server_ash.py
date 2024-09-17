@@ -21,7 +21,12 @@ class ServerAH(QThread):
             'sn_net_dev': "5843",
             'sn_emul': "641",
             'sensors': [
-                {'type': 51, 'state': 'N', 'state_cod': 0, 'slave': 1, 'serialnumber': '10'},
+                {'type': b"\x04",
+                'state': 'N',
+                'state_cod': 0,
+                'slave': 1,
+                'serialnumber': '10',
+                'state_in': 00 00 00 00},
                 {...},
             ],
         },
@@ -44,7 +49,7 @@ class ServerAH(QThread):
     def run(self) -> None:
         self.conn = Serial(
             port=self.port,
-            baudrate=19200,
+            baudrate=115200,
             timeout=0.3,
         )
         for controller in self.controllers:
@@ -153,8 +158,10 @@ class ServerAH(QThread):
                     if crc_ccitt_16_kermit_b(ans) == 0:
                         f_ans = False
                         self.f_response = False
-                        state_in = ans[13:17][::-1].hex(sep=" ")
-                        rev_stete = state_in
+                        if sensor["type"] == "ИСМ-5":
+                            state_in = revers_bits_8_9(int(ans[13:17][::-1].hex(), 16))
+                        else:
+                            state_in = ans[13:17][::-1].hex()
 
                         if sensor["state_in"] != state_in:
                             sensor["state_in"] = state_in
@@ -184,11 +191,16 @@ class ServerAH(QThread):
                 return b"\x18"
             case "МКЗ":
                 return b"\x01"
+            case "ИСМ-5":
+                return b"\x04"
+            case "ИСМ-220.4":
+                return b"\x0D"
 
             case _:
                 logger.info(f"non type {type_sens}")
 
     def _compare_state(self, type_sens, state_cod="N"):
+        "Байты отдаем младшим вперед!"
         match type_sens:
             case b'\x19':    #A2ДПИ
                 match state_cod:
@@ -246,67 +258,69 @@ class ServerAH(QThread):
             case b"\x0D":  # ИСМ220-4
                 match state_cod:
                     case "N":
-                        return b"\x00\x03\x00\x00"
+                        return b"\x00\x00\x00\x00"
                     case 31:
-                        return b"\x00\x03\x00\x80"
+                        return b"\x00\x00\x00\x80"
                     case 5:
-                        return b"\x20\x03\x00\x00"
+                        return b"\x20\x00\x00\x00"
                     case 4:
-                        return b"\x10\x03\x00\x00"
+                        return b"\x10\x00\x00\x00"
                     case 7:
-                        return b"\x80\x03\x00\x00"
+                        return b"\x80\x00\x00\x00"
                     case 6:
-                        return b"\x40\x03\x00\x00"
+                        return b"\x40\x00\x00\x00"
                     case 15:
-                        return b"\x00\x83\x00\x00"
+                        return b"\x00\x80\x00\x00"
                     case 14:
-                        return b"\x00\x43\x00\x00"
+                        return b"\x00\x40\x00\x00"
                     case 29:
-                        return b"\x00\x03\x00\x20"
+                        return b"\x00\x00\x00\x20"
                     case 12:
-                        return b"\x00\x13\x00\x00"
+                        return b"\x00\x10\x00\x00"
                     case 11:
-                        return b"\x00\x0b\x00\x00"
+                        return b"\x00\x08\x00\x00"
                     case 27:
-                        return b"\x00\x03\x00\x08"
-            # case b"\x04": #ИСМ5
-            #     match state:
-            #         case "N":
-            #             return b"\x00\x03\x00\x00"
-            #         case "F":
-            #             return b"\x00\x03\x00\x80"
-            #         case "E":
-            #             match err:
-            #                 case 5:
-            #                     return b"\x20\x03\x00\x00"
-            #                 case 4:
-            #                     return b"\x10\x03\x00\x00"
-            #                 case 7:
-            #                     return b"\x80\x03\x00\x00"
-            #                 case 6:
-            #                     return b"\x40\x03\x00\x00"
-            #                 case 15:
-            #                     return b"\x00\x83\x00\x00"
-            #                 case 14:
-            #                     return b"\x00\x43\x00\x00"
-            #                 case 29:
-            #                     return b"\x00\x03\x00\x20"
-            #                 case 12:
-            #                     return b"\x00\x13\x00\x00"
-            #                 case 11:
-            #                     return b"\x00\x0b\x00\x00"
-            #                 case 27:
-            #                     return b"\x00\x03\x00\x08"
+                        return b"\x00\x00\x00\x08"
+            case b"\x04": #ИСМ5
+                match state_cod:
+                    case "N":
+                        return b"\x00\x00\x00\x00"
+                    case 31:
+                        return b"\x00\x00\x00\x80"
+                    case 5:
+                        return b"\x20\x00\x00\x00"
+                    case 4:
+                        return b"\x10\x00\x00\x00"
+                    case 7:
+                        return b"\x80\x00\x00\x00"
+                    case 6:
+                        return b"\x40\x00\x00\x00"
+                    case 15:
+                        return b"\x00\x80\x00\x00"
+                    case 14:
+                        return b"\x00\x40\x00\x00"
+                    case 29:
+                        return b"\x00\x00\x00\x20"
+                    case 12:
+                        return b"\x00\x10\x00\x00"
+                    case 11:
+                        return b"\x00\x08\x00\x00"
+                    case 27:
+                        return b"\x00\x00\x00\x08"
 
             case _:
                 logger.error(f"non type {type_sens}")
 
 
+def revers_bits_8_9(state: int) -> hex:
 
-    # def changing_state(self, params):
-    #     for controllers in self.controllers:
-    #         if controllers["sn_emul"] == params["sn_emul"]:
-    #             for sensor in controllers["sensors"]:
-    #                 if sensor["slave"] == params["slave"]:
-    #                     sensor["state_cod"] = params["state_cod"]
-    #                     break
+    if state >> 8 & 1 != 0:
+        sensor_state: int = state & ~ (1 << 8)
+    else:
+        sensor_state: int = state | (1 << 8)
+    if state >> 9 & 1 != 0:
+        sensor_state: int = sensor_state & ~ (1 << 9)
+    else:
+        sensor_state: int = sensor_state | (1 << 9)
+
+    return sensor_state.to_bytes(4, "big").hex()
