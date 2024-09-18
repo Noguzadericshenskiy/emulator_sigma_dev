@@ -1,6 +1,8 @@
 import time
 
 from serial import Serial
+
+from serial.serialutil import SerialException
 from PySide6.QtCore import Signal, QThread
 from loguru import logger
 
@@ -45,25 +47,27 @@ class ServerAH(QThread):
         self.f_run = True
         self.f_response = False
 
-    @logger.catch()
     def run(self) -> None:
         self.conn = Serial(
             port=self.port,
-            baudrate=115200,
+            baudrate=19200,
             timeout=0.3,
         )
-        for controller in self.controllers:
-            sn_emul = controller["sn_emul"]
-            self._delete_config(sn_emul)
-            logger.info("end del")
-            self._create_sensors(sn_emul, controller["sensors"])
-            logger.info("end create")
-        logger.info("run")
-        while self.f_run:
+        try:
             for controller in self.controllers:
                 sn_emul = controller["sn_emul"]
-                self._set_state(sn_emul, controller["sensors"])
-                self._get_state_dev(sn_emul, controller["sensors"], controller["net_device"])
+                self._delete_config(sn_emul)
+                logger.info("end del")
+                self._create_sensors(sn_emul, controller["sensors"])
+                logger.info("end create")
+            logger.info("run")
+            while self.f_run:
+                for controller in self.controllers:
+                    sn_emul = controller["sn_emul"]
+                    self._set_state(sn_emul, controller["sensors"])
+                    self._get_state_dev(sn_emul, controller["sensors"], controller["net_device"])
+        except SerialException as err:
+            logger.error(f"Потеря связи с портом {err}")
 
     def _delete_config(self, sn):
         msg = bytearray(b"\xB6\x49\x43")
@@ -227,12 +231,12 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x00"
                     case 31:
                         return b"\x00\x00\x00\x80"
-                    case 13:
-                        return b"\x00\x20\x00\x40"
-                    case 14:
-                        return b"\x00\x40\x00\x00"
                     case 15:
                         return b"\x00\x80\x00\x00"
+                    case 14:
+                        return b"\x00\x40\x00\x00"
+                    case 13:
+                        return b"\x00\x20\x00\x40"
             case b'\x01':   #МКЗ
                 match state_cod:
                     case "N":
@@ -261,52 +265,72 @@ class ServerAH(QThread):
                         return b"\x00\x00\x00\x00"
                     case 31:
                         return b"\x00\x00\x00\x80"
-                    case 5:
-                        return b"\x20\x00\x00\x00"
-                    case 4:
-                        return b"\x10\x00\x00\x00"
-                    case 7:
-                        return b"\x80\x00\x00\x00"
-                    case 6:
-                        return b"\x40\x00\x00\x00"
+                    case 30:
+                        return b"\x00\x00\x00\x40"
+                    case 29:
+                        return b"\x00\x00\x00\x20"
+                    case 28:
+                        return b"\x00\x00\x00\x10"
+                    case 27:
+                        return b"\x00\x00\x00\x08"
+                    case 26:
+                        return b"\x00\x00\x00\x04"
                     case 15:
                         return b"\x00\x80\x00\x00"
                     case 14:
                         return b"\x00\x40\x00\x00"
-                    case 29:
-                        return b"\x00\x00\x00\x20"
+                    case 13:
+                        return b"\x00\x20\x00\x00"
                     case 12:
                         return b"\x00\x10\x00\x00"
                     case 11:
                         return b"\x00\x08\x00\x00"
-                    case 27:
-                        return b"\x00\x00\x00\x08"
+                    case 10:
+                        return b"\x00\x04\x00\x00"
+                    case 7:
+                        return b"\x80\x00\x00\x00"
+                    case 6:
+                        return b"\x40\x00\x00\x00"
+                    case 5:
+                        return b"\x20\x00\x00\x00"
+                    case 4:
+                        return b"\x10\x00\x00\x00"
+                    case 3:
+                        return b"\x08\x00\x00\x00"
             case b"\x04": #ИСМ5
                 match state_cod:
                     case "N":
                         return b"\x00\x00\x00\x00"
                     case 31:
                         return b"\x00\x00\x00\x80"
-                    case 5:
-                        return b"\x20\x00\x00\x00"
-                    case 4:
-                        return b"\x10\x00\x00\x00"
-                    case 7:
-                        return b"\x80\x00\x00\x00"
-                    case 6:
-                        return b"\x40\x00\x00\x00"
+                    case 30:
+                        return b"\x00\x00\x00\x40"
+                    case 29:
+                        return b"\x00\x00\x00\x20"
+                    case 27:
+                        return b"\x00\x00\x00\x08"
                     case 15:
                         return b"\x00\x80\x00\x00"
                     case 14:
                         return b"\x00\x40\x00\x00"
-                    case 29:
-                        return b"\x00\x00\x00\x20"
+                    case 13:
+                        return b"\x00\x20\x00\x00"
                     case 12:
                         return b"\x00\x10\x00\x00"
                     case 11:
                         return b"\x00\x08\x00\x00"
-                    case 27:
-                        return b"\x00\x00\x00\x08"
+                    case 10:
+                        return b"\x00\x04\x00\x00"
+                    case 7:
+                        return b"\x80\x00\x00\x00"
+                    case 6:
+                        return b"\x40\x00\x00\x00"
+                    case 5:
+                        return b"\x20\x00\x00\x00"
+                    case 4:
+                        return b"\x10\x00\x00\x00"
+                    case 3:
+                        return b"\x08\x00\x00\x00"
 
             case _:
                 logger.error(f"non type {type_sens}")

@@ -56,10 +56,10 @@ class CardDeviceASH(QWidget):
         self.v_layout.addLayout(self.h5_layout)
 
         if sensor["type"] in ["ИСМ-5", "ИСМ-220.4"]:
-            self.rele_1_stete = QLabel("Реле1")
+            self.rele_1_stete = QLabel("Реле 1")
             self.rele_1_stete.setContentsMargins(3, 1, 0, 1)
             self.rele_1_stete.setStyleSheet("background-color: rgb(0, 0, 221); color: rgb(185, 189, 189);")
-            self.rele_2_stete = QLabel("Реле2")
+            self.rele_2_stete = QLabel("Реле 2")
             self.rele_2_stete.setContentsMargins(3, 1, 0, 1)
             self.rele_2_stete.setStyleSheet("background-color: rgb(0, 0, 221); color: rgb(185, 189, 189);")
             self.h6_layout.addWidget(self.rele_1_stete)

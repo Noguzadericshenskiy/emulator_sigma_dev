@@ -176,7 +176,7 @@ QLabel#sensor1_lbl, #sensor2_lbl, #sensor3_lbl, #sensor4_lbl, #sensor5_lbl,
 
 QPushButton#kz_btn, #break_btn, #noise_btn,
  #dirt_btn, #sensitivity_btn, #switch_btn,
- #alarm_btn, #btn_error_mb {
+ #alarm_btn, #btn_error_mb, #power_btn {
 	background-color: rgb(255, 140, 0);
 	font: 75 10pt "Georgia";
 	color: rgb(0, 0, 0);
@@ -185,7 +185,7 @@ QPushButton#kz_btn, #break_btn, #noise_btn,
 
 QPushButton#kz_btn:hover, #break_btn:hover, #noise_btn:hover,
  #dirt_btn:hover, #sensitivity_btn:hover, #switch_btn:hover,
- #alarm_btn:hover, #btn_error_mb:hover {
+ #alarm_btn:hover, #btn_error_mb:hover, #power_btn:hover {
 	background-color: rgb(255, 140, 0);
 	border-left: 2px solid rgb(0, 160, 0);
 	border-top: 2px solid rgb(0, 160, 0);
@@ -195,7 +195,7 @@ QPushButton#kz_btn:hover, #break_btn:hover, #noise_btn:hover,
 
 QPushButton#kz_btn:pressed, #break_btn:pressed, #noise_btn:pressed,
  #dirt_btn:pressed, #sensitivity_btn:pressed, #switch_btn:pressed,
- #alarm_btn:pressed, #btn_error_mb:pressed{
+ #alarm_btn:pressed, #btn_error_mb:pressed, #power_btn:pressed{
 	background-color: rgb(255, 140, 0);
 	border-left: 2px solid rgb(0, 130, 0);
 	border-top: 2px solid rgb(0, 130, 0);

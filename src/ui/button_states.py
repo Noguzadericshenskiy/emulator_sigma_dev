@@ -36,16 +36,29 @@ class StatesBtn:
         alarm = QPushButton(parent)
         alarm.setObjectName(u"alarm_in1_btn")
         alarm.setGeometry(QRect(20, 30, 151, 23))
-        alarm.setText("Сработал in1")
+        alarm.setText("Сработал S1.1")
+        return alarm
+
+    def btn_alarm_in1_2(self, parent):
+        alarm = QPushButton(parent)
+        alarm.setObjectName(u"alarm_in1_2_btn")
+        alarm.setGeometry(QRect(20, 30, 151, 23))
+        alarm.setText("Сработал S1.2")
         return alarm
 
     def btn_alarm_in2(self, parent):
         alarm = QPushButton(parent)
-        alarm.setObjectName(u"alarm_in2btn")
+        alarm.setObjectName(u"alarm_in2_btn")
         alarm.setGeometry(QRect(20, 30, 151, 23))
-        alarm.setText("Сработал in2")
+        alarm.setText("Сработал S2.1")
         return alarm
 
+    def btn_alarm_in2_2(self, parent):
+        alarm = QPushButton(parent)
+        alarm.setObjectName(u"alarm_in2_2_btn")
+        alarm.setGeometry(QRect(20, 30, 151, 23))
+        alarm.setText("Сработал S2.2")
+        return alarm
 
     def btn_diff_fire(self, parent):
         diff_fire = QPushButton(parent)
@@ -79,14 +92,14 @@ class StatesBtn:
         break_btn = QPushButton(parent)
         break_btn.setObjectName(u"break_in1_btn")
         break_btn.setGeometry(QRect(20, 30, 151, 23))
-        break_btn.setText("Обрыв ШС (in1)")
+        break_btn.setText("Обрыв ШС S1")
         return break_btn
 
     def btn_break_in2(self, parent):
         break_btn = QPushButton(parent)
         break_btn.setObjectName(u"break_in2_btn")
         break_btn.setGeometry(QRect(20, 30, 151, 23))
-        break_btn.setText("Обрыв ШС (in2)")
+        break_btn.setText("Обрыв ШС S2")
         return break_btn
 
     def btn_break_out1(self, parent):
@@ -130,14 +143,14 @@ class StatesBtn:
         kz = QPushButton(parent)
         kz.setObjectName(u"kz_in1_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
-        kz.setText("КЗ ШС (in1)")
+        kz.setText("КЗ ШС S1")
         return kz
 
     def btn_kz_in2(self, parent):
         kz = QPushButton(parent)
         kz.setObjectName(u"kz_in2_btn")
         kz.setGeometry(QRect(20, 30, 151, 23))
-        kz.setText("КЗ ШС (in2)")
+        kz.setText("КЗ ШС S2")
         return kz
 
     def btn_kz_out1(self, parent):
@@ -153,3 +166,31 @@ class StatesBtn:
         kz.setGeometry(QRect(20, 30, 151, 23))
         kz.setText("Обрыв NC out2")
         return kz
+
+    def btn_noise_s1(self, parent):
+        noise = QPushButton(parent)
+        noise.setObjectName(u"noise_s1_btn")
+        noise.setGeometry(QRect(20, 30, 151, 23))
+        noise.setText("Шум на S1")
+        return noise
+
+    def btn_noise_s2(self, parent):
+        noise = QPushButton(parent)
+        noise.setObjectName(u"noise_s2_btn")
+        noise.setGeometry(QRect(20, 30, 151, 23))
+        noise.setText("Шум на S2")
+        return noise
+
+    def btn_test(self, parent):
+        noise = QPushButton(parent)
+        noise.setObjectName(u"test")
+        noise.setGeometry(QRect(20, 30, 151, 23))
+        noise.setText("Тест")
+        return noise
+
+    def btn_pwr(self, parent):
+        power = QPushButton(parent)
+        power.setObjectName(u"power_btn")
+        power.setGeometry(QRect(20, 30, 151, 23))
+        power.setText("Ошибка питания")
+        return power

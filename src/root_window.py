@@ -193,18 +193,26 @@ class MainWindow(QMainWindow):
         break_out2 = self.btns.btn_break_out2(self)
         alarm_in1 = self.btns.btn_alarm_in1(self)
         alarm_in2 = self.btns.btn_alarm_in2(self)
+        noise_s1 = self.btns.btn_noise_s1(self)
+        noise_s2 = self.btns.btn_noise_s2(self)
+        power = self.btns.btn_pwr(self)
+        mkz = self.btns.btn_kz(self)
         self.ui.ash_h_top_state_dev_layout.addWidget(norma)
         self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in1)
         self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in2)
-        self.ui.ash_h_top_state_dev_layout.addWidget(switch)
+        self.ui.ash_h_top_state_dev_layout.addWidget(mkz)
         self.ui.ash_h_center_state_dev_layout.addWidget(kz_in1)
         self.ui.ash_h_center_state_dev_layout.addWidget(break_in1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(noise_s1)
         self.ui.ash_h_center_state_dev_layout.addWidget(kz_out1)
         self.ui.ash_h_center_state_dev_layout.addWidget(break_out1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(switch)
         self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_in2)
         self.ui.ash_h_bottom_state_dev_layout.addWidget(break_in2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(noise_s2)
         self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_out2)
         self.ui.ash_h_bottom_state_dev_layout.addWidget(break_out2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(power)
         norma.clicked.connect(self._norma_state)
         switch.clicked.connect(self._b_31_state)
         kz_in1.clicked.connect(self._b_15_state)
@@ -217,9 +225,66 @@ class MainWindow(QMainWindow):
         break_out2.clicked.connect(self._b_6_state)
         alarm_in1.clicked.connect(self._b_29_state)
         alarm_in2.clicked.connect(self._b_27_state)
+        noise_s1.clicked.connect(self._b_13_state)
+        noise_s2.clicked.connect(self._b_10_state)
+        power.clicked.connect(self._b_3_state)
+        mkz.clicked.connect(self._b_30_state)
 
     def _set_btn_ism4(self):
-        ...
+        norma = self.btns.btn_norma(self)
+        switch = self.btns.btn_swich(self)
+        kz_in1 = self.btns.btn_kz_in1(self)
+        kz_in2 = self.btns.btn_kz_in2(self)
+        kz_out1 = self.btns.btn_kz_out1(self)
+        kz_out2 = self.btns.btn_kz_out2(self)
+        break_in1 = self.btns.btn_break_in1(self)
+        break_in2 = self.btns.btn_break_in2(self)
+        break_out1 = self.btns.btn_break_out1(self)
+        break_out2 = self.btns.btn_break_out2(self)
+        alarm_in1 = self.btns.btn_alarm_in1(self)
+        alarm_in2 = self.btns.btn_alarm_in2(self)
+        alarm_in12 = self.btns.btn_alarm_in1_2(self)
+        alarm_in22 = self.btns.btn_alarm_in2_2(self)
+        noise_s1 = self.btns.btn_noise_s1(self)
+        noise_s2 = self.btns.btn_noise_s2(self)
+        power = self.btns.btn_pwr(self)
+        mkz = self.btns.btn_kz(self)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in1)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in12)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in2)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in22)
+        self.ui.ash_h_top_state_dev_layout.addWidget(mkz)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_in1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_in1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(noise_s1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_out1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_out1)
+        self.ui.ash_h_center_state_dev_layout.addWidget(switch)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_in2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_in2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(noise_s2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_out2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_out2)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(power)
+        norma.clicked.connect(self._norma_state)
+        switch.clicked.connect(self._b_31_state)
+        kz_in1.clicked.connect(self._b_15_state)
+        kz_in2.clicked.connect(self._b_12_state)
+        kz_out1.clicked.connect(self._b_5_state)
+        kz_out2.clicked.connect(self._b_7_state)
+        break_in1.clicked.connect(self._b_14_state)
+        break_in2.clicked.connect(self._b_11_state)
+        break_out1.clicked.connect(self._b_4_state)
+        break_out2.clicked.connect(self._b_6_state)
+        alarm_in1.clicked.connect(self._b_29_state)
+        alarm_in2.clicked.connect(self._b_27_state)
+        alarm_in12.clicked.connect(self._b_28_state)
+        alarm_in22.clicked.connect(self._b_26_state)
+        noise_s1.clicked.connect(self._b_13_state)
+        noise_s2.clicked.connect(self._b_10_state)
+        power.clicked.connect(self._b_3_state)
+        mkz.clicked.connect(self._b_30_state)
 
     def change_state(self):
         params = self._get_current_sensor()
@@ -239,12 +304,10 @@ class MainWindow(QMainWindow):
                     self._set_btn_amk()
                 case "АТИ":
                     self._set_btn_ati()
-                case "АОПИ":
-                    ...
                 case "ИСМ-5":
                     self._set_btn_ism5()
                 case "ИСМ-220.4":
-                    self._set_btn_ism5()
+                    self._set_btn_ism4()
 
                 case _:
                     logger.info(f"No device {params['type']}")
@@ -550,10 +613,28 @@ class MainWindow(QMainWindow):
         self._save_state_sensor(params)
         # self._send_in_thread(params)
 
+    def _b_28_state(self):
+        params = self._get_current_sensor()
+        params["state"] = "Неисправность"
+        params["state_cod"] = 28
+        sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
+        sensor.set_text_lbl(params)
+        self._save_state_sensor(params)
+        # self._send_in_thread(params)
+
     def _b_27_state(self):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 27
+        sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
+        sensor.set_text_lbl(params)
+        self._save_state_sensor(params)
+        # self._send_in_thread(params)
+
+    def _b_26_state(self):
+        params = self._get_current_sensor()
+        params["state"] = "Неисправность"
+        params["state_cod"] = 26
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
@@ -599,6 +680,15 @@ class MainWindow(QMainWindow):
         params = self._get_current_sensor()
         params["state"] = "Неисправность"
         params["state_cod"] = 11
+        sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
+        sensor.set_text_lbl(params)
+        self._save_state_sensor(params)
+        # self._send_in_thread(params)
+
+    def _b_10_state(self):
+        params = self._get_current_sensor()
+        params["state"] = "Неисправность"
+        params["state_cod"] = 10
         sensor = self.ui.ash_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
