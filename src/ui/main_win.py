@@ -15,18 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QLayout,
-    QLineEdit, QListWidget, QListWidgetItem, QMainWindow,
-    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
-    QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGroupBox, QHBoxLayout,
+    QHeaderView, QLabel, QLayout, QLineEdit,
+    QListWidget, QListWidgetItem, QMainWindow, QProgressBar,
+    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1339, 860)
+        MainWindow.resize(1376, 802)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -59,11 +58,13 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.ash_chenge_state_device_groupBox.sizePolicy().hasHeightForWidth())
         self.ash_chenge_state_device_groupBox.setSizePolicy(sizePolicy1)
         self.ash_chenge_state_device_groupBox.setMinimumSize(QSize(700, 131))
-        self.horizontalLayout_2 = QHBoxLayout(self.ash_chenge_state_device_groupBox)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.ash_v_layer_state_dev_layout = QVBoxLayout()
+        self.verticalLayoutWidget = QWidget(self.ash_chenge_state_device_groupBox)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.verticalLayoutWidget.setGeometry(QRect(10, 20, 681, 101))
+        self.ash_v_layer_state_dev_layout = QVBoxLayout(self.verticalLayoutWidget)
         self.ash_v_layer_state_dev_layout.setSpacing(0)
         self.ash_v_layer_state_dev_layout.setObjectName(u"ash_v_layer_state_dev_layout")
+        self.ash_v_layer_state_dev_layout.setContentsMargins(0, 0, 0, 0)
         self.ash_h_top_state_dev_layout = QHBoxLayout()
         self.ash_h_top_state_dev_layout.setSpacing(0)
         self.ash_h_top_state_dev_layout.setObjectName(u"ash_h_top_state_dev_layout")
@@ -83,9 +84,6 @@ class Ui_MainWindow(object):
         self.ash_v_layer_state_dev_layout.addLayout(self.ash_h_bottom_state_dev_layout)
 
 
-        self.horizontalLayout_2.addLayout(self.ash_v_layer_state_dev_layout)
-
-
         self.horizontalLayout.addWidget(self.ash_chenge_state_device_groupBox)
 
         self.groupBox = QGroupBox(self.ash_device_tab)
@@ -95,14 +93,14 @@ class Ui_MainWindow(object):
         self.groupBox.setMinimumSize(QSize(270, 131))
         self.ash_port_lbl = QLabel(self.groupBox)
         self.ash_port_lbl.setObjectName(u"ash_port_lbl")
-        self.ash_port_lbl.setGeometry(QRect(10, 20, 50, 20))
+        self.ash_port_lbl.setGeometry(QRect(0, 20, 50, 20))
         sizePolicy1.setHeightForWidth(self.ash_port_lbl.sizePolicy().hasHeightForWidth())
         self.ash_port_lbl.setSizePolicy(sizePolicy1)
         self.ash_port_lbl.setMinimumSize(QSize(50, 20))
         self.ash_port_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ash_port_info_lbl = QLabel(self.groupBox)
         self.ash_port_info_lbl.setObjectName(u"ash_port_info_lbl")
-        self.ash_port_info_lbl.setGeometry(QRect(80, 20, 111, 20))
+        self.ash_port_info_lbl.setGeometry(QRect(60, 20, 111, 20))
         sizePolicy1.setHeightForWidth(self.ash_port_info_lbl.sizePolicy().hasHeightForWidth())
         self.ash_port_info_lbl.setSizePolicy(sizePolicy1)
         self.ash_port_info_lbl.setMinimumSize(QSize(50, 20))
@@ -114,18 +112,12 @@ class Ui_MainWindow(object):
         self.ash_net_dev_lbl.setMinimumSize(QSize(80, 20))
         self.ash_net_dev_info_lbl = QLabel(self.groupBox)
         self.ash_net_dev_info_lbl.setObjectName(u"ash_net_dev_info_lbl")
-        self.ash_net_dev_info_lbl.setGeometry(QRect(110, 40, 150, 20))
+        self.ash_net_dev_info_lbl.setGeometry(QRect(100, 40, 150, 20))
         sizePolicy1.setHeightForWidth(self.ash_net_dev_info_lbl.sizePolicy().hasHeightForWidth())
         self.ash_net_dev_info_lbl.setSizePolicy(sizePolicy1)
         self.ash_net_dev_info_lbl.setMinimumSize(QSize(150, 20))
 
         self.horizontalLayout.addWidget(self.groupBox)
-
-        self._2 = QGridLayout()
-        self._2.setObjectName(u"_2")
-        self._2.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
-
-        self.horizontalLayout.addLayout(self._2)
 
         self.ash_choice_net_dev_groupBox = QGroupBox(self.ash_device_tab)
         self.ash_choice_net_dev_groupBox.setObjectName(u"ash_choice_net_dev_groupBox")
@@ -378,7 +370,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
