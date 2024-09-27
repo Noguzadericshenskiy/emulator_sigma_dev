@@ -50,6 +50,10 @@ class SKAU03Config(Base):
     deleted: Mapped[int] = mapped_column(Integer, default=0)
     hwserialnumber: Mapped[str] = mapped_column(VARCHAR(256), nullable=True)
     sensoraddressarray: Mapped[str] = mapped_column(VARCHAR, nullable=True)
+    expdevicetype: Mapped[str] = mapped_column(VARCHAR)
+    expdevicetype2: Mapped[str] = mapped_column(VARCHAR)
+    expdevicetype3: Mapped[str] = mapped_column(VARCHAR)
+    expdevicetype4: Mapped[str] = mapped_column(VARCHAR)
 
     __table_args__ = {'schema': 'configurator'}
 
@@ -152,6 +156,7 @@ class Ka2AddressTraintableATI(Base):
 
     __table_args__ = {'schema': 'configurator'}
 
+
 class Ka2AddressTraintable_ISM4(Base):
     __tablename__ = "ka2addresstraintableattype_ism4"
 
@@ -164,6 +169,7 @@ class Ka2AddressTraintable_ISM4(Base):
 
     __table_args__ = {'schema': 'configurator'}
 
+
 class Ka2AddressTraintable_ISM5(Base):
     __tablename__ = "ka2addresstraintableattype_ism5"
 
@@ -175,6 +181,7 @@ class Ka2AddressTraintable_ISM5(Base):
     trainr2: Mapped[str] = mapped_column(VARCHAR(1024), nullable=True)
 
     __table_args__ = {'schema': 'configurator'}
+
 
 def url_db(params: dict) -> str:
     """ Получаем url для подключения к БД"""
@@ -329,9 +336,9 @@ def handler_devices(params_conn: dict, in_list):
                         case "ATTYPE_MKZ":
                             sensor["type"] = "МКЗ"
                             sensors_row.append(sensor)
-                        case "ATTYPE_AOPI":
-                            sensor["type"] = "АОПИ"
-                            sensors_row.append(sensor)
+                        # case "ATTYPE_AOPI":
+                        #     sensor["type"] = "АОПИ"
+                        #     sensors_row.append(sensor)
                         case "ATTYPE_ISM5":
                             sensor["type"] = "ИСМ-5"
                             sensors_row.append(sensor)
@@ -355,119 +362,56 @@ def handler_devices(params_conn: dict, in_list):
                 else:
                     out_list.append({"port": row_i[0], "controllers": [controller]})
 
-                        # case "ATTYPE_AVI":
-                        #     sensors_row.append({"type": 52, "state": "N", "slave": int(dev_i[1])})
-                        # case "ATTYPE_AR5":
-                        #     sensors_row.append({"type": 55, "state": "N", "slave": int(dev_i[1])})
-                        # case "ATTYPE_ARMINI":
-                        #     sensors_row.append({"type": 56, "state": "N", "slave": int(dev_i[1])})
-
-                        # case "ATTYPE_IRS":
-                        #     sensors_row.append({"type": 59, "state": "N", "slave": int(dev_i[1])})
-                        # case "ATTYPE_ISM5":
-                        #     sensors_row.append({
-                        #         "type": 61,
-                        #         "state": "N",
-                        #         "slave": int(dev_i[1]),
-                        #         "serialnumber": dev_i.serialnumber,
-                        #         "err": None,
-                        #         "trainr1": dev_i.trainr1,
-                        #         "trainr2": dev_i.trainr2
-                        #     })
-                        # case "ATTYPE_ISM22_1":
-                        #     sensors_row.append({"type": 62, "state": "N", "slave": int(dev_i[1])})
-                        # case "ATTYPE_ISM22_2":
-                        #     sensors_row.append({"type": 63, "state": "N", "slave": int(dev_i[1])})
-                        # case "ATTYPE_ISM4":
-                        #     sensors_row.append({
-                        #         "type": 64,
-                        #         "state": "N",
-                        #         "slave": int(dev_i[1]),
-                        #         "serialnumber": dev_i.serialnumber,
-                        #         "err": None,
-                        #         "trainr1": dev_i.trainr1,
-                        #         "trainr2": dev_i.trainr2
-                        #     })
-
-                        # case "ATTYPE_OSZ":
-                        #     sensors_row.append({"type": 66, "state": "N", "slave": int(dev_i[1])})
-                        # case "ATTYPE_OSZ9":
-                        #     sensors_row.append({"type": 67, "state": "N", "slave": int(dev_i[1])})
-
-
             elif row_i[1][1] == "SKAU03Config":
-                stmt_ad = select(SKAU03Config).where(
-                    SKAU03Config.id == row_i[1][0],
-                    SKAU03Config.deleted == 0)
+                stmt_ad = select(SKAU03Config).where(SKAU03Config.id == row_i[1][0], SKAU03Config.deleted == 0)
                 ans = conn.execute(stmt_ad).one()
-                devs = ans.sensoraddressarray.split("=")
+                devs = ans.sensoraddressarray.split("=")[1:33]
 
-                for dev_i in devs:
+                for index, dev_i in enumerate(devs):
                     description_dev = dev_i.split("|")
-                    match description_dev[0]:
-                        case "SKAU03ADDRESSTYPE_MD_EIPR":
-                            sensors_row.append({"type": "ИП-535 (Эридан)",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case  "SKAU03ADDRESSTYPE_MD_EIPT":
-                            sensors_row.append({"type": "ИП-101 (Эридан)",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case "SKAU03ADDRESSTYPE_MD_EXIP535":
-                            # sensors_row.append({"type": "ИП-535 (Эталон)", "state": "N", "slave": int(description_dev[1])})
-                            ...
-                        case  "SKAU03ADDRESSTYPE_MD_GELIOS3IK":
-                            sensors_row.append({"type": "ИП Гелиос 3ИК (Эридан)",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case  "SKAU03ADDRESSTYPE_MD_IPA":
-                            sensors_row.append({"type": "ИПА V5",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case  "SKAU03ADDRESSTYPE_MD_IPESIKUF":
-                            sensors_row.append({"type": "ИПЭС ИК-УФ",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case  "SKAU03ADDRESSTYPE_MD_KRECHET":
-                            sensors_row.append({"type": "ИП Кречет",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case  "SKAU03ADDRESSTYPE_MD_PHOENIX":
-                            sensors_row.append({"type": "ИП Феникс",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case "SKAU03ADDRESSTYPE_MD_VEGA":
-                        # sensors_row.append({"type": "ИП Вега", "state": "N", "slave": int(description_dev[1])})
-                            ...
-                        case  "SKAU03ADDRESSTYPE_MD_MIP":
-                            sensors_row.append({"type": "МИП 3И",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
-                        case  "SKAU03ADDRESSTYPE_MD_AI":
-                            sensors_row.append({"type": "NLS-16",
-                                                "state": "Норма",
-                                                "state_cod": "N",
-                                                "slave": int(description_dev[1])})
 
-                        case  "SKAU03ADDRESSTYPE_NO":
-                            ...
-                        case  _:
-                            logger.info(description_dev)
+                    if (description_dev[1] == "" or
+                            description_dev[0] == "SKAU03ADDRESSTYPE_NO" or
+                            description_dev[0] == "SKAU03ADDRESSTYPE_MD_AI" or
+                            description_dev[0] == "SKAU03ADDRESSTYPE_MD_DI"):
+                        logger.info(f"description_dev  {description_dev[0]} t{type(description_dev[1])} {description_dev[1]}")
+
+                    else:
+                        sensor = {"state": "Норма",
+                                  "slave": int(description_dev[1]),
+                                  "state_cod": "N",
+                                  }
+
+                        match description_dev[0]:
+                            case "SKAU03ADDRESSTYPE_MD_EIPR":
+                                sensor["type"] = "ИП-535 (Эридан)"
+                            case "SKAU03ADDRESSTYPE_MD_EIPT":
+                                sensor["type"] = "ИП-101 (Эридан)"
+                            case "SKAU03ADDRESSTYPE_MD_GELIOS3IK":
+                                sensor["type"] = "ИП Гелиос 3ИК (Эридан)"
+                            case "SKAU03ADDRESSTYPE_MD_IPA":
+                                sensor["type"] = "ИПА V5"
+                            case "SKAU03ADDRESSTYPE_MD_IPESIKUF":
+                                sensor["type"] = "ИПЭС ИК-УФ"
+                            case "SKAU03ADDRESSTYPE_MD_KRECHET":
+                                sensor["type"] = "ИП Кречет"
+                            case "SKAU03ADDRESSTYPE_MD_PHOENIX":
+                                sensor["type"] = "ИП Феникс"
+                            case "SKAU03ADDRESSTYPE_MD_MIP":
+                                sensor["type"] = "МИП 3И"
+                            case "SKAU03ADDRESSTYPE_MD_EXIP535":
+                                sensor["type"] = "ExИП-535 (Эталон)"
+
+                            case _:
+                                logger.info(description_dev)
+
+                        logger.info(sensor)
+                        sensors_row.append(sensor)
 
                 sensors_sort = sorted(sensors_row, key=lambda s: s["slave"])
                 controller = create_controller(sensors_sort, row_i)
                 out_list.append({"port": row_i[0], "controllers": [controller]})
-
-                logger.info(f"sensors_row {sensors_row}")
-                logger.info(f"out_list {out_list}")
+                logger.error(f"out_list-> {out_list}")
 
     return out_list
 

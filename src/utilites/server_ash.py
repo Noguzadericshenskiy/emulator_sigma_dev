@@ -50,7 +50,7 @@ class ServerAH(QThread):
     def run(self) -> None:
         self.conn = Serial(
             port=self.port,
-            baudrate=19200,
+            baudrate=115200,
             timeout=0.3,
         )
         try:
@@ -199,6 +199,8 @@ class ServerAH(QThread):
                 return b"\x04"
             case "ИСМ-220.4":
                 return b"\x0D"
+            # case "АОПИ":
+            #     ...
 
             case _:
                 logger.info(f"non type {type_sens}")

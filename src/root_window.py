@@ -37,7 +37,8 @@ from utilites.dialogues import (
     err_connect,
     err_selection_port_net_dev,
     open_file,
-    error_update
+    error_update,
+    error_add_sensor
 )
 from ui.button_states import StatesBtn
 
@@ -395,26 +396,29 @@ class MainWindow(QMainWindow):
 
     @logger.catch
     def _start_servers(self):
-        self.output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
+        # try:
+            self.output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
 
-        for net_dev in self.ports_net_devs:
-            if net_dev[1][1] == "KAU03DConfig":
-                self.ui.ash_out_net_dev_listWidget.addItem(QListWidgetItem(net_dev[1][2]))
-            elif net_dev[1][1] == "SKAU03Config":
-                self.ui.mb_out_net_dev_listWidget.addItem(QListWidgetItem(net_dev[1][2]))
+            for net_dev in self.ports_net_devs:
+                if net_dev[1][1] == "KAU03DConfig":
+                    self.ui.ash_out_net_dev_listWidget.addItem(QListWidgetItem(net_dev[1][2]))
+                elif net_dev[1][1] == "SKAU03Config":
+                    self.ui.mb_out_net_dev_listWidget.addItem(QListWidgetItem(net_dev[1][2]))
 
-        for server in self.output_data_sensors:
-            controller = server["controllers"][0]
-            if controller["net_dev"] == "KAU03DConfig":
-                thread: ServerAH = ServerAH(server["controllers"], server["port"])
-                thread.sig_state_in.connect(self._change_state_in)
-                thread.start()
-                self.servers.append(thread)
-            elif controller["net_dev"] == "SKAU03Config":
-                thread: ServerMB = ServerMB(server["controllers"][0]["sensors"], server["port"])
-                thread.start()
-                self.servers.append(thread)
-        self.ui.tabWidget.setCurrentWidget(self.ui.ash_device_tab)
+            for server in self.output_data_sensors:
+                controller = server["controllers"][0]
+                if controller["net_dev"] == "KAU03DConfig":
+                    thread: ServerAH = ServerAH(server["controllers"], server["port"])
+                    thread.sig_state_in.connect(self._change_state_in)
+                    thread.start()
+                    self.servers.append(thread)
+                elif controller["net_dev"] == "SKAU03Config":
+                    thread: ServerMB = ServerMB(server["controllers"][0]["sensors"], server["port"])
+                    thread.start()
+                    self.servers.append(thread)
+            self.ui.tabWidget.setCurrentWidget(self.ui.ash_device_tab)
+        # except ValueError:
+        #     error_add_sensor(self)
 
     def _fill_table_ash(self):
         max_column_index = 15

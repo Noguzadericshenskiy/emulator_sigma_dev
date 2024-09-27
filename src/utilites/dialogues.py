@@ -82,3 +82,14 @@ def error_update(parent, err):
         defaultButton=QMessageBox.Discard,
     )
 
+
+def error_add_sensor(parent):
+    QMessageBox.critical(
+        parent,
+        "Adding error device",
+        f"< p style = 'color: red;' >В конфигурации не поддерживаемый \nизвещатель или устройство\n"
+        "Необходимо проверить конфигурацию.\n< / p >",
+        buttons=QMessageBox.Discard,
+        defaultButton=QMessageBox.Discard,
+    )
+

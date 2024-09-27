@@ -84,55 +84,6 @@ def states_mip(status, num, slave=1):
                 mutable=True))
 
 
-def states_nls(status, num, slave=1):
-    # NLS =================================================================================================================
-    # регистры    00h 20h - 00h 3Eh | 00h 00h- 00h 0fh |
-    # 02h 00h адрес [адрес]
-    # 02h 01h скорость RS485    9600        [06]
-    # 02h 0Ah паритет / стоп бит  (нет 1)   [1]
-    # 02h 05h протокол                      [0]
-    # 02h 09h счетчик                       [10]
-
-    if status == "N":
-        return ModbusSlaveContext(
-            ir=ModbusSparseDataBlock({0: [16511, 5312]*16,
-                                      20: [16511, 5312]*16}),
-            hr=ModbusSparseDataBlock(
-                {20: [0]*16,
-                 200: [], #имя модуля
-                 212: [], #версия программы
-                 512: [slave, 6],
-                 522: [1]
-                 },
-                mutable=True))
-    elif status == 10:
-        return ModbusSlaveContext(
-            ir=ModbusSparseDataBlock({0: [16767, 20707] * 16,
-                                      20: [16767, 20707] * 16}),
-            hr=ModbusSparseDataBlock(
-                {0: [4]*16,
-                 20: [4]*16,
-                 200: [], #имя модуля 4 регистра
-                 212: [], #версия программы
-                 512: [slave, 6],
-                 522: [1]
-                 },
-                mutable=True))
-    elif status == 1:
-        return ModbusSlaveContext(
-            ir=ModbusSparseDataBlock({0: [16252, 54290] * 16,
-                                      20: [16252, 54290] * 16}),
-            hr=ModbusSparseDataBlock(
-                {0: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
-                 20: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
-                 200: [], #имя модуля
-                 212: [], #версия программы
-                 512: [slave, 6],
-                 522: [1]
-                 },
-                mutable=True))
-
-
 def states_ip_330_zik_krechet(status, num, slave=1):
     "Регистры состояний ИП 330-3--2-3ИК (Кречет) спектрприбор"
 
@@ -229,3 +180,51 @@ def state_ip_329_330_vega():
     ...
 
 
+# пока не используется
+def states_nls16ai(status, num, slave=1):
+    # NLS =================================================================================================================
+    # регистры    00h 20h - 00h 3Eh | 00h 00h- 00h 0fh |
+    # 02h 00h адрес [адрес]
+    # 02h 01h скорость RS485    9600        [06]
+    # 02h 0Ah паритет / стоп бит  (нет 1)   [1]
+    # 02h 05h протокол                      [0]
+    # 02h 09h счетчик                       [10]
+
+    if status == "N":
+        return ModbusSlaveContext(
+            ir=ModbusSparseDataBlock({0: [16511, 5312]*16,
+                                      20: [16511, 5312]*16}),
+            hr=ModbusSparseDataBlock(
+                {20: [0]*16,
+                 200: [], #имя модуля
+                 212: [], #версия программы
+                 512: [slave, 6],
+                 522: [1]
+                 },
+                mutable=True))
+    elif status == 10:
+        return ModbusSlaveContext(
+            ir=ModbusSparseDataBlock({0: [16767, 20707] * 16,
+                                      20: [16767, 20707] * 16}),
+            hr=ModbusSparseDataBlock(
+                {0: [4]*16,
+                 20: [4]*16,
+                 200: [], #имя модуля 4 регистра
+                 212: [], #версия программы
+                 512: [slave, 6],
+                 522: [1]
+                 },
+                mutable=True))
+    elif status == 1:
+        return ModbusSlaveContext(
+            ir=ModbusSparseDataBlock({0: [16252, 54290] * 16,
+                                      20: [16252, 54290] * 16}),
+            hr=ModbusSparseDataBlock(
+                {0: [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+                 20: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+                 200: [], #имя модуля
+                 212: [], #версия программы
+                 512: [slave, 6],
+                 522: [1]
+                 },
+                mutable=True))
