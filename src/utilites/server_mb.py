@@ -12,11 +12,12 @@ from devices.registers_devises import (
     states_ip_535_07ea_rs,
     states_ip_101,
     states_mip,
-    states_nls,
     states_ip_330_zik_krechet,
     state_ipes_ik_uf,
     state_ip_329_330_phoenix,
     state_ipa,
+    state_exip_535,
+    state_ip_329_330_vega
 )
 
 
@@ -78,8 +79,11 @@ class ServerMB(QThread):
                     store = states_mip(sensor["state_cod"], count_num, sensor["slave"])
                 case "ИПА V5":
                     store = state_ipa(sensor["state_cod"], count_num, sensor["slave"])
-                case "NLS-16":
-                    store = states_nls(sensor["state_cod"], count_num, sensor["slave"])
+                case "ExИП-535 (Эталон)":
+                    store = state_exip_535(sensor["state_cod"], count_num, sensor["slave"])
+                case "ИП329/330-3-1 (ВЕГА)":
+                    store = state_ip_329_330_vega(sensor["state_cod"], count_num, sensor["slave"])
+
                 case _:
                     logger.info(sensor["type"])
 
@@ -112,8 +116,11 @@ class ServerMB(QThread):
                 self.slaves[slave] = states_mip(status, 100, slave)
             case "ИПА V5":
                 self.slaves[slave] = state_ipa(status, 100, slave)
-            case "NLS-16":
-                self.slaves[slave] = states_nls(status, 100, slave)
+            case "ExИП-535 (Эталон)":
+                self.slaves[slave] = state_exip_535(status, 100, slave)
+            case "ИП329/330-3-1 (ВЕГА)":
+                self.slaves[slave] = state_ip_329_330_vega(status, 100, slave)
+
             case _:
                 logger.info(f"Нет сенсора {params}")
 

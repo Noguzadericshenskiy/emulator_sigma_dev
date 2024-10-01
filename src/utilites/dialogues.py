@@ -1,4 +1,3 @@
-import loguru
 from PySide6.QtWidgets import QMessageBox, QFileDialog
 
 
@@ -63,15 +62,34 @@ def err_selection_port_net_dev(parent):
         defaultButton=QMessageBox.Discard,
     )
 
-def err_set_fire(parent):
+
+def error_update(parent, err):
+    title = "Error update"
+    text_err = None
+
+    if err.args[0] == "No selecton SN":
+        text_err = "Не задан серийный номер эмулятора"
+    elif err.args[0] == "No selection port":
+        text_err = "Не выбран COM порт"
+    else:
+        text_err = "Не выбран файл.\nНеобходимо выбрать файл"
+
     QMessageBox.critical(
         parent,
-        "Error set state sensor fire ",
-        "< p style = 'color: white;' > У этого устройства нельзя установить режим ПОЖАР\n" 
-        "Для данного типа устройства доступны состояния НОРМА и НЕИСПРАВНОСТЬ\n< / p >",
+        title,
+        text_err,
         buttons=QMessageBox.Discard,
         defaultButton=QMessageBox.Discard,
     )
 
-# def err_message(parent, title, text_msg):
-#     QMessageBox.critical(parent, title, text_msg, buttons=QMessageBox.Discard, defaultButton=QMessageBox.Discard)
+
+def error_add_sensor(parent):
+    QMessageBox.critical(
+        parent,
+        "Adding error device",
+        f"< p style = 'color: red;' >В конфигурации не поддерживаемый \nизвещатель или устройство\n"
+        "Необходимо проверить конфигурацию.\n< / p >",
+        buttons=QMessageBox.Discard,
+        defaultButton=QMessageBox.Discard,
+    )
+
