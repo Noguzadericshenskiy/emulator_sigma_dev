@@ -265,7 +265,7 @@ def handler_devices(params_conn: dict, in_list):
     with (engine.connect() as conn):
         for row_i in in_list:
             sensors_row = []
-            if row_i[1][1] =="KAU03DConfig":
+            if row_i[1][1] == "KAU03DConfig":
                 stmt_ad = select(Ka2AddressTraintable,
                                  Ka2AddressTraintableA2DPI,
                                  Ka2AddressTraintableA2RPI,
@@ -366,54 +366,62 @@ def handler_devices(params_conn: dict, in_list):
                 stmt_ad = select(SKAU03Config).where(SKAU03Config.id == row_i[1][0], SKAU03Config.deleted == 0)
                 ans = conn.execute(stmt_ad).one()
                 devs = ans.sensoraddressarray.split("=")[1:33]
-
-                for index, dev_i in enumerate(devs):
-                    description_dev = dev_i.split("|")
-
-                    if (description_dev[1] == "" or
-                            description_dev[0] == "SKAU03ADDRESSTYPE_NO" or
-                            description_dev[0] == "SKAU03ADDRESSTYPE_MD_AI" or
-                            description_dev[0] == "SKAU03ADDRESSTYPE_MD_DI"):
-                        logger.info(f"description_dev  {description_dev[0]} t{type(description_dev[1])} {description_dev[1]}")
-
-                    else:
-                        sensor = {"state": "Норма",
-                                  "slave": int(description_dev[1]),
-                                  "state_cod": "N",
-                                  }
-
-                        match description_dev[0]:
-                            case "SKAU03ADDRESSTYPE_MD_EIPR":
-                                sensor["type"] = "ИП-535 (Эридан)"
-                            case "SKAU03ADDRESSTYPE_MD_EIPT":
-                                sensor["type"] = "ИП-101 (Эридан)"
-                            case "SKAU03ADDRESSTYPE_MD_GELIOS3IK":
-                                sensor["type"] = "ИП Гелиос 3ИК (Эридан)"
-                            case "SKAU03ADDRESSTYPE_MD_IPA":
-                                sensor["type"] = "ИПА V5"
-                            case "SKAU03ADDRESSTYPE_MD_IPESIKUF":
-                                sensor["type"] = "ИПЭС ИК-УФ"
-                            case "SKAU03ADDRESSTYPE_MD_KRECHET":
-                                sensor["type"] = "ИП Кречет"
-                            case "SKAU03ADDRESSTYPE_MD_PHOENIX":
-                                sensor["type"] = "ИП Феникс"
-                            case "SKAU03ADDRESSTYPE_MD_MIP":
-                                sensor["type"] = "МИП 3И"
-                            case "SKAU03ADDRESSTYPE_MD_EXIP535":
-                                sensor["type"] = "ExИП-535 (Эталон)"
-
-                            case _:
-                                logger.info(description_dev)
-
-                        logger.info(sensor)
-                        sensors_row.append(sensor)
-
-                sensors_sort = sorted(sensors_row, key=lambda s: s["slave"])
-                controller = create_controller(sensors_sort, row_i)
+                sensors_mb = create_list_dev_mb(devs)
+                controller = create_controller(sensors_mb, row_i)
                 out_list.append({"port": row_i[0], "controllers": [controller]})
-                logger.error(f"out_list-> {out_list}")
 
     return out_list
+
+
+def create_list_dev_mb(sensors_in):
+    sensor_out = []
+    logger.info(f"s {sensors_in}")
+    for index, dev_i in enumerate(sensors_in):
+        description_dev = dev_i.split("|")
+        slave = description_dev[1]
+        type_dev = description_dev[0]
+        if not (slave == "" or type_dev == "SKAU03ADDRESSTYPE_NO" or
+            type_dev == "SKAU03ADDRESSTYPE_MD_AI" or type_dev == "SKAU03ADDRESSTYPE_MD_DI"):
+
+            sensor = {"state": "Норма",
+                      "slave": int(slave),
+                      "state_cod": "N",
+                      "number": index + 1,
+                      }
+
+            match type_dev:
+                case "SKAU03ADDRESSTYPE_MD_EIPR":
+                    sensor["type"] = "ИП-535 (Эридан)"
+                case "SKAU03ADDRESSTYPE_MD_EIPT":
+                    sensor["type"] = "ИП-101 (Эридан)"
+                case "SKAU03ADDRESSTYPE_MD_GELIOS3IK":
+                    sensor["type"] = "ИП Гелиос 3ИК (Эридан)"
+                case "SKAU03ADDRESSTYPE_MD_IPA":
+                    sensor["type"] = "ИПА V5"
+                case "SKAU03ADDRESSTYPE_MD_IPESIKUF":
+                    sensor["type"] = "ИПЭС ИК-УФ"
+                case "SKAU03ADDRESSTYPE_MD_KRECHET":
+                    sensor["type"] = "ИП Кречет"
+                case "SKAU03ADDRESSTYPE_MD_PHOENIX":
+                    sensor["type"] = "ИП Феникс"
+                case "SKAU03ADDRESSTYPE_MD_MIP":
+                    sensor["type"] = "МИП 3И"
+                case "SKAU03ADDRESSTYPE_MD_EXIP535":
+                    sensor["type"] = "ExИП-535 (Эталон)"
+                case "SKAU03ADDRESSTYPE_MD_VEGA":
+                    sensor["type"] = "ИП329/330-3-1 (ВЕГА)"
+                case _:
+                    logger.error(description_dev)
+
+            logger.info(sensor)
+            sensor_out.append(sensor)
+
+    sensors_sort = sorted(sensor_out, key=lambda s: s["slave"])
+    # controller = create_controller(sensors_sort, row_i)
+    # out_list.append({"port": row_i[0], "controllers": [controller]})
+    # logger.error(f"out_list-> {out_list}")
+
+    return sensors_sort
 
 
 def create_controller(sensors, net_dev):

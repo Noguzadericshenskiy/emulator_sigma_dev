@@ -4,13 +4,6 @@ from PySide6.QtWidgets import QPushButton
 
 class StatesBtn:
 
-    def btn_error_mb(self, parent):
-        error = QPushButton(parent)
-        error.setObjectName(u"btn_error_mb")
-        error.setGeometry(QRect(20, 30, 151, 23))
-        error.setText("Неисправность")
-        return error
-
     def btn_norma(self, parent):
         norma = QPushButton(parent)
         norma.setObjectName(u"norma_btn")
@@ -18,11 +11,39 @@ class StatesBtn:
         norma.setText("Норма")
         return norma
 
-    def activation_fire(self, parent):
+    def btn_error_mb(self, parent, num=0):
+        error = QPushButton(parent)
+        error.setGeometry(QRect(20, 30, 151, 23))
+        if num == 0:
+            error.setText("Неисправность")
+            error.setObjectName(u"btn_error_mb")
+        elif num == 121:
+            error.setText("Неисправность ШС1")
+            error.setObjectName(u"btn_error_1_mb")
+        elif num == 122:
+            error.setText("Неисправность ШС2")
+            error.setObjectName(u"btn_error_2_mb")
+        elif num == 123:
+            error.setText("Неисправность ШС3")
+            error.setObjectName(u"btn_error_3_mb")
+        return error
+
+    def activation_fire(self, parent, num=0):
         fire = QPushButton(parent)
-        fire.setObjectName(u"fire_btn")
+
         fire.setGeometry(QRect(20, 30, 151, 23))
-        fire.setText("Сработал")
+        if num == 0:
+            fire.setText("Сработал")
+            fire.setObjectName(u"fire_btn")
+        elif num == 101:
+            fire.setText("Сработал ШС1")
+            fire.setObjectName(u"fire_1_btn")
+        elif num == 102:
+            fire.setText("Сработал ШС2")
+            fire.setObjectName(u"fire_2_btn")
+        elif num == 103:
+            fire.setText("Сработал ШС3")
+            fire.setObjectName(u"fire_3_btn")
         return fire
 
     def btn_alarm(self, parent):

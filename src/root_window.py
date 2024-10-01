@@ -106,6 +106,39 @@ class MainWindow(QMainWindow):
         activation_btn.clicked.connect(self._activation_state_mb)
         malfunction.clicked.connect(self._malfunction_state_mb)
 
+    def _set_btn_mip_md(self):
+        norma_btn = self.btns.btn_norma(self)
+        activation_1_btn = self.btns.activation_fire(self, 101)
+        activation_2_btn = self.btns.activation_fire(self, 102)
+        activation_3_btn = self.btns.activation_fire(self, 103)
+        malfunction_1_btn = self.btns.btn_error_mb(self, 121)
+        malfunction_2_btn = self.btns.btn_error_mb(self, 122)
+        malfunction_3_btn = self.btns.btn_error_mb(self, 123)
+
+        self.ui.mb_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.mb_h_top_state_dev_layout.addWidget(activation_1_btn)
+        self.ui.mb_h_top_state_dev_layout.addWidget(activation_2_btn)
+        self.ui.mb_h_top_state_dev_layout.addWidget(activation_3_btn)
+        self.ui.mb_h_center_state_dev_layout.addWidget(malfunction_1_btn)
+        self.ui.mb_h_center_state_dev_layout.addWidget(malfunction_2_btn)
+        self.ui.mb_h_center_state_dev_layout.addWidget(malfunction_3_btn)
+
+        norma_btn.clicked.connect(self._norma_state_mb)
+        activation_1_btn.clicked.connect(lambda: self._activation_state_mb(101))
+        activation_2_btn.clicked.connect(lambda: self._activation_state_mb(102))
+        activation_3_btn.clicked.connect(lambda: self._activation_state_mb(103))
+        malfunction_1_btn.clicked.connect(lambda: self._malfunction_state_mb(121))
+        malfunction_2_btn.clicked.connect(lambda: self._malfunction_state_mb(122))
+        malfunction_3_btn.clicked.connect(lambda: self._malfunction_state_mb(123))
+
+    def _set_btn_exip_535_mb(self):
+        norma_btn = self.btns.btn_norma(self)
+        activation_btn = self.btns.activation_fire(self)
+        self.ui.mb_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.mb_h_top_state_dev_layout.addWidget(activation_btn)
+        norma_btn.clicked.connect(self._norma_state_mb)
+        activation_btn.clicked.connect(self._activation_state_mb)
+
     def _set_btn_ir(self):
         norma_btn = self.btns.btn_norma(self)
         kz_btn = self.btns.btn_kz(self)
@@ -178,58 +211,55 @@ class MainWindow(QMainWindow):
         fire_btn.clicked.connect(self._b_31_state)
         diff_fire_btn.clicked.connect(self._b_30_state)
 
-    def _set_btn_aopi(self):
-        ...
-
     def _set_btn_ism5(self):
-        norma = self.btns.btn_norma(self)
-        switch = self.btns.btn_swich(self)
-        kz_in1 = self.btns.btn_kz_in1(self)
-        kz_in2 = self.btns.btn_kz_in2(self)
-        kz_out1 = self.btns.btn_kz_out1(self)
-        kz_out2 = self.btns.btn_kz_out2(self)
-        break_in1 = self.btns.btn_break_in1(self)
-        break_in2 = self.btns.btn_break_in2(self)
-        break_out1 = self.btns.btn_break_out1(self)
-        break_out2 = self.btns.btn_break_out2(self)
-        alarm_in1 = self.btns.btn_alarm_in1(self)
-        alarm_in2 = self.btns.btn_alarm_in2(self)
-        noise_s1 = self.btns.btn_noise_s1(self)
-        noise_s2 = self.btns.btn_noise_s2(self)
-        power = self.btns.btn_pwr(self)
-        mkz = self.btns.btn_kz(self)
-        self.ui.ash_h_top_state_dev_layout.addWidget(norma)
-        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in1)
-        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in2)
-        self.ui.ash_h_top_state_dev_layout.addWidget(mkz)
-        self.ui.ash_h_center_state_dev_layout.addWidget(kz_in1)
-        self.ui.ash_h_center_state_dev_layout.addWidget(break_in1)
-        self.ui.ash_h_center_state_dev_layout.addWidget(noise_s1)
-        self.ui.ash_h_center_state_dev_layout.addWidget(kz_out1)
-        self.ui.ash_h_center_state_dev_layout.addWidget(break_out1)
-        self.ui.ash_h_center_state_dev_layout.addWidget(switch)
-        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_in2)
-        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_in2)
-        self.ui.ash_h_bottom_state_dev_layout.addWidget(noise_s2)
-        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_out2)
-        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_out2)
-        self.ui.ash_h_bottom_state_dev_layout.addWidget(power)
-        norma.clicked.connect(self._norma_state)
-        switch.clicked.connect(self._b_31_state)
-        kz_in1.clicked.connect(self._b_15_state)
-        kz_in2.clicked.connect(self._b_12_state)
-        kz_out1.clicked.connect(self._b_5_state)
-        kz_out2.clicked.connect(self._b_7_state)
-        break_in1.clicked.connect(self._b_14_state)
-        break_in2.clicked.connect(self._b_11_state)
-        break_out1.clicked.connect(self._b_4_state)
-        break_out2.clicked.connect(self._b_6_state)
-        alarm_in1.clicked.connect(self._b_29_state)
-        alarm_in2.clicked.connect(self._b_27_state)
-        noise_s1.clicked.connect(self._b_13_state)
-        noise_s2.clicked.connect(self._b_10_state)
-        power.clicked.connect(self._b_3_state)
-        mkz.clicked.connect(self._b_30_state)
+        norma_btn = self.btns.btn_norma(self)
+        switch_btn = self.btns.btn_swich(self)
+        kz_in1_btn = self.btns.btn_kz_in1(self)
+        kz_in2_btn = self.btns.btn_kz_in2(self)
+        kz_out1_btn = self.btns.btn_kz_out1(self)
+        kz_out2_btn = self.btns.btn_kz_out2(self)
+        break_in1_btn = self.btns.btn_break_in1(self)
+        break_in2_btn = self.btns.btn_break_in2(self)
+        break_out1_btn = self.btns.btn_break_out1(self)
+        break_out2_btn = self.btns.btn_break_out2(self)
+        alarm_in1_btn = self.btns.btn_alarm_in1(self)
+        alarm_in2_btn = self.btns.btn_alarm_in2(self)
+        noise_s1_btn = self.btns.btn_noise_s1(self)
+        noise_s2_btn = self.btns.btn_noise_s2(self)
+        power_btn = self.btns.btn_pwr(self)
+        mkz_btn = self.btns.btn_kz(self)
+        self.ui.ash_h_top_state_dev_layout.addWidget(norma_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in1_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(alarm_in2_btn)
+        self.ui.ash_h_top_state_dev_layout.addWidget(mkz_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_in1_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_in1_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(noise_s1_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(kz_out1_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(break_out1_btn)
+        self.ui.ash_h_center_state_dev_layout.addWidget(switch_btn)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_in2_btn)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_in2_btn)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(noise_s2_btn)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(kz_out2_btn)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(break_out2_btn)
+        self.ui.ash_h_bottom_state_dev_layout.addWidget(power_btn)
+        norma_btn.clicked.connect(self._norma_state)
+        switch_btn.clicked.connect(self._b_31_state)
+        kz_in1_btn.clicked.connect(self._b_15_state)
+        kz_in2_btn.clicked.connect(self._b_12_state)
+        kz_out1_btn.clicked.connect(self._b_5_state)
+        kz_out2_btn.clicked.connect(self._b_7_state)
+        break_in1_btn.clicked.connect(self._b_14_state)
+        break_in2_btn.clicked.connect(self._b_11_state)
+        break_out1_btn.clicked.connect(self._b_4_state)
+        break_out2_btn.clicked.connect(self._b_6_state)
+        alarm_in1_btn.clicked.connect(self._b_29_state)
+        alarm_in2_btn.clicked.connect(self._b_27_state)
+        noise_s1_btn.clicked.connect(self._b_13_state)
+        noise_s2_btn.clicked.connect(self._b_10_state)
+        power_btn.clicked.connect(self._b_3_state)
+        mkz_btn.clicked.connect(self._b_30_state)
 
     def _set_btn_ism4(self):
         norma = self.btns.btn_norma(self)
@@ -309,7 +339,6 @@ class MainWindow(QMainWindow):
                     self._set_btn_ism5()
                 case "ИСМ-220.4":
                     self._set_btn_ism4()
-
                 case _:
                     logger.info(f"No device {params['type']}")
 
@@ -318,7 +347,29 @@ class MainWindow(QMainWindow):
         logger.info(f"params- {params}")
         self._clear_layouts_mb()
         if params:
-            self._set_btn_md()
+            match params["type"]:
+                case "ИП-535 (Эридан)":
+                    self._set_btn_md()
+                case "ИП Гелиос 3ИК (Эридан)":
+                    self._set_btn_md()
+                case "ИП-101 (Эридан)":
+                    self._set_btn_md()
+                case "ИП Кречет":
+                    self._set_btn_md()
+                case "ИП Феникс":
+                    self._set_btn_md()
+                case "ИПЭС ИК-УФ":
+                    self._set_btn_md()
+                case "МИП 3И":
+                    self._set_btn_mip_md()
+                case "ИПА V5":
+                    self._set_btn_md()
+                case "ExИП-535 (Эталон)":
+                    self._set_btn_exip_535_mb()
+                case "ИП329/330-3-1 (ВЕГА)":
+                    self._set_btn_md()
+                case _:
+                    logger.info(f"No device {params['type']}")
 
     @Slot(tuple)
     def _change_state_in(self, params_sensor):
@@ -557,26 +608,46 @@ class MainWindow(QMainWindow):
         sensor = self.ui.mb_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
-        # self._send_in_thread(params["port"], params)
+        self._send_in_thread(params["port"], params)
 
-    def _activation_state_mb(self):
+    def _activation_state_mb(self, num=0):
         params = self._get_current_sensor_mb()
-        params["state"] = "Сработал"
-        params["state_cod"] = 10
+        if num == 101:
+            params["state"] = "Сработал ШС1"
+            params["state_cod"] = 101
+        elif num == 102:
+            params["state"] = "Сработал ШС2"
+            params["state_cod"] = 102
+        elif num == 103:
+            params["state"] = "Сработал ШС3"
+            params["state_cod"] = 103
+        else:
+            params["state"] = "Сработал"
+            params["state_cod"] = 10
         sensor = self.ui.mb_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
         logger.info(f"params {params}")
-        # self._send_in_thread(params["port"], params)
+        self._send_in_thread(params["port"], params)
 
-    def _malfunction_state_mb(self):
+    def _malfunction_state_mb(self, num=0):
         params = self._get_current_sensor_mb()
-        params["state"] = "Неисправность"
-        params["state_cod"] = 1
+        if num == 121:
+            params["state"] = "Неисправность ШС1"
+            params["state_cod"] = 121
+        elif num == 122:
+            params["state"] = "Неисправность ШС2"
+            params["state_cod"] = 122
+        elif num == 123:
+            params["state"] = "Неисправность ШС3"
+            params["state_cod"] = 123
+        else:
+            params["state"] = "Неисправность"
+            params["state_cod"] = 1
         sensor = self.ui.mb_devices_tableWidget.cellWidget(params["row"], params["column"])
         sensor.set_text_lbl(params)
         self._save_state_sensor(params)
-        # self._send_in_thread(params["port"], params)
+        self._send_in_thread(params["port"], params)
 
     def _norma_state(self):
         params = self._get_current_sensor()
@@ -775,8 +846,6 @@ class MainWindow(QMainWindow):
 
     def _get_current_sensor_mb(self) -> dict:
         """Получить параметры сенсора из выделенной ячейки ModBus
-
-            :return:
         """
         row = self.ui.mb_devices_tableWidget.currentRow()
         column = self.ui.mb_devices_tableWidget.currentColumn()

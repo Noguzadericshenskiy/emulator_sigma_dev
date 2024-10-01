@@ -153,10 +153,13 @@ class CardDeviceMB(QWidget):
         card_slave_lbl.setContentsMargins(3, 1, 0, 1)
         card_state_lbl = QLabel("Состояние")
         card_state_lbl.setContentsMargins(3, 1, 0, 1)
+        card_number_lbl = QLabel("Номер")
+        card_number_lbl.setContentsMargins(3, 1, 0, 1)
 
         self.card_info_type_lbl = QLabel()
         self.card_info_slave_lbl = QLabel()
         self.card_info_state_lbl = QLabel()
+        self.card_info_number_lbl = QLabel()
 
         h1_layout.addWidget(card_type_lbl)
         h1_layout.addWidget(self.card_info_type_lbl)
@@ -164,10 +167,13 @@ class CardDeviceMB(QWidget):
         h2_layout.addWidget(self.card_info_slave_lbl)
         h3_layout.addWidget(card_state_lbl)
         h3_layout.addWidget(self.card_info_state_lbl)
+        h4_layout.addWidget(card_number_lbl)
+        h4_layout.addWidget(self.card_info_number_lbl)
 
         v_layout.addLayout(h1_layout)
         v_layout.addLayout(h2_layout)
         v_layout.addLayout(h3_layout)
+        v_layout.addLayout(h4_layout)
 
         self.setLayout(v_layout)
 
@@ -177,33 +183,36 @@ class CardDeviceMB(QWidget):
         self.card_info_type_lbl.setText(params["type"])
         self.card_info_slave_lbl.setText(str(params["slave"]))
         self.card_info_state_lbl.setText(params["state"])
+        self.card_info_number_lbl.setText(str(params["number"]))
         self.change_color()
 
     def get_params(self):
         type_sens = self.card_info_type_lbl.text()
         slave = self.card_info_slave_lbl.text()
         state = self.card_info_state_lbl.text()
-        params = {"type": type_sens,  "slave": int(slave), "state": state, }
+        number = self.card_info_number_lbl.text()
+        params = {"type": type_sens,  "slave": int(slave), "state": state, "number": int(number)}
         return params
 
     def change_color(self):
         if self.card_info_state_lbl.text() == "Норма":
             self.setStyleSheet("background-color: rgb(0, 130, 0);")
-        elif self.card_info_state_lbl.text() == "Сработал":
+        elif self.card_info_state_lbl.text() in ["Сработал", "Сработал ШС1", "Сработал ШС2", "Сработал ШС3"]:
             self.setStyleSheet("background-color: rgb(173, 0, 0);")
-        elif self.card_info_state_lbl.text() == "Неисправность":
+        elif self.card_info_state_lbl.text() in ["Неисправность", "Неисправность ШС1",
+                                                 "Неисправность ШС2", "Неисправность ШС3"]:
             self.setStyleSheet("background-color: rgb(255, 140, 0); color: rgb(0, 0, 0);")
         else:
             self.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(255, 255, 255);")
 
 
-def get_bit(value: int, n: int) -> int:
-    return (value >> n & 1) != 0
-
-
-def set_bit(value: int, n: int) -> int:
-    return value | (1 << n)
-
-
-def clear_bit(value: int, n: int) -> int:
-    return value & ~(1 << n)
+# def get_bit(value: int, n: int) -> int:
+#     return (value >> n & 1) != 0
+#
+#
+# def set_bit(value: int, n: int) -> int:
+#     return value | (1 << n)
+#
+#
+# def clear_bit(value: int, n: int) -> int:
+#     return value & ~(1 << n)
