@@ -14,7 +14,7 @@ def get_data_from_file(path):
 
 def reboot_emulator(conn, sn, cmd):
     msg = bytearray(b"\xB6\x49\x43")
-    msg.extend(sn)  # add sn
+    msg.extend(sn)
     if cmd == "A1":
         msg.extend(b"\x01\xA1")
     else:
@@ -48,7 +48,6 @@ def get_version(conn, sn):
         conn.write(msg)
         conn.flush()
         ans = response_msg(conn, 24)
-        # logger.info(ans.hex(sep=" "))
         if ans:
             return ans
 
@@ -81,11 +80,11 @@ def send_firmware(conn, data, sn, win):
             count = len_chunk - 1 | 128
 
         msg = bytearray(b"\xB6\x49\x43")
-        msg.extend(sn)              # sn 2
-        msg.append(1 + 3 + 1 + len_chunk)    #len (1)
-        msg.extend(b"\xA2")         #cmd A2
-        msg.extend(index.to_bytes(3, byteorder='little'))  # index
-        msg.append(count)  # count_eof
+        msg.extend(sn)
+        msg.append(1 + 3 + 1 + len_chunk)
+        msg.extend(b"\xA2")
+        msg.extend(index.to_bytes(3, byteorder='little'))
+        msg.append(count)
         msg.extend(chunk)
         msg = add_crc(msg, crc_ccitt_16_kermit_b(msg))
         msg = indicate_send_b6(msg)
@@ -134,9 +133,7 @@ def boot_firmware(port, sn, data, speed, win):
         win.ui.loading_progressBar.setValue(10)
         reboot_emulator(conn, sn_b, "A1")
         win.ui.loading_progressBar.setValue(20)
-        # logger.info("reboot end")
         version = get_version(conn, sn_b)
-        # logger.info("get version end")
         if send_firmware(conn, data, sn_b, win):
             logger.info("uploading ok")
         else:
@@ -151,7 +148,6 @@ def boot_firmware(port, sn, data, speed, win):
 def check_state_uploading(msg):
     eof = msg[12]
     state = msg[7]
-    # logger.info(f"eof {eof} state {state}")
     if state == 128 and eof == 128:
         return True
     else:

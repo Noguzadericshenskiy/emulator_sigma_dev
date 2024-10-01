@@ -7,7 +7,6 @@ from root_window import MainWindow
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-# basedir = os.path.dirname(__file__)
 
 try:
     from ctypes import windll
