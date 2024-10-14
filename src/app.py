@@ -4,13 +4,12 @@ import os
 from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon
 from root_window import MainWindow
+from ctypes import windll
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-# basedir = os.path.dirname(__file__)
 
 try:
-    from ctypes import windll
     myappid = 'sigma-is.emulator.devices.2.1'
     windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 except ImportError:

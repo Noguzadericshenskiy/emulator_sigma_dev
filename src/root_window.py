@@ -18,7 +18,9 @@ from utilites.setup import (
     check_join_table_output,
     save_conn_to_file,
     check_file,
-    get_conn_from_file
+    get_conn_from_file,
+    save_config_to_file,
+    get_config_from_file
 )
 from utilites.database import (
     get_net_devices_from_db,
@@ -65,6 +67,8 @@ class MainWindow(QMainWindow):
         self.ui.get_net_dev_btn.clicked.connect(self._output_net_devices)
         self.ui.join_btn.clicked.connect(self._join_port_and_net_device)
         self.ui.save_db_btn.clicked.connect(self._save_params_conn)
+        self.ui.save_config_btn.clicked.connect(self._save_config)
+        self.ui.download_config_btn.clicked.connect(self._download_config)
         self.ui.delete_line_btn.clicked.connect(self._delete_line)
         self.ui.update_firmware_btn.clicked.connect(self._update_firmware)
         self.ui.file_selection_btn.clicked.connect(self._file_selection)
@@ -560,6 +564,28 @@ class MainWindow(QMainWindow):
         if self.net_devices:
             for net_dev in self.net_devices:
                 self.ui.net_dev_listWidget.addItem(QListWidgetItem(net_dev[2]))
+
+    def _save_config(self):
+        conf = self.ports_net_devs
+        save_config_to_file(conf)
+
+    def _download_config(self):
+        self.ports_net_devs = get_config_from_file()
+        self.output_data_sensors = handler_devices(self._get_params_conn(), self.ports_net_devs)
+        self._output_config_to_widget()
+
+    def _output_config_to_widget(self):
+        self.ui.port_and_net_dev_tableWidget.setRowCount(len(self.ports_net_devs))
+        cur_row = 0
+        for row in self.ports_net_devs:
+            cur_row += 1
+            self.ui.port_and_net_dev_tableWidget.setColumnCount(3)
+            self.ui.port_and_net_dev_tableWidget.setItem(cur_row - 1, 0, QTableWidgetItem(row[0]))
+            self.ui.port_and_net_dev_tableWidget.setItem(cur_row - 1, 1, QTableWidgetItem(row[1][2]))
+            if row[1][1] == "KAU03DConfig":
+                self.ui.port_and_net_dev_tableWidget.setItem(cur_row - 1, 2, QTableWidgetItem(row[2]))
+
+        self.ui.port_and_net_dev_tableWidget.setHorizontalHeaderLabels(["port", "net device", "emulator"])
 
     def _join_port_and_net_device(self):
         sn_emul = None

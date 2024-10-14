@@ -15,7 +15,8 @@ DEFAULT_CONNECT = {
     },
     "config_devices": []
 }
-PATH = "setup.json"
+FILE_SETUP_DB = "setup.json"
+FILE_CONFIG = "config_dev.json"
 
 
 class NumbersIPValidator(QValidator):
@@ -79,22 +80,31 @@ def check_join_table_output(port: str, net_dev: str, ports_net_devs: list[tuple]
 
 
 def check_file():
-    if not os.path.exists(PATH):
-        with open(PATH, "x") as file:
+    if not os.path.exists(FILE_SETUP_DB):
+        with open(FILE_SETUP_DB, "x") as file:
             json.dump(DEFAULT_CONNECT, file)
 
 
 def save_conn_to_file(params):
     data = None
-    with open(PATH, "r") as file:
+    with open(FILE_SETUP_DB, "r") as file:
         data = json.load(file)
         data["parameters_connect_db"] = params
-    with open(PATH, "w") as file:
+    with open(FILE_SETUP_DB, "w") as file:
         json.dump(data, file)
 
 
 def get_conn_from_file() -> dict:
-    with open(PATH, "r") as file:
+    with open(FILE_SETUP_DB, "r") as file:
         data = json.load(file)
         return data["parameters_connect_db"]
 
+
+def save_config_to_file(conf):
+    with open(FILE_CONFIG, "w") as file:
+        json.dump(conf, file)
+
+
+def get_config_from_file() -> dict:
+    with open(FILE_CONFIG, "r") as file:
+        return json.load(file)
