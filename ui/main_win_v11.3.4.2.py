@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_win_v10.2.5.2.ui'
+## Form generated from reading UI file 'main_win_v11.3.4.2.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.0
 ##
@@ -15,18 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QLayout,
-    QLineEdit, QListWidget, QListWidgetItem, QMainWindow,
-    QProgressBar, QPushButton, QSizePolicy, QSpacerItem,
-    QTabWidget, QTableWidget, QTableWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGroupBox, QHBoxLayout,
+    QHeaderView, QLabel, QLayout, QLineEdit,
+    QListWidget, QListWidgetItem, QMainWindow, QProgressBar,
+    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1376, 860)
+        MainWindow.resize(1376, 802)
         MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -58,10 +57,10 @@ class Ui_MainWindow(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.ash_chenge_state_device_groupBox.sizePolicy().hasHeightForWidth())
         self.ash_chenge_state_device_groupBox.setSizePolicy(sizePolicy1)
-        self.ash_chenge_state_device_groupBox.setMinimumSize(QSize(489, 131))
+        self.ash_chenge_state_device_groupBox.setMinimumSize(QSize(700, 131))
         self.verticalLayoutWidget = QWidget(self.ash_chenge_state_device_groupBox)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(10, 20, 471, 101))
+        self.verticalLayoutWidget.setGeometry(QRect(10, 20, 681, 101))
         self.ash_v_layer_state_dev_layout = QVBoxLayout(self.verticalLayoutWidget)
         self.ash_v_layer_state_dev_layout.setSpacing(0)
         self.ash_v_layer_state_dev_layout.setObjectName(u"ash_v_layer_state_dev_layout")
@@ -119,12 +118,6 @@ class Ui_MainWindow(object):
         self.ash_net_dev_info_lbl.setMinimumSize(QSize(150, 20))
 
         self.horizontalLayout.addWidget(self.groupBox)
-
-        self._2 = QGridLayout()
-        self._2.setObjectName(u"_2")
-        self._2.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
-
-        self.horizontalLayout.addLayout(self._2)
 
         self.ash_choice_net_dev_groupBox = QGroupBox(self.ash_device_tab)
         self.ash_choice_net_dev_groupBox.setObjectName(u"ash_choice_net_dev_groupBox")
@@ -214,13 +207,13 @@ class Ui_MainWindow(object):
         self.settings_tab.setObjectName(u"settings_tab")
         self.port_and_ne_dev_groupBox = QGroupBox(self.settings_tab)
         self.port_and_ne_dev_groupBox.setObjectName(u"port_and_ne_dev_groupBox")
-        self.port_and_ne_dev_groupBox.setGeometry(QRect(20, 330, 361, 441))
+        self.port_and_ne_dev_groupBox.setGeometry(QRect(20, 370, 361, 401))
         sizePolicy1.setHeightForWidth(self.port_and_ne_dev_groupBox.sizePolicy().hasHeightForWidth())
         self.port_and_ne_dev_groupBox.setSizePolicy(sizePolicy1)
         self.port_and_ne_dev_groupBox.setStyleSheet(u"")
         self.port_and_net_dev_tableWidget = QTableWidget(self.port_and_ne_dev_groupBox)
         self.port_and_net_dev_tableWidget.setObjectName(u"port_and_net_dev_tableWidget")
-        self.port_and_net_dev_tableWidget.setGeometry(QRect(20, 110, 331, 321))
+        self.port_and_net_dev_tableWidget.setGeometry(QRect(20, 70, 331, 321))
         self.port_and_net_dev_tableWidget.setStyleSheet(u"QHeaderView::section:horizontal {\n"
 "    color: #fff;\n"
 "    background-color: rgb(0, 85, 127);\n"
@@ -237,14 +230,8 @@ class Ui_MainWindow(object):
         self.start_emulator_btn.setStyleSheet(u"")
         self.delete_line_btn = QPushButton(self.port_and_ne_dev_groupBox)
         self.delete_line_btn.setObjectName(u"delete_line_btn")
-        self.delete_line_btn.setGeometry(QRect(250, 30, 101, 23))
+        self.delete_line_btn.setGeometry(QRect(184, 30, 101, 23))
         self.delete_line_btn.setStyleSheet(u"")
-        self.save_config_btn = QPushButton(self.port_and_ne_dev_groupBox)
-        self.save_config_btn.setObjectName(u"save_config_btn")
-        self.save_config_btn.setGeometry(QRect(20, 70, 131, 24))
-        self.download_config_btn = QPushButton(self.port_and_ne_dev_groupBox)
-        self.download_config_btn.setObjectName(u"download_config_btn")
-        self.download_config_btn.setGeometry(QRect(230, 70, 121, 24))
         self.ports_groupBox = QGroupBox(self.settings_tab)
         self.ports_groupBox.setObjectName(u"ports_groupBox")
         self.ports_groupBox.setGeometry(QRect(390, 370, 251, 401))
@@ -257,7 +244,7 @@ class Ui_MainWindow(object):
         self.ports_listWidget.setStyleSheet(u"")
         self.get_ports_btn = QPushButton(self.ports_groupBox)
         self.get_ports_btn.setObjectName(u"get_ports_btn")
-        self.get_ports_btn.setGeometry(QRect(10, 20, 161, 23))
+        self.get_ports_btn.setGeometry(QRect(10, 20, 141, 23))
         self.get_ports_btn.setStyleSheet(u"")
         self.net_dev_groupBox = QGroupBox(self.settings_tab)
         self.net_dev_groupBox.setObjectName(u"net_dev_groupBox")
@@ -383,7 +370,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -410,8 +397,6 @@ class Ui_MainWindow(object):
         self.port_and_ne_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Port -> Net Device", None))
         self.start_emulator_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u043f\u0443\u0441\u0442\u0438\u0442\u044c \u044d\u043c\u0443\u043b\u044f\u0442\u043e\u0440", None))
         self.delete_line_btn.setText(QCoreApplication.translate("MainWindow", u"\u0423\u0434\u0430\u043b\u0438\u0442\u044c \u0437\u0430\u043f\u0438\u0441\u044c", None))
-        self.save_config_btn.setText(QCoreApplication.translate("MainWindow", u"\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c", None))
-        self.download_config_btn.setText(QCoreApplication.translate("MainWindow", u"\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c", None))
         self.ports_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u0440\u0442\u044b", None))
         self.get_ports_btn.setText(QCoreApplication.translate("MainWindow", u"\u041f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u043f\u043e\u0440\u0442\u043e\u0432", None))
         self.net_dev_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"\u0421\u0435\u0442\u0435\u0432\u043e\u0435 \u0443\u0441\u0442\u0440\u043e\u0439\u0441\u0442\u0432\u043e", None))
@@ -467,7 +452,7 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.file_selection_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0444\u0430\u0439\u043b\u0430 \u0441 \u043f\u0440\u043e\u0448\u0438\u0432\u043a\u043e\u0439.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.file_selection_btn.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u0444\u0430\u0439\u043b", None))
+        self.file_selection_btn.setText(QCoreApplication.translate("MainWindow", u"\u0412\u044b\u0431\u0440\u0430\u044c\u0442\u044c \u0444\u0430\u0439\u043b", None))
 #if QT_CONFIG(tooltip)
         self.port_emul_btn.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>\u0412\u044b\u0432\u0435\u0441\u0442\u0438 \u0441\u043f\u0438\u0441\u043e\u043a COM \u043f\u043e\u0440\u0442\u043e\u0432.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
