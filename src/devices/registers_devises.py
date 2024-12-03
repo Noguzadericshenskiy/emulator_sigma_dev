@@ -197,6 +197,7 @@ def state_ipes_ik_uf(status, num, slave=1):
 
 def state_ip_329_330_phoenix(status, num, slave=1):
     """Регистры состояний Феникс ИК/УФ (ИП 329/330-1-1) (П О Ж Г А З П Р И Б О Р)"""
+
     if status == "N":
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
@@ -226,21 +227,21 @@ def state_ipa(status, num, slave=1):
     if status == "N":
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
-                {0: [0, 401, 2, 1, 0, 15, 23000, 100, 100, 240], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
+                {0: [slave, 401,  2, 1, 0, 15, 23000, 100, 100, 240, 0], 18: [730, 1, 1, 1, 0, 4000], 96: [0] * 6},
                 mutable=True
             )
         )
     elif status == 10:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
-                {0: [0, 51201, 4, 100, 9000, 6000, 40000, 100, 100, 240], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
+                {0: [slave, 51201, 4, 100, 9000, 6000, 40000, 100, 100, 240, 0], 18: [730, 1, 1, 1, 0, 4000], 96: [0] * 6},
                 mutable=True
             )
         )
     elif status == 1:
         return ModbusSlaveContext(
             hr=ModbusSparseDataBlock(
-                {0: [0, 51200, 1, 1, 0, 15, 23000, 100, 100, 240, ], 18: [730, 1, 1, 1, 0, 4000], 96: [0]*6},
+                {0: [slave, 51200, 1, 1, 0, 15, 23000, 100, 100, 240, 0], 18: [730, 1, 1, 1, 0, 4000], 96: [0] * 6},
                 mutable=True
             )
         )
